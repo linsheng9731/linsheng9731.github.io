@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang=zh>
 <head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>以太坊日志 | 记录是为了更好的创造</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。￼ 日志条目由一个主题和一个数据字段组成。第一">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。￼ 日志条目由一个主题和一个数据字段组成。第一">
 <meta name="keywords" content="blockchain">
 <meta property="og:type" content="article">
 <meta property="og:title" content="以太坊日志">
@@ -23,79 +22,161 @@
 <meta name="twitter:title" content="以太坊日志">
 <meta name="twitter:description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。￼ 日志条目由一个主题和一个数据字段组成。第一">
 <meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/06/15287097002312-1.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>以太坊日志</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">记录是为了更好的创造</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://linsheng9731.github.io"></form>
-      </div>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">记录是为了更好的创造</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
     </div>
   </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-yi-tai-fang-ri-zhi" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/11/yi-tai-fang-ri-zhi/" class="article-date">
-  <time datetime="2018-06-11T10:00:53.000Z" itemprop="datePublished">2018-06-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
   </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/tzvetkov75">Projects</a></li>
         
-  
-    <h1 class="article-title" itemprop="name">
-      以太坊日志
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/09/12/Spark-潜规则/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/04/28/kubernetes-kuai-su-shang-shou/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&text=以太坊日志"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&is_video=false&description=以太坊日志"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=以太坊日志&body=Check out this article: https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&name=以太坊日志&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引字段"><span class="toc-number">1.</span> <span class="toc-text">索引字段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询"><span class="toc-number">2.</span> <span class="toc-text">查询</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        以太坊日志
     </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">记录是为了更好的创造</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-06-11T10:00:53.000Z" itemprop="datePublished">2018-06-11</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/blockchain/">blockchain</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。</p>
+  <div class="content" itemprop="articleBody">
+    <p>今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。</p>
 <p>智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/06/15287097002312-1.jpg" alt="">￼</p>
 <p>日志条目由一个主题和一个数据字段组成。第一个主题是指特定事件，但我们还不知道哪一个。为了解码数据，我们需要获得在地址字段中找到的合约的ABI 。</p>
 <p>我们对转账事件感兴趣，这是一个示例事件：</p>
@@ -199,147 +280,91 @@ ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
 <p>您还可以使用fromBlock和toBlock指定搜索范围，将搜索范围限制为特定的合同地址，并省略某些与null类似的通配符的主题。完整的规格可以在这里找到。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/06/15287098252948.jpg" alt="">￼</p>
 <p>当然，这里描述的所有内容都已经在web3中实现了，它允许您通过名称方便地查询事件并自动解码日志数据。</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/" data-id="cjlyygoks0047f7vae88173ug" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/09/12/Spark-潜规则/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Spark 潜规则
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Kubernetes 快速上手</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-    </div>
-  </div>
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
+    <div id="nav-footer" style="display: none">
       <ul>
-        
-          <li>
-            <a href="/2018/09/12/Spark-潜规则/">Spark 潜规则</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/23/yi-tai-fang-xiang-guan-mi-ma-xue-suan-fa/">以太坊相关密码学算法</a>
-          </li>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/tzvetkov75">Projects</a></li>
         
       </ul>
     </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 Damon Lin<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引字段"><span class="toc-number">1.</span> <span class="toc-text">索引字段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询"><span class="toc-number">2.</span> <span class="toc-text">查询</span></a></li></ol>
     </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&text=以太坊日志"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&is_video=false&description=以太坊日志"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=以太坊日志&body=Check out this article: https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&title=以太坊日志"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/&name=以太坊日志&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Damon Lin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/tzvetkov75">Projects</a></li>
+        
+      </ul>
+    </nav>
   </div>
 </footer>
+
+      <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+<!-- Disqus Comments -->
+
+
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
 </body>
 </html>

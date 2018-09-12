@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang=zh>
 <head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>负载均衡那些事 | 记录是为了更好的创造</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="现在最常见的负载均衡有Nginx，Haproxy，LVS，这三款开源的负载均衡各有特点，下面是各自小结： Nginx优点：1. nginx最早是工作在7层上的，只支持http，https，email协议。nginx从1.9.0后引入模块,可以用于简单场景下的tcp负载均衡了。这也算是弥补了nginx一个很明显的缺点。ngx_stream_core_module2. nginx的功能非常强大， 主要">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="现在最常见的负载均衡有Nginx，Haproxy，LVS，这三款开源的负载均衡各有特点，下面是各自小结： Nginx优点：1. nginx最早是工作在7层上的，只支持http，https，email协议。nginx从1.9.0后引入模块,可以用于简单场景下的tcp负载均衡了。这也算是弥补了nginx一个很明显的缺点。ngx_stream_core_module2. nginx的功能非常强大， 主要">
 <meta name="keywords" content="Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="负载均衡那些事">
@@ -19,225 +18,251 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="负载均衡那些事">
 <meta name="twitter:description" content="现在最常见的负载均衡有Nginx，Haproxy，LVS，这三款开源的负载均衡各有特点，下面是各自小结： Nginx优点：1. nginx最早是工作在7层上的，只支持http，https，email协议。nginx从1.9.0后引入模块,可以用于简单场景下的tcp负载均衡了。这也算是弥补了nginx一个很明显的缺点。ngx_stream_core_module2. nginx的功能非常强大， 主要">
-  
-    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>负载均衡那些事</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">记录是为了更好的创造</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://linsheng9731.github.io"></form>
-      </div>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">记录是为了更好的创造</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
     </div>
   </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-fu-zai-jun-heng-na-xie-shi" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/14/fu-zai-jun-heng-na-xie-shi/" class="article-date">
-  <time datetime="2017-04-14T07:01:47.000Z" itemprop="datePublished">2017-04-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Web/">Web</a>►<a class="article-category-link" href="/categories/Web/运维/">运维</a>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
   </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/tzvetkov75">Projects</a></li>
         
-  
-    <h1 class="article-title" itemprop="name">
-      负载均衡那些事
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/04/05/fpgroth-suan-fa/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&text=负载均衡那些事"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&is_video=false&description=负载均衡那些事"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=负载均衡那些事&body=Check out this article: https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&name=负载均衡那些事&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx"><span class="toc-number">1.</span> <span class="toc-text">Nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Haproxy"><span class="toc-number">2.</span> <span class="toc-text">Haproxy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS"><span class="toc-number">3.</span> <span class="toc-text">LVS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        负载均衡那些事
     </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">记录是为了更好的创造</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-04-14T07:01:47.000Z" itemprop="datePublished">2017-04-14</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Web/">Web</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>现在最常见的负载均衡有Nginx，Haproxy，LVS，这三款开源的负载均衡各有特点，下面是各自小结：</p>
+  <div class="content" itemprop="articleBody">
+    <p>现在最常见的负载均衡有Nginx，Haproxy，LVS，这三款开源的负载均衡各有特点，下面是各自小结：</p>
 <h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>优点：<br>1. nginx最早是工作在7层上的，只支持http，https，email协议。nginx从1.9.0后引入模块,可以用于简单场景下的tcp负载均衡了。这也算是弥补了nginx一个很明显的缺点。<a href="http://nginx.org/en/docs/stream/ngx_stream_core_module.html" target="_blank" rel="noopener">ngx_stream_core_module</a><br>2. nginx的功能非常强大， 主要体现在丰富的路由正则功能上，这点Haproxy相对较弱，这也是nginx非常流行的一个重要原因，通过nginx的路由功能能实现非常复杂的路由规则。<br>3. nginx可以作为web反向代理加速器，速度相比squid快不少。<br>4. nginx作为静态页面和图片服务器，性能非常强悍。<br>5. 第三方模块众多，开发社区活跃，支持lua扩展，这方面有非常著名的国人项目<a href="https://openresty.org/cn/" target="_blank" rel="noopener">openresty</a>。<br>缺点：<br>1. 除非使用ip_hash的轮询方案，否则无法直接保持session<br>2. 对后端服务的健康检查只支持端口检测的方式</p>
 <h2 id="Haproxy"><a href="#Haproxy" class="headerlink" title="Haproxy"></a>Haproxy</h2><p>优点：<br>1. 支持session保持，cookie引导。<br>2. 原生支持tcp负载均衡，可以对数据库做负载均衡。<br>3. 本身专注在负载均衡上，单纯从效率上讲比nginx更高。<br>4. 多样的负载均衡策略，实时检查后端服务的健康情况，nginx是根据访问失败的结果来踢掉失效的服务的。<br>5. 支持lua扩展 <a href="http://www.arpalert.org/src/haproxy-lua-api/1.6/index.html" target="_blank" rel="noopener">How lua runs in haproxy</a><br>缺点：<br>1. 功能过于单一，相比nginx这种全功能的负载均衡工具，haproxy的关注点比较聚焦。<br>2. 开发社区不算活跃</p>
 <h2 id="LVS"><a href="#LVS" class="headerlink" title="LVS"></a>LVS</h2><p>优点：<br>1. 性能最强，工作在4层网络，仅仅做分发用，没有流量的产生，对cpu和内存消耗低。<br>2. 工作稳定，可以使用LVS+Keepalived这种非常成熟的解决方案。<br>3. 代理范围广，几乎可以对所有应用做负载均衡。<br>缺点：<br>1. 功能单一，几乎没有配置项。<br>2. LVS+Keepalived实施起来比较复杂。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Nginx适合工作在对复杂路由协议的场景下，对http级别的负载均衡非常合适。Haproxy适合内部服务的透明负载均衡，因为原生支持tcp，所以支持的服务较多。LVS适合做流量入口，抗压能力比较强。</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/" data-id="cjlyygoja0011f7vav7zln4c8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Marathon-Lb 代理获取真实IP
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/04/05/fpgroth-suan-fa/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">FP-Groth 算法</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-    </div>
-  </div>
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
+    <div id="nav-footer" style="display: none">
       <ul>
-        
-          <li>
-            <a href="/2018/09/12/Spark-潜规则/">Spark 潜规则</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/23/yi-tai-fang-xiang-guan-mi-ma-xue-suan-fa/">以太坊相关密码学算法</a>
-          </li>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/tzvetkov75">Projects</a></li>
         
       </ul>
     </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 Damon Lin<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx"><span class="toc-number">1.</span> <span class="toc-text">Nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Haproxy"><span class="toc-number">2.</span> <span class="toc-text">Haproxy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS"><span class="toc-number">3.</span> <span class="toc-text">LVS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
     </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&text=负载均衡那些事"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&is_video=false&description=负载均衡那些事"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=负载均衡那些事&body=Check out this article: https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&title=负载均衡那些事"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/&name=负载均衡那些事&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Damon Lin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/tzvetkov75">Projects</a></li>
+        
+      </ul>
+    </nav>
   </div>
 </footer>
+
+      <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+<!-- Disqus Comments -->
+
+
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
 </body>
 </html>
