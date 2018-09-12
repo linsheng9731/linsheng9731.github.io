@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="引言pg(postgresql)和sql server支持递归查询，在一些需要描述树形结构的场景下可以使用递归查询简化表设计。在介绍递归查询之前需要先了解一下WITH语句，WITH语句通常被称为通用表表达式（Common Table Expressions）或者CTEs。CETs作为一个辅助语句依附于主语句，CTEs和主语句可以使用select，insert，update，delete中的任意一种">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15216126594176.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.269Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-34.png">
+<meta property="og:updated_time" content="2018-09-12T11:22:42.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Postgresql 递归查询">
 <meta name="twitter:description" content="引言pg(postgresql)和sql server支持递归查询，在一些需要描述树形结构的场景下可以使用递归查询简化表设计。在介绍递归查询之前需要先了解一下WITH语句，WITH语句通常被称为通用表表达式（Common Table Expressions）或者CTEs。CETs作为一个辅助语句依附于主语句，CTEs和主语句可以使用select，insert，update，delete中的任意一种">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15216126594176.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-34.png">
     
     
         
@@ -194,7 +194,8 @@ FROM orders
 WHERE region IN (SELECT region FROM top_regions)
 GROUP BY region, product;
 </code></pre><p>WITH定义了两个辅助语句，分别得到regional_sales和在这个基础上筛选出来的top_regions。主句是一个select查询，引用了辅助语句产出的结果。</p>
-<h2 id="递归查询"><a href="#递归查询" class="headerlink" title="递归查询"></a>递归查询</h2><p>WITH加上RECURSIVE可以实现递归查询，这里还是看一个具体的例子：在数据库中存储一颗树，命名表为t1。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15216126594176.jpg" alt="">￼</p>
+<h2 id="递归查询"><a href="#递归查询" class="headerlink" title="递归查询"></a>递归查询</h2><p>WITH加上RECURSIVE可以实现递归查询，这里还是看一个具体的例子：在数据库中存储一颗树，命名表为t1。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-34.png" alt="uploaded!"></p>
 <p>t1表有三个字段，分别是：id, category, parent_id。每条记录代表树中的一个节点，其中parent_id用于存储节点的父节点。现在我想查出C4这个节点下面的所有子节点：</p>
 <pre><code>WITH RECURSIVE CTE AS (
     SELECT *, nextval(&apos;t1_id_seq&apos;) new_id FROM t1 WHERE id = 4

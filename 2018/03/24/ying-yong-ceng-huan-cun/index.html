@@ -14,14 +14,14 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="前言缓存系统是业务系统中常见的组件，在某些场景下技术需要保系统能够尽可能的快速响应，同时系统返回的资源又是很少被更改的，这时候可以使用缓存来提系统的响应速度。缓存系统从类型上来看可以分为内存型缓存和分布式缓存。第一种就是在程序内部使用的缓存，一般是一个map结构。第二种是通过网络请求存取资源的分布式缓存，比如redis-cluster，aerospike。内存型缓存虽然速度优于分布式缓存，但是它的">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15218760273398.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15218766368205.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15218767684986.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.270Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-31.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-32.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-33.png">
+<meta property="og:updated_time" content="2018-09-12T11:22:23.879Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="应用层缓存">
 <meta name="twitter:description" content="前言缓存系统是业务系统中常见的组件，在某些场景下技术需要保系统能够尽可能的快速响应，同时系统返回的资源又是很少被更改的，这时候可以使用缓存来提系统的响应速度。缓存系统从类型上来看可以分为内存型缓存和分布式缓存。第一种就是在程序内部使用的缓存，一般是一个map结构。第二种是通过网络请求存取资源的分布式缓存，比如redis-cluster，aerospike。内存型缓存虽然速度优于分布式缓存，但是它的">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15218760273398.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-31.png">
     
     
         
@@ -177,7 +177,8 @@
 
   <div class="content" itemprop="articleBody">
     <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>缓存系统是业务系统中常见的组件，在某些场景下技术需要保系统能够尽可能的快速响应，同时系统返回的资源又是很少被更改的，这时候可以使用缓存来提系统的响应速度。缓存系统从类型上来看可以分为内存型缓存和分布式缓存。第一种就是在程序内部使用的缓存，一般是一个map结构。第二种是通过网络请求存取资源的分布式缓存，比如redis-cluster，aerospike。内存型缓存虽然速度优于分布式缓存，但是它的容量有限，在要求不是特别高的情况下，可以直接选择分布式缓存以降低系统设计的复杂度。如果对速度要求极高，那么可以采取一些优化措施。</p>
-<h2 id="LRU缓存"><a href="#LRU缓存" class="headerlink" title="LRU缓存"></a>LRU缓存</h2><p>在内存型缓存中使用LRU结构来解决容量不足的问题，同时保证较高的命中率。LRU是一种cpu缓存管理算法，基本原理是：给每个缓存对象设置年龄，每次命中对象年龄加1，碰到需要更新缓存的情况，优先替换年龄最小的记录。但是在具体实现中一般不会严格去记录对象的生命周期，因为这样开销太大了。常见的LRU实现使用双向链表和哈希表，如下图所示：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15218760273398.jpg" alt="">￼<br>链表中每个节点都记录前一个记录和后一个记录，使用head和tail来标记链表的头和尾。同时使用哈希表来存储记录，保证在获取操作的开销最小。当一个记录被命中，把它从链表中取出再连接到头部。当需要替换一个记录时，直接替换链表的最后一条记录。虽然没有严格记录每个记录的年龄，但是近似达到了LRU的效果。下面是scala版本的实现：</p>
+<h2 id="LRU缓存"><a href="#LRU缓存" class="headerlink" title="LRU缓存"></a>LRU缓存</h2><p>在内存型缓存中使用LRU结构来解决容量不足的问题，同时保证较高的命中率。LRU是一种cpu缓存管理算法，基本原理是：给每个缓存对象设置年龄，每次命中对象年龄加1，碰到需要更新缓存的情况，优先替换年龄最小的记录。但是在具体实现中一般不会严格去记录对象的生命周期，因为这样开销太大了。常见的LRU实现使用双向链表和哈希表，如下图所示：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-31.png" alt="uploaded!"><br>链表中每个节点都记录前一个记录和后一个记录，使用head和tail来标记链表的头和尾。同时使用哈希表来存储记录，保证在获取操作的开销最小。当一个记录被命中，把它从链表中取出再连接到头部。当需要替换一个记录时，直接替换链表的最后一条记录。虽然没有严格记录每个记录的年龄，但是近似达到了LRU的效果。下面是scala版本的实现：</p>
 <pre><code>/**
   * Cache
   *
@@ -274,8 +275,10 @@ class LruCache[K, V](cap: Int) extends Cache[K, V] {
     n
   }
 }
-</code></pre><h2 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h2><p>引入多级缓存。多级缓存的原理很好理解，和cpu的多级缓存设计一样，在应用层同时引入内存型缓存和分布式缓存。因为读数据库的开销要远远大于读分布式缓存的开销，所以多级缓存能提高性能。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15218766368205.jpg" alt="">￼</p>
-<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>分片不能提高记录的访问速度，但是能够提高系统整体的吞吐量。系统架构设计如下如所示：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15218767684986.jpg" alt="">￼<br>在服务前引入openresty，采用一致性哈希算法做负载均衡。这样对于同样的url能够定向到同一台服务器上，相比随机算法，一致性哈希能够大大提高缓存的命中率，能够减少因为命中失败引起的网络请求。但是分片后会带来另一个问题：数据热点。因为一致性哈希是根据url来重定向请求的，可能会发生大量请求被转到同一台服务器上，导致服务瘫痪。解决方案是降级处理热点请求，在LB后面引入一层openresty，对于热点请求降级为随机算法。</p>
+</code></pre><h2 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h2><p>引入多级缓存。多级缓存的原理很好理解，和cpu的多级缓存设计一样，在应用层同时引入内存型缓存和分布式缓存。因为读数据库的开销要远远大于读分布式缓存的开销，所以多级缓存能提高性能。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-32.png" alt="uploaded!"></p>
+<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>分片不能提高记录的访问速度，但是能够提高系统整体的吞吐量。系统架构设计如下如所示：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-33.png" alt="uploaded!"><br>在服务前引入openresty，采用一致性哈希算法做负载均衡。这样对于同样的url能够定向到同一台服务器上，相比随机算法，一致性哈希能够大大提高缓存的命中率，能够减少因为命中失败引起的网络请求。但是分片后会带来另一个问题：数据热点。因为一致性哈希是根据url来重定向请求的，可能会发生大量请求被转到同一台服务器上，导致服务瘫痪。解决方案是降级处理热点请求，在LB后面引入一层openresty，对于热点请求降级为随机算法。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>应用层缓存可以提供系统响应速度，对于一些不经常被更改的资源可以加入缓存系统。使用LRU解决内存型缓存的容量问题，引入多级缓存可以优化内存型缓存失效的场景。而对于一些量级很大的资源，引入分片机制增加系统吞吐量。</p>
 
   </div>

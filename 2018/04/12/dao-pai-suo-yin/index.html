@@ -6,22 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。￼ 倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样形">
+    <meta name="description" content="搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。   倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样">
 <meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="倒排索引">
 <meta property="og:url" content="https://linsheng9731.github.io/2018/04/12/dao-pai-suo-yin/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。￼ 倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样形">
+<meta property="og:description" content="搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。   倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15235092567249.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15235092683434.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15235098827687.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.269Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-25.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-26.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-27.png">
+<meta property="og:updated_time" content="2018-09-12T11:21:03.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="倒排索引">
-<meta name="twitter:description" content="搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。￼ 倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样形">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15235092567249.jpg">
+<meta name="twitter:description" content="搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。   倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-25.png">
     
     
         
@@ -176,10 +176,10 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15235092567249.jpg" alt="">￼</p>
-<p>倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样形成一个单词文档的矩阵，这个结构存在的<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15235092683434.jpg" alt="">￼</p>
-<p>问题是文档会有冗余。所以，采用文档编号的方式将相同的文档进行编号，编号方式可以是文档内容的hash。对于单词表，即key的集合，一般采取哈希加链表或者树形结构进行存储。对于哈希链表，需要遍历文档集合，先对单词进行哈希计算。根据结果得到哈希槽，取出哈希槽对应的链表遍历对比。如果没有对应的单词插入（单词：文档集合ID），如果有对应的单词则更新对应的值。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15235098827687.jpg" alt="">￼</p>
-<p>上述建立索引的过程中，单词进行哈希这一步是会发生冲突的，所以链表又称冲突链表。但是这不妨碍查询的准确性，理论上哈希表越大开销越大，查找的速度也越快。</p>
+    <p>搜索引擎中常用的检索方法，可以推广到任意查询场景。在搜索这个特定场景下，用户输入的是关键词，或者高级查询会有组合条件来过滤。为了加快文本关键词搜索，需要先将文本转化成词频，即（单词：次数）的形式。正向索引指的是先定位文本再定位单词，这样在使用单词作为关键词查询时会很慢，因为需要遍历。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-25.png" alt="uploaded!"><br>倒排索引的思路则是反过来，使用单词作为一级索引，也就是key，对应的值是该单词在每个出现过的文档中的次数。这样形成一个单词文档的矩阵，这个结构存在的  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-26.png" alt="uploaded!"><br>问题是文档会有冗余。所以，采用文档编号的方式将相同的文档进行编号，编号方式可以是文档内容的hash。对于单词表，即key的集合，一般采取哈希加链表或者树形结构进行存储。对于哈希链表，需要遍历文档集合，先对单词进行哈希计算。根据结果得到哈希槽，取出哈希槽对应的链表遍历对比。如果没有对应的单词插入（单词：文档集合ID），如果有对应的单词则更新对应的值。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-27.png" alt="uploaded!"><br>上述建立索引的过程中，单词进行哈希这一步是会发生冲突的，所以链表又称冲突链表。但是这不妨碍查询的准确性，理论上哈希表越大开销越大，查找的速度也越快。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文总结了搜索场景下经典的倒排索引算法，通过翻转文本-单词的查询顺序达到快速查询的目的。这种查询思想可以套用到更多查询场景，比如多维度组合的指标查询，可以将维度作为key。</p>
 
   </div>

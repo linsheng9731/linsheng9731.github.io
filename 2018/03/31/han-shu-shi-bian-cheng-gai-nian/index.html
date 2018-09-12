@@ -14,14 +14,14 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="这篇文章会用简单的语言描述函数式编程里重要的几个概念，它们分别是：Monoids，Semigroups，Functor，Monads，Applicatives，以及Semigroupal。并且会用scala来举一些例子，来加深理解。 MonoidsMonoid不是一个对象，而是一个组合。对于一个具体类型A而言，对应monoid正式的定义是这样的：1. 拥有一个操作combine，可以把两个类型为A">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15223805609668.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15224606900246.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15224618176757.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.270Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-28.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-29.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-30.png">
+<meta property="og:updated_time" content="2018-09-12T11:21:48.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程概念">
 <meta name="twitter:description" content="这篇文章会用简单的语言描述函数式编程里重要的几个概念，它们分别是：Monoids，Semigroups，Functor，Monads，Applicatives，以及Semigroupal。并且会用scala来举一些例子，来加深理解。 MonoidsMonoid不是一个对象，而是一个组合。对于一个具体类型A而言，对应monoid正式的定义是这样的：1. 拥有一个操作combine，可以把两个类型为A">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15223805609668.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-28.png">
     
     
         
@@ -201,7 +201,7 @@ trait Monoid[A] extends Semigroup[A] {
 <pre><code>trait Functor[F[_]] {
   def map[A, B](fa: F[A])(f: A =&gt; B): F[B]
 }
-</code></pre><p><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15223805609668.jpg" alt="">￼<br>F[A]可以看做是带有类型A的上下文，map操作能子啊上下文内将类型A转换成类型B，也就是说在保持上下文不变的情况下完成了对上下文内部的数据转换。</p>
+</code></pre><p><img src="https://linsheng9731.github.io/images/pasted-28.png" alt="uploaded!"><br>F[A]可以看做是带有类型A的上下文，map操作能子啊上下文内将类型A转换成类型B，也就是说在保持上下文不变的情况下完成了对上下文内部的数据转换。</p>
 <p>听起来有点绕，来看一个简单的例子就明白了：</p>
 <pre><code>List(1, 2, 3).map(n =&gt; n + 1)
 // res0: List[Int] = List(2, 3, 4)
@@ -210,7 +210,8 @@ trait Monoid[A] extends Semigroup[A] {
 <pre><code>List(1, 2, 3).map(n =&gt; n + 1).map(n =&gt; n * 2)
 // res0: List[Int] = List(4, 6, 8)
 </code></pre><p>当然这个只是map的一个小例子，有大量的场景可以套用这种思想，这里不再赘述。</p>
-<h2 id="Monads"><a href="#Monads" class="headerlink" title="Monads"></a>Monads</h2><p>简单讲，monad是任何有faltMap操作的对象，本质上一个monad就是一个拥有序列计算能力的对象。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15224606900246.jpg" alt="">￼<br>flatMap看上去和map很像，细微的差别在于flatMap要求运用的转换产生一个包含上下文的对象，具体定义如下：</p>
+<h2 id="Monads"><a href="#Monads" class="headerlink" title="Monads"></a>Monads</h2><p>简单讲，monad是任何有faltMap操作的对象，本质上一个monad就是一个拥有序列计算能力的对象。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-29.png" alt="uploaded!"><br>flatMap看上去和map很像，细微的差别在于flatMap要求运用的转换产生一个包含上下文的对象，具体定义如下：</p>
 <pre><code>import scala.language.higherKinds
 
 trait Monad[F[_]] {
@@ -223,7 +224,8 @@ trait Monad[F[_]] {
   def pure[A](a: A): F[A]
   def ap[A,B](ff: F[A =&gt; B])(fa: F[A]): F[B]
 } 
-</code></pre><p>ap方法的第一个参数是一个在上下文中的函数F[A =&gt; B]，第二个参数是一个上下文包裹着类型A，最后的结果是一个上下文包裹的类型B。一幅图对比三者的细微差别：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15224618176757.jpg" alt="">￼</p>
+</code></pre><p>ap方法的第一个参数是一个在上下文中的函数F[A =&gt; B]，第二个参数是一个上下文包裹着类型A，最后的结果是一个上下文包裹的类型B。一幅图对比三者的细微差别：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-30.png" alt="uploaded!"></p>
 <h2 id="Semigroupal"><a href="#Semigroupal" class="headerlink" title="Semigroupal"></a>Semigroupal</h2><p>Semigroupal和Semigroups看起来好像，前面总结了Semigroups用于合并两个同类型的对象，而Semigroupal则和它类似，不同的是Semigroupal用于将多个上下文合并成一个上下文的对象。具体定义如下：</p>
 <pre><code>trait Semigroupal[F[_]] {
   def product[A, B](fa: F[A], fb: F[B]): F[(A, B)]

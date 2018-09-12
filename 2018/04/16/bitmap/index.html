@@ -6,26 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="简介Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。￼假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：￼可以看到通过bitmap索引能快速得到筛选结果，但是这种简单的">
+    <meta name="description" content="简介Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。   假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：   可以看到通过bitmap索引能快速得到筛选结果，但是这">
 <meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bitmap">
 <meta property="og:url" content="https://linsheng9731.github.io/2018/04/16/bitmap/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="简介Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。￼假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：￼可以看到通过bitmap索引能快速得到筛选结果，但是这种简单的">
+<meta property="og:description" content="简介Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。   假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：   可以看到通过bitmap索引能快速得到筛选结果，但是这">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238556422906.png">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238557834840.png">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238568547024.png">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238573314739.png">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238577393722.png">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238652286382.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238661848459.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.270Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-17.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-18.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-19.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-20.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-21.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-22.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-23.png">
+<meta property="og:updated_time" content="2018-09-12T11:20:23.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bitmap">
-<meta name="twitter:description" content="简介Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。￼假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：￼可以看到通过bitmap索引能快速得到筛选结果，但是这种简单的">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15238556422906.png">
+<meta name="twitter:description" content="简介Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。   假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：   可以看到通过bitmap索引能快速得到筛选结果，但是这">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-17.png">
     
     
         
@@ -180,9 +180,14 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15238556422906.png" alt="">￼<br>假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15238557834840.png" alt="">￼<br>可以看到通过bitmap索引能快速得到筛选结果，但是这种简单的结构有个问题，无法表示数值。假设我们需要一个Captivity字段，该字段表示目前每种生物被圈养的数目。有一种很简单的思路，每一位表示一个数值区间，像下面这样：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15238568547024.png" alt="">￼</p>
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Bitmap是一种非常高效的数据结构，常用做数据查询的索引。比如下面这个例子：每一列是一种生物，每一行是一个bitmap，而用每一位表示该生物是否具有这种属性。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-17.png" alt="uploaded!"><br>假如我们想获知所有无脊椎（Invertebrate）并且呼吸空气（Breathes）的生物有哪些，可以通过将这两个bitmap合并（And）起来得到一个结果。像下面这样：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-18.png" alt="uploaded!"><br>可以看到通过bitmap索引能快速得到筛选结果，但是这种简单的结构有个问题，无法表示数值。假设我们需要一个Captivity字段，该字段表示目前每种生物被圈养的数目。有一种很简单的思路，每一位表示一个数值区间，像下面这样：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-19.png" alt="uploaded!"></p>
 <p>但是这样压缩会丢失信息，无法回答某个物种具体的标本数。但是假如把区间打平，每一个位代表一个数值，那样就会占用太多空间，实际操作不可行。</p>
-<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>那有没有一种占用空间小又能表示数值的bitmap存储结构呢？答案就是分片，把 bitmap分成几个片，每个片称为component。每个component代表数值的一位，像下面这样：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15238573314739.png" alt="">￼<br>这个 bitmap 有三个component，所以能代表所有三位数。数值3拆分后是003，对应的在第一个component 第三位置1。这样能满足表示数值的需求，同时空间占用大大减小。还有办法压缩么？观察一下这种分片的压缩方法其实是一种十进制表示数值的方式，是方便人阅读的一种计数方式，对于计算机而言一般采用二进制来存储数值，比如使用4位来表示16个数值，本质上也是一种压缩算法。按照这个思路得到另一种基于二进制分片的bitmap，像下面这样：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15238577393722.png" alt="">￼<br>每一个component只有一位，第n个component对应的数值是2^n，3这个数值用 2^0 + 2^1 来表示，所以只需要置位第一位和第二位。</p>
+<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>那有没有一种占用空间小又能表示数值的bitmap存储结构呢？答案就是分片，把 bitmap分成几个片，每个片称为component。每个component代表数值的一位，像下面这样：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-20.png" alt="uploaded!"><br>这个 bitmap 有三个component，所以能代表所有三位数。数值3拆分后是003，对应的在第一个component 第三位置1。这样能满足表示数值的需求，同时空间占用大大减小。还有办法压缩么？观察一下这种分片的压缩方法其实是一种十进制表示数值的方式，是方便人阅读的一种计数方式，对于计算机而言一般采用二进制来存储数值，比如使用4位来表示16个数值，本质上也是一种压缩算法。按照这个思路得到另一种基于二进制分片的bitmap，像下面这样：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-21.png" alt="uploaded!"><br>每一个component只有一位，第n个component对应的数值是2^n，3这个数值用 2^0 + 2^1 来表示，所以只需要置位第一位和第二位。</p>
 <h2 id="Roaring-Bitmap"><a href="#Roaring-Bitmap" class="headerlink" title="Roaring Bitmap"></a>Roaring Bitmap</h2><p>Roaring bitmap是一种高效的bitmap实现，Roaring bitmap相对传统的 bitmap（使用long数组）来说更为高效，压缩率更高。目前RBM已经在很多成熟的开源大数据平台中使用，简单列几个作为参考：</p>
 <ul>
 <li>Apache Lucene and derivative systems such as Solr and Elasticsearch,</li>
@@ -198,8 +203,8 @@
 <li>在存储和查询数值的时候，我们将一个数值k划分为高16位(k % 216)和低16位(k mod 216)，取高16位找到对应的桶，然后在低16位存放在相应的 Container 中；</li>
 <li>容器的话，RBM使用两种容器结构：Array Container和Bitmap Container。Array Container存放稀疏的数据，Bitmap Container存放稠密的数据。若一个Container里面的Integer数量小于4096，就用Short 类型的有序数组来存储值。若大于4096，就用Bitmap来存储值。</li>
 </ol>
-<p>下面是一幅直观的示意图：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15238652286382.jpg" alt="">￼</p>
-<p>这里稍微解释一下”若一个Container里面的Integer数量小于4096，就用Short类型的有序数组来存储值。若大于4096，就用Bitmap来存储值。”</p>
+<p>下面是一幅直观的示意图：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-22.png" alt="uploaded!"><br>这里稍微解释一下”若一个Container里面的Integer数量小于4096，就用Short类型的有序数组来存储值。若大于4096，就用Bitmap来存储值。”</p>
 <p>对于2^16个数值，如果采用一个bit来表示一个数值，使用long数组来存储需要1024个元素，如果是int则是2048个，short是4096个。对于很离散并且元素个数很小的情况，比如只存2个值，一个数值是1，一个数值是65536，对于long数组用bit为来表示的方案需要完整的1024个long元素，而short数组只需要2个，明显更省空间。但是如果元素超过了4096个，使用short数组来存储虽然也能达到目的，但是使用long数组bit位表示法来表示2^16个数值的存储空间和4096个short数组是一样的。换句话说，对于超出4096的情况使用long数组bit位表示法更省空间。</p>
 <p>对于container，有三种不同的类型：</p>
 <ol>
@@ -219,7 +224,8 @@ short[] content;
 <pre><code>private short[] valueslength;
 int nbrruns = 0;
 </code></pre><h2 id="三种类型container对比"><a href="#三种类型container对比" class="headerlink" title="三种类型container对比"></a>三种类型container对比</h2><p>读取时间对比：只有BitmapContainer可根据下标直接寻址，复杂度为O(1)，ArrayContainer和RunContainer都需要二分查找，复杂度O(log n)</p>
-<p>空间占用对比：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15238661848459.jpg" alt="">￼<br>可以看到array container和bitmap container在4096出相交了，这个也验证了上面那段解释。</p>
+<p>空间占用对比：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-23.png" alt="uploaded!"><br>可以看到array container和bitmap container在4096出相交了，这个也验证了上面那段解释。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>bitmap是一种高效的数据索引手段，使用bitmap可以加快多条件查询。目前bitmap公认的最优实现是Roaring Bitmap，底层使用了三种不同类型的container，在不同情况下进行切换，保证了数据压缩率最优。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/yizishou/article/details/78342499" target="_blank" rel="noopener">https://blog.csdn.net/yizishou/article/details/78342499</a><br><a href="https://www.pilosa.com/blog/range-encoded-bitmaps/" target="_blank" rel="noopener">https://www.pilosa.com/blog/range-encoded-bitmaps/</a><br><a href="https://github.com/RoaringBitmap/RoaringBitmap" target="_blank" rel="noopener">https://github.com/RoaringBitmap/RoaringBitmap</a></p>
 

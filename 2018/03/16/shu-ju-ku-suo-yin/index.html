@@ -14,17 +14,17 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="目前大部分数据库系统及文件系统都采用B-Tree或其变种B+Tree作为索引结构,这里的B树，也就是英文中的B-Tree，一个 m 阶的B树满足以下条件：* 每个结点至多拥有m棵子树；* 根结点至少拥有两颗子树（存在子树的情况下）；* 除了根结点以外，其余每个分支结点至少拥有 m/2 棵子树；* 所有的叶结点都在同一层上；* 有 k 棵子树的分支结点则存在 k-1 个关键码，关键码按照递增次序进行">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15211791551533.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15211765882949.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15211798005196.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15211801565737.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15211801797618.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15211802050625.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.269Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-35.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-36.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-37.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-38.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-39.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-40.png">
+<meta property="og:updated_time" content="2018-09-12T11:24:22.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库索引">
 <meta name="twitter:description" content="目前大部分数据库系统及文件系统都采用B-Tree或其变种B+Tree作为索引结构,这里的B树，也就是英文中的B-Tree，一个 m 阶的B树满足以下条件：* 每个结点至多拥有m棵子树；* 根结点至少拥有两颗子树（存在子树的情况下）；* 除了根结点以外，其余每个分支结点至少拥有 m/2 棵子树；* 所有的叶结点都在同一层上；* 有 k 棵子树的分支结点则存在 k-1 个关键码，关键码按照递增次序进行">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/03/15211791551533.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-35.png">
     
     
         
@@ -180,17 +180,23 @@
 
   <div class="content" itemprop="articleBody">
     <p>目前大部分数据库系统及文件系统都采用B-Tree或其变种B+Tree作为索引结构,<br>这里的B树，也就是英文中的B-Tree，一个 m 阶的B树满足以下条件：<br>* 每个结点至多拥有m棵子树；<br>* 根结点至少拥有两颗子树（存在子树的情况下）；<br>* 除了根结点以外，其余每个分支结点至少拥有 m/2 棵子树；<br>* 所有的叶结点都在同一层上；<br>* 有 k 棵子树的分支结点则存在 k-1 个关键码，关键码按照递增次序进行排列；<br>* 关键字数量需要满足ceil(m/2)-1 &lt;= n &lt;= m-1；</p>
-<p>下面是一个B-数的例子：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15211791551533.jpg" alt="">￼<br>上面的结构有个问题，需要查找的目标值不是都在叶子节点上的，这就需要进行一次中序遍历来查找。而B+的改进则是将所有的值都存储在叶子节点，上层节点只做索引用，B+树的搜索过程中事实上是走了一条从根结点到叶子结点的路径。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15211765882949.jpg" alt="">￼</p>
+<p>下面是一个B-数的例子：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-35.png" alt="uploaded!"><br>上面的结构有个问题，需要查找的目标值不是都在叶子节点上的，这就需要进行一次中序遍历来查找。而B+的改进则是将所有的值都存储在叶子节点，上层节点只做索引用，B+树的搜索过程中事实上是走了一条从根结点到叶子结点的路径。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-36.png" alt="uploaded!"></p>
 <p>B+树相对其他树的优势是什么？这就和计算机的磁盘有关了，一般来说，索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。当需要从磁盘读取数据时，系统会将数据逻辑地址传给磁盘，磁盘的控制电路按照寻址逻辑将逻辑地址翻译成物理地址，即确定要读的数据在哪个磁道，哪个扇区。为了读取这个扇区的数据，需要将磁头放到这个扇区上方，这个过程耗费的时间叫做旋转时间。</p>
 <p>为了达到这个目的，磁盘往往不是严格按需读取，而是每次都会预读，即使只需要一个字节，磁盘也会从这个位置开始，顺序向后读取一定长度的数据放入内存。这样做的理论依据是计算机科学中著名的局部性原理：<br>* 当一个数据被用到时，其附近的数据也通常会马上被使用。<br>* 程序运行期间所需要的数据通常比较集中。</p>
 <p>数据库系统的设计者巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入。</p>
-<h2 id="InnoDB索引实现"><a href="#InnoDB索引实现" class="headerlink" title="InnoDB索引实现"></a>InnoDB索引实现</h2><p>InnoDB和MyISAM是mysql中两个存储引擎，虽然InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截然不同。第一个重大区别是InnoDB的数据文件本身就是索引文件，而MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15211798005196.jpg" alt="">￼</p>
+<h2 id="InnoDB索引实现"><a href="#InnoDB索引实现" class="headerlink" title="InnoDB索引实现"></a>InnoDB索引实现</h2><p>InnoDB和MyISAM是mysql中两个存储引擎，虽然InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截然不同。第一个重大区别是InnoDB的数据文件本身就是索引文件，而MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-37.png" alt="uploaded!"></p>
 <h2 id="主索引和辅助索引"><a href="#主索引和辅助索引" class="headerlink" title="主索引和辅助索引"></a>主索引和辅助索引</h2><p>主码索引：就是使用主键建立的索引。在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。</p>
 <p>辅助索引。辅助索引是相对于主码索引而言的。在MyISAM中，辅助索引的结构和主码索引的结构是一样的，都是采用的是B+树结构，且叶子节点存储的都是数据记录的地址。而InnoDB中虽然也采用的是Ｂ＋树存储，但是辅助索引的叶子节点存储的是对应于主码索引的主键。也就是说如果你通过辅助索引查找数据，要先在Ｂ＋树中查找到主键，然后根据主索引查找到对应的记录，查找两次。应为这个原因，要求主键数据长度不能太长，因为辅助索引中叶子节点存储主键值，太长会导致辅助索引的额外存储空间太大。</p>
 <h2 id="索引的选择"><a href="#索引的选择" class="headerlink" title="索引的选择"></a>索引的选择</h2><p>既然索引可以加快查询速度，那么是不是只要是查询语句需要，就建上索引？答案是否定的。因为索引虽然加快了查询速度，但索引也是有代价的：索引文件本身要消耗存储空间，同时索引会加重插入、删除和修改记录时的负担，另外，MySQL在运行时也要消耗资源维护索引，因此索引并不是越多越好。一般两种情况下不建议建索引。</p>
 <p>第一种情况是表记录比较少，例如一两千条甚至只有几百条记录的表，没必要建索引，让查询做全表扫描就好了。</p>
 <p>第二种情况是根据选择性来判断，选择性：(不重复的索引值) / (表记录数)<br>选择性的取值范围为(0, 1]，选择性越高的索引价值越大，这是由B+Tree的性质决定的。举个例子一张表里有id和gender两列，id是自增，gender只有两个值，如果使用gender作为查询索引，那么只能做一次二分，之后就得根据id进行遍历，复杂度是n。相反，如果使用id，可以在logn内查到记录。</p>
-<h2 id="BitMap索引"><a href="#BitMap索引" class="headerlink" title="BitMap索引"></a>BitMap索引</h2><p>上文讲到对于gender这种属性可能的值只有两个，选择性很小不适合用B+数建立索引，对于这种情况可以使用bitmap来建立索引。对于gender这个列，位图索引形成两个向量，男向量为10100…，向量的每一位表示该行是否是男，如果是则位1，否为0，同理，女向量位01011。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15211801565737.jpg" alt="">￼<br>对于婚姻状况这一列，位图索引生成三个向量，已婚为11000…，未婚为00100…，离婚为00010…。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15211801797618.jpg" alt="">￼<br>当我们使用查询语句“select * from table where Gender=‘男’ and Marital=“未婚”;”的时候 首先取出男向量10100…，然后取出未婚向量00100…，将两个向量做and操作，这时生成新向量00100…，可以发现第三位为1，表示该表的第三行数据就是我们需要查询的结果。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/03/15211802050625.jpg" alt="">￼<br>　此外，位图索引适合静态数据，而不适合索引频繁更新的列。如果某个列需要被频繁更新，那么对应的位图索引也会被频繁更新，这些操作通常消耗比较大。  
+<h2 id="BitMap索引"><a href="#BitMap索引" class="headerlink" title="BitMap索引"></a>BitMap索引</h2><p>上文讲到对于gender这种属性可能的值只有两个，选择性很小不适合用B+数建立索引，对于这种情况可以使用bitmap来建立索引。对于gender这个列，位图索引形成两个向量，男向量为10100…，向量的每一位表示该行是否是男，如果是则位1，否为0，同理，女向量位01011。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-38.png" alt="uploaded!"><br>对于婚姻状况这一列，位图索引生成三个向量，已婚为11000…，未婚为00100…，离婚为00010…。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-39.png" alt="uploaded!"><br>当我们使用查询语句“select * from table where Gender=‘男’ and Marital=“未婚”;”的时候 首先取出男向量10100…，然后取出未婚向量00100…，将两个向量做and操作，这时生成新向量00100…，可以发现第三位为1，表示该表的第三行数据就是我们需要查询的结果。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-40.png" alt="uploaded!"><br>　此外，位图索引适合静态数据，而不适合索引频繁更新的列。如果某个列需要被频繁更新，那么对应的位图索引也会被频繁更新，这些操作通常消耗比较大。  
 　</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] Baron Scbwartz等 著，王小东等 译；高性能MySQL（High Performance MySQL）；电子工业出版社，2010</p>
 <p>[2] Michael Kofler 著，杨晓云等 译；MySQL5权威指南（The Definitive Guide to MySQL5）；人民邮电出版社，2006</p>
