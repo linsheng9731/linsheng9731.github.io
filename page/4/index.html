@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="记录是为了更好的创造">
-<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:url" content="https://linsheng9731.github.io/page/4/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:locale" content="zh">
 <meta name="twitter:card" content="summary">
@@ -54,13 +54,166 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://linsheng9731.github.io"></form>
       </div>
     </div>
   </div>
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-yi-tai-fang-cun-chu-ti-xi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/12/yi-tai-fang-cun-chu-ti-xi/" class="article-date">
+  <time datetime="2018-01-12T02:54:40.000Z" itemprop="datePublished">2018-01-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>►<a class="article-category-link" href="/categories/BlockChain/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/12/yi-tai-fang-cun-chu-ti-xi/">以太坊存储体系</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Merkle-Tree（默尔克树-比特币）"><a href="#Merkle-Tree（默尔克树-比特币）" class="headerlink" title="Merkle Tree（默尔克树 比特币）"></a>Merkle Tree（默尔克树 比特币）</h2><p>默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15090723026362.jpg" alt="">￼<br>如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔交易。merkle tree 只存储hash，也就是上图红色的部分。默尔克树的特点是可以根据某个叶子hash值，以及一条路径来证明这个叶子节点是否存在于这棵树中。在比特币中就是用于证明一笔交易是否存在于一个区块里，以此来判断交易是否生效。</p>
+<h2 id="SPV"><a href="#SPV" class="headerlink" title="SPV"></a>SPV</h2><p>上面说了，默尔克树的作用就是用于快速验证，全称 Simplified Payment Verification(简单支付验证)。所以接下来我们来介绍一下SPV是什么东西。<br>下面是SPV验证支付的简化流程：<br>1. spv client通过bloom filter向相邻全节点注册本身感兴趣的地址。<br>2. 如果有相关的交易和注册的地址相关，全节点通知spv。<br>3. 从网络上获取并保存最长链的所有block header至本地<br>4. 下载包含transaction的完整区块BLK1<br>5. 通过完整区块BLK1生成merkle tree MT1<br>6. 通过对比MT1和本地header列表里的merkle tree来验证MT1存在本地的header列表里。<br>7. 根据该block header所处的位置，确定该交易已经得到多少个确认。<br>8. 不断更新本地block header列表，重复6-8步骤，直到深度达到安全要求。</p>
+<p>第一步需要解释一下，因为spv不需要监听所有账户的变化，如果监听所有账户的余额变化会给全节点造成很大的压力。所以spv会使用bloom filter去过滤地址。全节点通过spv发送来的bloom filter来筛选地址。但是这里的bloom filter也不是完全准确的，因为完全准确的地址会泄露spv的隐私信息。</p>
+<p>简单说就是通过默尔克树来生成一个验证数据，spv只需要下载交易头就能做验证。这么做的优点是极大地节省存储空间。减轻终端用户的负担。无论未来的交易量有多大，block header的大小始终不变，只有80字节。按照每小时6个的出块速度，每年产出52560个区块。当只保存block header时，每年新增的存储需求约为4兆字节，100年后累计的存储需求仅为400兆，即使用户使用的是最低端的设备，正常情况下也完全能够负载。</p>
+<h2 id="Merkle-Patricia-Tree（默尔克-帕特丽夏树-以太坊）"><a href="#Merkle-Patricia-Tree（默尔克-帕特丽夏树-以太坊）" class="headerlink" title="Merkle Patricia Tree（默尔克-帕特丽夏树 以太坊）"></a>Merkle Patricia Tree（默尔克-帕特丽夏树 以太坊）</h2><p>以太坊和比特币相似，使用一种改进的名为：默尔克-帕特丽夏树的结构。相比比特币的UTXO模型而言，以太坊使用的是账户模型，所有的账户信息都存储在树的数据结构中。帕特丽夏树的叶子节点都是k-v形式的存储，key分不同类型：<br>* extension node（扩展节点）hashNode<br>* branch node（分支节点）fullNode<br>* leaf node（叶子节点）shortNode<br>对应的在代码中的定义（go-eth）：</p>
+<pre><code>type (
+    fullNode struct {
+        Children [17]node 
+        flags    nodeFlag
+    }
+    shortNode struct {
+        Key   []byte
+        Val   node
+        flags nodeFlag
+    }
+    hashNode  []byte
+    valueNode []byte
+)
+</code></pre><p>value编码总共有三种类型：<br>* null 末节点<br>* k-v数组 [[k,v],[k,v]…] 存储叶子节点<br>* [v0,v1…,v15,vt] 17个值，vt是存储值的，代表branch节点</p>
+<p>world state trie 示意图：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15090765422679.jpg" alt="">￼</p>
+<p>trie.go tryGet 代码</p>
+<pre><code>func (t *Trie) tryGet(origNode node, key []byte, pos int) (value []byte, newnode node, didResolve bool, err error) {
+    switch n := (origNode).(type) {
+    case nil:
+        return nil, nil, false, nil
+    case valueNode:
+        return n, n, false, nil
+    case *shortNode:
+        if len(key)-pos &lt; len(n.Key) || !bytes.Equal(n.Key, key[pos:pos+len(n.Key)]) {
+            // key not found in trie
+            return nil, n, false, nil
+        }
+        value, newnode, didResolve, err = t.tryGet(n.Val, key, pos+len(n.Key))
+        if err == nil &amp;&amp; didResolve {
+            n = n.copy()
+            n.Val = newnode
+            n.flags.gen = t.cachegen
+        }
+        return value, n, didResolve, err
+    case *fullNode:
+        value, newnode, didResolve, err = t.tryGet(n.Children[key[pos]], key, pos+1)
+        if err == nil &amp;&amp; didResolve {
+            n = n.copy()
+            n.flags.gen = t.cachegen
+            n.Children[key[pos]] = newnode
+        }
+        return value, n, didResolve, err
+    case hashNode:
+        child, err := t.resolveHash(n, key[:pos])
+        if err != nil {
+            return nil, n, true, err
+        }
+        value, newnode, _, err := t.tryGet(child, key, pos)
+        return value, newnode, true, err
+    default:
+        panic(fmt.Sprintf(&quot;%T: invalid node: %v&quot;, origNode, origNode))
+    }
+}
+</code></pre><p>总结上述的代码：<br>* 如果是hashNode，从数据库中读取hash索引的具体值。<br>* 如果是fullNode，根据pos获取子节点，同时pos加1表示key的位置前进了一位。<br>* 如果是shortNode，提取shortNode的Value作为子节点，同时pos增加shortNode的Value长度，这是因为存在一个优化：当试图插入一个节点，插入过程中发现目前没有与该节点Key拥有相同前缀的路径。此时把剩余的Key存储在shortNode的Key字段中，充当一个”Shortcut“。</p>
+<p>另外还有一点，以太坊使用了RLP编码存储在数据库中的数据，这是一种编码算法，用于编码任意的嵌套结构的二进制数据，它是以太坊中数据序列化/反序列化的主要方法，区块、交易等数据结构在持久化时会先经过RLP编码后再存储到数据库中。详细解释参考：<a href="http://ethfans.org/posts/415" target="_blank" rel="noopener">http://ethfans.org/posts/415</a></p>
+<h2 id="其他相关："><a href="#其他相关：" class="headerlink" title="其他相关："></a>其他相关：</h2><p>detect_internal_storage.py<br>输入根哈希值，得到所有叶子节点信息，代码如下所示：</p>
+<pre><code>#!/usr/bin/env python
+# coding=utf-8
+
+import leveldb
+from ethereum import utils
+import rlp
+import sys
+
+db = leveldb.LevelDB(&quot;/Users/likang/private_ethereum/ss_ethereum/geth/chaindata&quot;)
+
+accountHash2content = {}
+
+def getAccountInfoByStateRoot(st, key) :
+    #print &quot;root : &quot; + st.encode(&quot;hex&quot;)
+    root_node = rlp.decode(db.Get(st))
+
+    if len(root_node) == 2 :
+        if root_node[0][0].encode(&quot;hex&quot;)[0] == &quot;2&quot; :
+            key += root_node[0].encode(&quot;hex&quot;)[2:]
+            accountHash2content[key] = rlp.decode(root_node[1])
+            #print key
+            return
+        elif root_node[0][0].encode(&quot;hex&quot;)[0] == &quot;3&quot; :
+            key += root_node[0].encode(&quot;hex&quot;)[1:]
+            #print key
+            accountHash2content[key] = rlp.decode(root_node[1])
+            return
+        else :
+            if root_node[0][0].encode(&quot;hex&quot;)[0] == &quot;0&quot; :
+                key += root_node[0].encode(&quot;hex&quot;)[2:]
+            else :
+                key += root_node[0].encode(&quot;hex&quot;)[1:]
+
+            getAccountInfoByStateRoot(root_node[1], key)
+    else :
+        for i in range(10) :
+            if root_node[i] != &quot;&quot; :
+                getAccountInfoByStateRoot(root_node[i], key + str(i))
+        for i in range(6):
+            if root_node[10 + i] != &quot;&quot; :
+                getAccountInfoByStateRoot(root_node[10 + i], key + chr(97 + i))
+        if root_node[16] != &quot;&quot; :
+            getAccountInfoByStateRoot(root_node[16], key)
+
+if __name__ == &quot;__main__&quot; :
+
+    getAccountInfoByStateRoot(sys.argv[1].decode(&quot;hex&quot;), &quot;&quot;)
+    for key in accountHash2content :
+        print key + &quot; : &quot;,
+        print accountHash2content[key]
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://linsheng9731.github.io/2018/01/12/yi-tai-fang-cun-chu-ti-xi/" data-id="cjlyx7l630063z0vaja255r5s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-sass-xiao-jie-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -158,7 +311,7 @@ h1.error { //应用到hl.seriousError
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/25/sass-xiao-jie-2/" data-id="cjlyw4d4f0033jgvahq4c3byv" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/12/25/sass-xiao-jie-2/" data-id="cjlyx7l5e004mz0va34xztiyb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
@@ -318,7 +471,7 @@ true
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/04/di-yi-ge-zhi-neng-he-yue/" data-id="cjlyw4d2r0006jgva6s9mmtld" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/12/04/di-yi-ge-zhi-neng-he-yue/" data-id="cjlyx7l2k0005z0va9ccx1c5l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
@@ -436,7 +589,7 @@ func main() {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/13/golang-ji-chu/" data-id="cjlyw4d3d0015jgvajr4szigq" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/10/13/golang-ji-chu/" data-id="cjlyx7l3m002az0vauiwo72q2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li></ul>
@@ -493,7 +646,7 @@ func main() {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/13/fibo/" data-id="cjlyw4d36000rjgvai0z4guzl" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/10/13/fibo/" data-id="cjlyx7l2v000lz0vavd8f39xt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li></ul>
@@ -585,7 +738,7 @@ Default template for HAPROXY_BACKEND_HTTP_OPTIONS:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/" data-id="cjlyw4d3m001rjgvaia9r4fwz" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/" data-id="cjlyx7l3s002nz0vahfqpicof" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
@@ -632,7 +785,7 @@ Default template for HAPROXY_BACKEND_HTTP_OPTIONS:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/14/fu-zai-jun-heng-na-xie-shi/" data-id="cjlyw4d39000yjgva52jo5ki5" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/04/14/fu-zai-jun-heng-na-xie-shi/" data-id="cjlyx7l3f001wz0vaimaen1sa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
@@ -725,7 +878,7 @@ model.generateAssociationRules(minConfidence).collect().foreach { rule =&gt;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/05/fpgroth-suan-fa/" data-id="cjlyw4d38000wjgvazm23c124" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/04/05/fpgroth-suan-fa/" data-id="cjlyx7l3e001vz0va4xdaqi4f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
@@ -921,7 +1074,7 @@ view:handleClick -&gt; view:regist callback funciton -&gt; action:requestTaskFil
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/29/cong-yi-ci-xia-zai-gong-neng-xue-xi-flux/" data-id="cjlyw4d2p0005jgvazidl0wul" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/03/29/cong-yi-ci-xia-zai-gong-neng-xue-xi-flux/" data-id="cjlyx7l2j0004z0vamz9rnkqf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
@@ -983,60 +1136,7 @@ view:handleClick -&gt; view:regist callback funciton -&gt; action:requestTaskFil
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/" data-id="cjlyw4d4a002tjgvajhunz5ia" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-rong-qi-hua-tan-suo-di-san-pian" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/" class="article-date">
-  <time datetime="2017-03-24T05:49:04.000Z" itemprop="datePublished">2017-03-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Docker/">Docker</a>►<a class="article-category-link" href="/categories/Docker/Marathon/">Marathon</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/">工具</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/">容器化探索 第三篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Marathon"><a href="#Marathon" class="headerlink" title="Marathon"></a>Marathon</h2><p>在marathon上部署一个应用非常简单，你可以选择在界面上编辑，也可以使用它提供的REST接口。实际测试下来ui还是有些不稳定的bug，虽然在ui上操作很直观但在生产环境肯定不能使用有bug的ui。所以我们还是选择使用脚本来控制应用的更新，使用json文件存储应用的定义。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881783619482-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881783680261-4.jpg" alt="">￼</p>
-<p>这里有个坑提一下，新手在部署的时候可能会经常碰到应用的状态显示waitting。这是因为mesos无法响应marathon的资源offer，这个时候你要坚持你的资源配置，比如机器的CPU是不是不够用，另一个常见的原因是mesos把端口当成一种资源，如果你的mesos slave节点在启动的时候没有申明自己的端口范围，很可能<br>应用指定的端口不在默认端口范围里。所以需要在启动的时候指定端口资源范围–resources=’ports(*):[1-32000]‘。</p>
-<p>约束<br>为了防止应用在你的资源池里随意漂移，marathon提供了约束的功能。常见的约束有基于hostname的约束，你可以指定应用跑在一台特定ip的机器上。这点在团队正在向容器化过渡的期间非常有用，我们只是把原来的应用跑在容器里，其他的条件还是和原来一致。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14895651980342-4.jpg" alt="">￼</p>
-<p>另一种约束是基于lable的，你可以在mesos slave启动的时候指定这台slave的lable集合。这样我们就可以在调度的时候指定特定的lable。比如如图所示，指定这个应用跑在机架编号1-3的机器上。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881789831468-4.jpg" alt="">￼</p>
-<p>弹性伸缩<br>弹性伸缩是根据业务需求和策略，自动调整其弹性计算资源的管理服务，达到优化资源组合的服务能力。在业务量上升时增加计算能力，当业务量下降时减小计算能力，以此保障业务系统的稳定性和高可用性，同时节约计算资源成本。弹性伸缩又分为水平伸缩和垂直伸缩，水平伸缩指的是增加更多的机器，增强应用的计算能力来支撑增加的访问量。垂直伸缩指的是增强单机的配置，比如升级cpu核数，或者增加内存，扩展性有限。无状态的应用，比如一般的web应用，把数据存储在数据库和缓存中间件里，在容器化后不依赖具体的机器，这种应用非常适合水平扩展。编排工具最重要的特性也正是提供这种水平扩展的能力，配合前面介绍的约束功能，只需更改实例个数的数值就可以达到水平伸缩的目的。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881791471671-4.jpg" alt="">￼</p>
-<p>负载均衡和服务发现<br>负载均衡和服务发现通常有两种做法，第一种是基于DNS的实现。第二种是在服务前面挂一个proxy。对应的marathon分布提供了mesos-dns和marathon-lb两个工具。<br>Mesos-DNS 提供服务名和ip端口号查询服务，没有负载均衡功。<br>Marathon-lb 监听Marathon的事件总线，提供基于端口号的TCP负载均衡。</p>
-<p>因为dns需要自己实现负载均衡功能，所以我们选择了lb的方案。lb本身是一个haproxy，通过监听marathon的事件总线，lb会动态更新配置文件以达到服务发现的目的。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881794140333-4.jpg" alt="">￼<br>上面提到lb是基于端口的负载均衡，也就是说lb本身是通过端口来区分不同的服务的。打开lb的9090<br>端口，可以看到lb的负载均衡信息，包括对外的服务端口和对应的后台服务的实际ip和端口号。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14895652342125-4.jpg" alt="">￼</p>
-<p>这里还有一个坑，lb通过marathon获取服务的具体ip和端口，也就是说我们要保证marathon能正确获取服务的端口，在网桥模式下我们会指定container port和 host port，但是在host网络模式下没有映射信息，需要我们显示的声明服务需要的端口号，即定义port同时标注我们需要这个端口资源。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881811123179-4.jpg" alt="">￼</p>
-<p>健康检查<br>应用的健康检查是保证服务稳定非常重要的一个功能，传统做法通常是自己编写脚本定期的去轮询健康检查的接口，如果发现接口返回异常需要采取相应的措施，比如重启。marathon也提供类似的健康检查功能，功能非常强大。支持多种协议，包括http/https/tcp，也可以自己编写shell命令进行检查。可以设置应用的启动时间，在这段时间内会忽略健康检查。支持超时设置，检查的时间间隔设置，最大失败次数设置。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813023229-4.jpg" alt="">￼</p>
-<p>健康检查只是第一步，重要的是如何应对健康检查的结果，marathon提供了一套非常完整的应对机制，下图是marathon对于集群不同健康状况采取相应措施的状态转移图。简单解释一下：<br>i代表设置实例数目，r代表集群中正在运行的实例数目，h代表健康的实例数目。<br>r&lt;i 表示运行的实例数目少于设置的实例数目，marathon会进行扩容操作。<br>h!=r ^ r=i 表示实例的运行数目和设置数目一致，但是实例中存在不健康的实例，所以marathon会销毁不健康的实例，此时集群到达 r&lt;i 这个状态。<br>如果扩容非常顺利，所有实例都是健康的，那么集群会达到 r=i ^ h=i 这个整个集群健康的稳态。<br>稳态并不是一成不变，如果运行的实例因为种种原因变得不健康了，即 h!=r，那么marathon也会进行销毁操作剔除不健康的实例，集群再次进入扩容态。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813060727-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813136662-4.jpg" alt="">￼</p>
-<p>更新策略<br>Marathon 可以通过设置upgradeStrategy里的mini和max参数调整升级最小和最大的在线实例与预设值的比例。假设你有一个web应用，在升级过程中你希望集群中保持一定比例的健康实例，这个场景你就可以设置mininumHealthCapacity为一个大于0小于1的小数，marathon会保证集群中存在大于等于这个比例的健康实例。另一场景是在测试环境很多应用本身会有启动失败的情况，如果不采取措施，很快你的集群里就会充满大量已经挂掉的容器。marathon提供了一个重启延迟的功能可以避免上述问题，通过设置backoffSeconds和backoffFactor这两个参数，我们可以控制应用的重启时间间隔。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813317020-4.jpg" alt="">￼</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/" data-id="cjlyw4d47002mjgva4rh1jr82" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/" data-id="cjlyx7l59004cz0va0zlq70xp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
@@ -1105,6 +1205,10 @@ view:handleClick -&gt; view:regist callback funciton -&gt; action:requestTaskFil
       <ul>
         
           <li>
+            <a href="/2018/09/12/Spark-潜规则/">Spark 潜规则</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/12/hello-world/">Hello World</a>
           </li>
         
@@ -1118,10 +1222,6 @@ view:handleClick -&gt; view:regist callback funciton -&gt; action:requestTaskFil
         
           <li>
             <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
           </li>
         
       </ul>

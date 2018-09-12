@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="记录是为了更好的创造">
-<meta property="og:url" content="http://yoursite.com/page/6/index.html">
+<meta property="og:url" content="https://linsheng9731.github.io/page/6/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:locale" content="zh">
 <meta name="twitter:card" content="summary">
@@ -54,13 +54,57 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://linsheng9731.github.io"></form>
       </div>
     </div>
   </div>
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-e5-ae-b9-e5-99-a8-e7-9b-91-e6-8e-a7-e6-96-b9-e6-a1-88" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/06/e5-ae-b9-e5-99-a8-e7-9b-91-e6-8e-a7-e6-96-b9-e6-a1-88/" class="article-date">
+  <time datetime="2016-09-06T14:09:37.000Z" itemprop="datePublished">2016-09-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>►<a class="article-category-link" href="/categories/Docker/运维/">运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/06/e5-ae-b9-e5-99-a8-e7-9b-91-e6-8e-a7-e6-96-b9-e6-a1-88/">容器监控方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于容器存储</p>
+<p>容器外部卷使用convoy, 以插件的形式支持容器持久化数据。容器本身与外部卷均使用device mapper作为底层。没有选择分布式存储原因，主要是为了简化实现，更稳定。通过限制每个容器的BlkioDeviceReadBps, BlkioDeviceWriteBps, BlkioDeviceReadIOps, BlkioDeviceWriteIOps, 使磁盘 IO 稳定地达到相当于 95% 物理机性能。</p>
+<p>关于容器监控</p>
+<p>容器监控在这个项目里还可以有很大的空间可以改进。项目里用的是cadvisor, 容器内top,free,iostat命令劫持，基于已有的zabbix体系作数据收集与展示。结论是zabbix完全不合适做容器监控，数据收集密度，展示质量，灵活度都没能满足需求。 后来在测试中尝试使用telegraf + influxDB + grafana。 只需要telegraf简单的配置，能够帮忙我们清晰地展示容器及服务进程cpu, 内存，网络，磁盘等情况。grafana上sql查询语句的调试与开发，确实需要不少的时间，但这个工作量是一次性的。因为是go写的，telegraf cpu占用属于比较低的水平（0.4 - 5%）。功能上比较丰富，同时支持外部进程与容器的数据收集，多达55种数据源插件，有它就不需要布cadvisor了，个人比较推荐。需要告警的同学，可以考虑把influxDB改成Prometheus。它包含Alertmanager实现email, pagerduty等消息通知。数据backend可以选择自带的DB, 也可以外接influxDB, graphite, opentsdb等流行方案。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://linsheng9731.github.io/2016/09/06/e5-ae-b9-e5-99-a8-e7-9b-91-e6-8e-a7-e6-96-b9-e6-a1-88/" data-id="cjlyx7l2q000bz0vayhn3384f" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-e7-a0-94-e5-8f-91-e7-ae-a1-e7-90-86-e4-bd-93-e7-b3-bb" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -266,7 +310,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/02/e7-a0-94-e5-8f-91-e7-ae-a1-e7-90-86-e4-bd-93-e7-b3-bb/" data-id="cjlyw4d37000tjgvatyc6p5b4" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2016/09/02/e7-a0-94-e5-8f-91-e7-ae-a1-e7-90-86-e4-bd-93-e7-b3-bb/" data-id="cjlyx7l3c001sz0va5zkdtd78" class="article-share-link">Share</a>
       
       
     </footer>
@@ -467,7 +511,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/" data-id="cjlyw4d34000njgva46j61798" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/" data-id="cjlyx7l2w000nz0va0nhrc3vr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -541,7 +585,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/02/e5-ae-b9-e5-99-a8-e7-9a-84-e6-97-a5-e5-bf-97-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/" data-id="cjlyw4d2v000bjgvahwd0kkbi" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2016/09/02/e5-ae-b9-e5-99-a8-e7-9a-84-e6-97-a5-e5-bf-97-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/" data-id="cjlyx7l2o000az0vahxp1l7cc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -628,7 +672,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/02/e9-9b-86-e7-be-a4-e8-a7-84-e6-a8-a1-e4-b8-8b-e6-97-a5-e5-bf-97-e5-a4-84-e7-90-86-e5-92-8c-e7-bd-91-e7-bb-9c-e6-96-b9-e6-a1-88/" data-id="cjlyw4d32000ljgvaqyy4gn7n" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2016/09/02/e9-9b-86-e7-be-a4-e8-a7-84-e6-a8-a1-e4-b8-8b-e6-97-a5-e5-bf-97-e5-a4-84-e7-90-86-e5-92-8c-e7-bd-91-e7-bb-9c-e6-96-b9-e6-a1-88/" data-id="cjlyx7l3d001tz0vamoxg2cnk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -690,7 +734,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/02/e6-97-a5-e5-bf-97-e7-b3-bb-e7-bb-9f-e8-b0-83-e7-a0-94/" data-id="cjlyw4d30000hjgvah8eq413s" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2016/09/02/e6-97-a5-e5-bf-97-e7-b3-bb-e7-bb-9f-e8-b0-83-e7-a0-94/" data-id="cjlyx7l2s000gz0vawhc6oj2y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -757,6 +801,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/12/Spark-潜规则/">Spark 潜规则</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/12/hello-world/">Hello World</a>
           </li>
         
@@ -770,10 +818,6 @@
         
           <li>
             <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
           </li>
         
       </ul>

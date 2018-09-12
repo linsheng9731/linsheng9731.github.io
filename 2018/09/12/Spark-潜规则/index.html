@@ -5,15 +5,21 @@
   
 
   
-  <title>Category: Docker | 记录是为了更好的创造</title>
+  <title>Spark 潜规则 | 记录是为了更好的创造</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="记录是为了更好的创造">
-<meta property="og:url" content="https://linsheng9731.github.io/categories/Docker/index.html">
+  <meta name="description" content="前言Spark是一个大数据处理平台，通过提供一个编程上下文使得运用大量廉价机器进行大数据计算成为可能。本文主要记录一些在使用spark过程中需要注意的地方，也可以说是潜规则吧。 反直觉的注意事项1234567var counter = 0var rdd = sc.parallelize(data)// Wrong: Don&amp;apos;t do this!!rdd.foreach(x =&amp;gt; c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark 潜规则">
+<meta property="og:url" content="https://linsheng9731.github.io/2018/09/12/Spark-潜规则/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="前言Spark是一个大数据处理平台，通过提供一个编程上下文使得运用大量廉价机器进行大数据计算成为可能。本文主要记录一些在使用spark过程中需要注意的地方，也可以说是潜规则吧。 反直觉的注意事项1234567var counter = 0var rdd = sc.parallelize(data)// Wrong: Don&amp;apos;t do this!!rdd.foreach(x =&amp;gt; c">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-0.png">
+<meta property="og:updated_time" content="2018-09-12T09:36:50.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录是为了更好的创造">
+<meta name="twitter:title" content="Spark 潜规则">
+<meta name="twitter:description" content="前言Spark是一个大数据处理平台，通过提供一个编程上下文使得运用大量廉价机器进行大数据计算成为可能。本文主要记录一些在使用spark过程中需要注意的地方，也可以说是潜规则吧。 反直觉的注意事项1234567var counter = 0var rdd = sc.parallelize(data)// Wrong: Don&amp;apos;t do this!!rdd.foreach(x =&amp;gt; c">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-0.png">
   
     <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
   
@@ -60,174 +66,62 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/" class="archive-article-date">
-  <time datetime="2018-04-28T12:44:52.000Z" itemprop="datePublished">Apr 28</time>
+        <section id="main"><article id="post-Spark-潜规则" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/12/Spark-潜规则/" class="article-date">
+  <time datetime="2018-09-12T09:23:00.000Z" itemprop="datePublished">2018-09-12</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+    <h1 class="article-title" itemprop="name">
+      Spark 潜规则
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/" class="archive-article-date">
-  <time datetime="2017-03-24T05:49:28.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/">容器化探索 第四篇</a>
-    </h1>
-  
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spark是一个大数据处理平台，通过提供一个编程上下文使得运用大量廉价机器进行大数据计算成为可能。本文主要记录一些在使用spark过程中需要注意的地方，也可以说是潜规则吧。</p>
+<h2 id="反直觉的注意事项"><a href="#反直觉的注意事项" class="headerlink" title="反直觉的注意事项"></a>反直觉的注意事项</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var counter = 0</span><br><span class="line">var rdd = sc.parallelize(data)</span><br><span class="line"></span><br><span class="line">// Wrong: Don&apos;t do this!!</span><br><span class="line">rdd.foreach(x =&gt; counter += x)</span><br><span class="line"></span><br><span class="line">println(&quot;Counter value: &quot; + counter)</span><br></pre></td></tr></table></figure>
+<p>上面的代码不会会生效，因为在cluster模式下，rdd会被切割成很多块。spark提供了一种特殊的变量Accumulator来解决这种跨机器的更新场景。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val accum = sc.longAccumulator(&quot;My Accumulator&quot;)</span><br><span class="line">accum: org.apache.spark.util.LongAccumulator = LongAccumulator(id: 0, name: Some(My Accumulator), value: 0)</span><br><span class="line"></span><br><span class="line">scala&gt; sc.parallelize(Array(1, 2, 3, 4)).foreach(x =&gt; accum.add(x))</span><br><span class="line">...</span><br><span class="line">10/09/29 18:41:08 INFO SparkContext: Tasks finished in 0.317106 s</span><br><span class="line"></span><br><span class="line">scala&gt; accum.value</span><br><span class="line">res2: Long = 10</span><br></pre></td></tr></table></figure>
+<p>还有一种很常见的错误使用方法，打印rdd中的每个元素，像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdd.foreach(println) or rdd.map(println)</span><br></pre></td></tr></table></figure>
+<p>同样在cluster模式下println会在每台机器上执行，正确的做法是先使用collect将数据收集到driver机器上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdd.collect().foreach(println)</span><br></pre></td></tr></table></figure>
+<h2 id="昂贵的Shuffle操作"><a href="#昂贵的Shuffle操作" class="headerlink" title="昂贵的Shuffle操作"></a>昂贵的Shuffle操作</h2><p>Shuffle操作会触发一次数据在集群中的重组织，这就导致了数据在网络中复制传递，所以shuffle是一项比较昂贵的操作。在spark中会导致触发shuffle的操作包括repartition和coalesce,一些列跟ByKey操作也会触发shuffle，比如groupByKey和reduceByKey, 另外 join 操作，像cogroup和join。</p>
+<p><img src="https://linsheng9731.github.io/images/pasted-0.png" alt="uploaded!"></p>
+<h2 id="优化切入点"><a href="#优化切入点" class="headerlink" title="优化切入点"></a>优化切入点</h2><p>包括Spark作业中的shuffle操作数量、RDD持久化操作数量以及spark web ui中显示的作业gc情况</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://linsheng9731.github.io/2018/09/12/Spark-潜规则/" data-id="cjlyxua5z0078z0vadjp4zt5z" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/" class="archive-article-date">
-  <time datetime="2017-03-24T05:49:04.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/">容器化探索 第三篇</a>
-    </h1>
   
+    <a href="/2018/09/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/24/rong-qi-hua-tan-suo-di-er-pian/" class="archive-article-date">
-  <time datetime="2017-03-24T05:46:45.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/24/rong-qi-hua-tan-suo-di-er-pian/">容器化探索 第二篇</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/24/rong-qi-hua-tan-suo-di-yi-pian/" class="archive-article-date">
-  <time datetime="2017-03-24T05:45:26.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/24/rong-qi-hua-tan-suo-di-yi-pian/">容器化探索 第一篇</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/09/06/e5-ae-b9-e5-99-a8-e7-9b-91-e6-8e-a7-e6-96-b9-e6-a1-88/" class="archive-article-date">
-  <time datetime="2016-09-06T14:09:37.000Z" itemprop="datePublished">Sep 6</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/06/e5-ae-b9-e5-99-a8-e7-9b-91-e6-8e-a7-e6-96-b9-e6-a1-88/">容器监控方案</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/09/02/e5-ae-b9-e5-99-a8-e7-9a-84-e6-97-a5-e5-bf-97-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/" class="archive-article-date">
-  <time datetime="2016-09-02T15:11:12.000Z" itemprop="datePublished">Sep 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/02/e5-ae-b9-e5-99-a8-e7-9a-84-e6-97-a5-e5-bf-97-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/">容器的日志解决方案</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
 
 </section>
         

@@ -10,7 +10,7 @@
   <meta name="description" content="在早期 Docker 实现中，日志这块的功能都不完善，所有容器内的标准输出和错误都会写入到/var/lib/docker/containers/{$cid}/{$cid}-log.json中。因为没有日志自动分卷以及容器绑定，所以一旦到线上就会出现瞬间磁盘打满的情况。而这个文件同时又是 docker logs api 的 data source，加之 docker 1.6 引入的 log-driv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="集群规模下日志处理和网络方案">
-<meta property="og:url" content="http://yoursite.com/2016/09/02/e9-9b-86-e7-be-a4-e8-a7-84-e6-a8-a1-e4-b8-8b-e6-97-a5-e5-bf-97-e5-a4-84-e7-90-86-e5-92-8c-e7-bd-91-e7-bb-9c-e6-96-b9-e6-a1-88/index.html">
+<meta property="og:url" content="https://linsheng9731.github.io/2016/09/02/e9-9b-86-e7-be-a4-e8-a7-84-e6-a8-a1-e4-b8-8b-e6-97-a5-e5-bf-97-e5-a4-84-e7-90-86-e5-92-8c-e7-bd-91-e7-bb-9c-e6-96-b9-e6-a1-88/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="在早期 Docker 实现中，日志这块的功能都不完善，所有容器内的标准输出和错误都会写入到/var/lib/docker/containers/{$cid}/{$cid}-log.json中。因为没有日志自动分卷以及容器绑定，所以一旦到线上就会出现瞬间磁盘打满的情况。而这个文件同时又是 docker logs api 的 data source，加之 docker 1.6 引入的 log-driv">
 <meta property="og:locale" content="zh">
@@ -58,7 +58,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://linsheng9731.github.io"></form>
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/02/e9-9b-86-e7-be-a4-e8-a7-84-e6-a8-a1-e4-b8-8b-e6-97-a5-e5-bf-97-e5-a4-84-e7-90-86-e5-92-8c-e7-bd-91-e7-bb-9c-e6-96-b9-e6-a1-88/" data-id="cjlyw4d32000ljgvaqyy4gn7n" class="article-share-link">Share</a>
+      <a data-url="https://linsheng9731.github.io/2016/09/02/e9-9b-86-e7-be-a4-e8-a7-84-e6-a8-a1-e4-b8-8b-e6-97-a5-e5-bf-97-e5-a4-84-e7-90-86-e5-92-8c-e7-bd-91-e7-bb-9c-e6-96-b9-e6-a1-88/" data-id="cjlyx7l3d001tz0vamoxg2cnk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -220,6 +220,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/12/Spark-潜规则/">Spark 潜规则</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/12/hello-world/">Hello World</a>
           </li>
         
@@ -233,10 +237,6 @@
         
           <li>
             <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
           </li>
         
       </ul>
