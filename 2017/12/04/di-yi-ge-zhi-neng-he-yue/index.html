@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>第一个智能合约 | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安装以太坊客户端，以太坊是一种标准，官方有三种实现，分别是python版本，c++版本和go版本。非官方比较著名的是rust实现parity。这里我们安装go版本的go-ethereum。（https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum） brew tap ethereum/ethereum brew install e">
+<meta name="keywords" content="blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一个智能合约">
+<meta property="og:url" content="http://yoursite.com/2017/12/04/di-yi-ge-zhi-neng-he-yue/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="安装以太坊客户端，以太坊是一种标准，官方有三种实现，分别是python版本，c++版本和go版本。非官方比较著名的是rust实现parity。这里我们安装go版本的go-ethereum。（https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum） brew tap ethereum/ethereum brew install e">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一个智能合约">
+<meta name="twitter:description" content="安装以太坊客户端，以太坊是一种标准，官方有三种实现，分别是python版本，c++版本和go版本。非官方比较著名的是rust实现parity。这里我们安装go版本的go-ethereum。（https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum） brew tap ethereum/ethereum brew install e">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-di-yi-ge-zhi-neng-he-yue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/04/di-yi-ge-zhi-neng-he-yue/" class="article-date">
+  <time datetime="2017-12-03T23:31:24.000Z" itemprop="datePublished">2017-12-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>►<a class="article-category-link" href="/categories/BlockChain/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      第一个智能合约
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>安装以太坊客户端，以太坊是一种标准，官方有三种实现，分别是python版本，c++版本和go版本。非官方比较著名的是rust实现parity。这里我们安装go版本的go-ethereum。（<a href="https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum）" target="_blank" rel="noopener">https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum）</a></p>
+<pre><code>brew tap ethereum/ethereum
+brew install ethereum
+</code></pre><p>安装完成启动以太坊本地开发网络，使用–datadir指定数据存储目录，使用–dev启动开发模式。</p>
+<pre><code>geth --datadir ./dev/ --rpc --dev console
+</code></pre><p>创建一个测试账户，挖矿获得区块奖励：</p>
+<pre><code>&gt; personal.newAccount()
+&gt; eth.accounts
+[&apos;0xdf7cb8d8d289b4a4a7ea503574eeefb57a8e8a6d&apos;]
+&gt; miner.start(1);admin.sleepBlocks(1);miner.stop();
+&gt; eth.getBalance(&quot;0xdf7cb8d8d289b4a4a7ea503574eeefb57a8e8a6d&quot;)
+65000000000000000000
+&gt; personal.unlockAccount(eth.accounts[0])
+</code></pre><p>使用solidity编写一个简单智能合约，只有两个方法，get和set：</p>
+<pre><code>pragma solidity ^0.4.10;
+contract Storage {
+  uint256 storedData;
+  function set(uint256 data) {
+    storedData = data;
+  }
+  function get() constant returns (uint256) {
+    return storedData;
+  }
+}
+</code></pre><p>编译</p>
+<pre><code>&gt; touch Storage.sol
+&gt; echo &quot;var storageOutput=`solc --optimize --combined-json abi,bin,interface Storage.sol`&quot; &gt; storage.js
+</code></pre><p>在geth的console里加载编译完成的js文件：</p>
+<pre><code>&gt; loadScript(&apos;storage.js&apos;)
+true
+&gt; storageOutput
+{
+  contracts: {
+    Storage.sol:Storage: {
+      abi: &quot;[{\&quot;constant\&quot;:false,\&quot;inputs\&quot;:[{\&quot;name\&quot;:\&quot;data\&quot;,\&quot;type\&quot;:\&quot;uint256\&quot;}],\&quot;name\&quot;:\&quot;set\&quot;,\&quot;outputs\&quot;:[],\&quot;payable\&quot;:false,\&quot;type\&quot;:\&quot;function\&quot;},{\&quot;constant\&quot;:true,\&quot;inputs\&quot;:[],\&quot;name\&quot;:\&quot;get\&quot;,\&quot;outputs\&quot;:[{\&quot;name\&quot;:\&quot;\&quot;,\&quot;type\&quot;:\&quot;uint256\&quot;}],\&quot;payable\&quot;:false,\&quot;type\&quot;:\&quot;function\&quot;}]&quot;,
+      bin: &quot;60606040523415600b57fe5b5b60978061001a6000396000f300606060405263ffffffff60e060020a60003504166360fe47b18114602a5780636d4ce63c14603c575bfe5b3415603157fe5b603a600435605b565b005b3415604357fe5b60496064565b60408051918252519081900360200190f35b60008190555b50565b6000545b905600a165627a7a7230582052ccd035d0e1b92d60b2dbc6ffd8a86d947fcaa3199be580f3d95fc289b0c39a0029&quot;
+    }
+  },
+  version: &quot;0.4.11-develop.2017.4.24+commit.a9f42157.Linux.g++&quot;
+}
+</code></pre><p>提取一些必要的参数：</p>
+<pre><code>&gt; var storageContractAbi = storageOutput.contracts[&apos;Storage.sol:Storage&apos;].abi
+&gt; var storageContract = eth.contract(JSON.parse(storageContractAbi))
+&gt; var storageBinCode = &quot;0x&quot; + storageOutput.contracts[&apos;Storage.sol:Storage&apos;].bin
+</code></pre><p>开始部署智能合约：</p>
+<pre><code>&gt; var deployTransationObject = { from: eth.accounts[0], data: storageBinCode, gas: 1000000 };
+&gt; var storageInstance = storageContract.new(deployTransationObject)
+&gt; &gt; storageInstance
+{
+  abi: [{
+      constant: false,
+      inputs: [{...}],
+      name: &quot;set&quot;,
+      outputs: [],
+      payable: false,
+      type: &quot;function&quot;
+  }, {
+      constant: true,
+      inputs: [],
+      name: &quot;get&quot;,
+      outputs: [{...}],
+      payable: false,
+      type: &quot;function&quot;
+  }],
+  address: undefined,
+  transactionHash: &quot;0xcbe9921400083ca543e4e62386e3a02eed6cb327f23c9a445f3ec81a3bfad830&quot;
+}
+</code></pre><p>这个时候我们已经看到了智能合约的实例，实例里面有一个transactionHash，通过 eth.getTransactionReceipt 我们查看一下这笔交易，发现没有返回任何数据。这是因为这个交易还没有被旷工打包，所以我们启动旷工：</p>
+<pre><code>&gt; miner.start(1);admin.sleepBlocks(1);miner.stop();
+&gt;eth.getTransactionReceipt(&quot;0xcbe9921400083ca543e4e62386e3a02eed6cb327f23c9a445f3ec81a3bfad830&quot;)
+{
+  blockHash: &quot;0x6eafe70f6224b20fd6b99720e0da79399c6dea0aea4a91d21ebb29b5d500a299&quot;,
+  blockNumber: 14,
+  contractAddress: &quot;0x35f838baa30ad1143f9b919188af61b58715888c&quot;,
+  cumulativeGasUsed: 99591,
+  from: &quot;0xdf7cb8d8d289b4a4a7ea503574eeefb57a8e8a6d&quot;,
+  gasUsed: 99591,
+  logs: [],
+  logsBloom: &quot;0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;,
+  root: &quot;0xb7aa831920d1385352d3674b978ba1e284f317dc95829efaf456521b8e1092da&quot;,
+  to: null,
+  transactionHash: &quot;0xac0bead2c115672a4a785b5bfc8d46b31a5c1e794a9ae050138d86e11415660c&quot;,
+  transactionIndex: 0
+}
+</code></pre><p>这个时候再去查看交易就返回了交易数据。至此，智能合约已经部署到以太坊的网络上去了，接下来我们会和智能合约进行交互。</p>
+<pre><code>&gt; var storageAddress = eth.getTransactionReceipt(storageInstance.transactionHash).contractAddress
+&gt; var storage = storageContract.at(storageAddress);
+&gt; storage
+{
+  abi: [{
+      constant: false,
+      inputs: [{...}],
+      name: &quot;set&quot;,
+      outputs: [],
+      payable: false,
+      type: &quot;function&quot;
+  }, {
+      constant: true,
+      inputs: [],
+      name: &quot;get&quot;,
+      outputs: [{...}],
+      payable: false,
+      type: &quot;function&quot;
+  }],
+  address: &quot;0xc05c7ee9b13dd103581accfead6074e0522475e0&quot;,
+  transactionHash: null,
+  allEvents: function(),
+  get: function(),
+  set: function()
+}
+&gt; storage.get.call()
+0
+&gt; storage.set.sendTransaction(42, {from: eth.accounts[0], gas: 1000000})
+&quot;0x7a54ab329fcbf551432eb78c4b2a1ff48fc8b9f9aa23d94fa86330e5c1d711f3&quot;
+&gt; miner.start(1);admin.sleepBlocks(1);miner.stop();
+&gt; storage.get.call()
+42
+</code></pre><p>成功调用了智能合约的方法！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/04/di-yi-ge-zhi-neng-he-yue/" data-id="cjlyw4d2r0006jgva6s9mmtld" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/25/sass-xiao-jie-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Sass 小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/13/golang-ji-chu/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">golang 基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

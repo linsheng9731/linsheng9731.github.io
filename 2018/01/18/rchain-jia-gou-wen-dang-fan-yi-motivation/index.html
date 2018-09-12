@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Rchain 架构文档翻译（Motivation） | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文 动机去中心化运动雄心勃勃，将为新的社会和经济提供绝佳的机遇。同时，去中心化平衡了权力集中的大型组织偶尔发生的滥权和腐败。去中心化运动使得自我决策，分散的社区组织大量出现。当然，分散的社区组织也将会面临挑战和问题，如法律问题，公共利益如何兑现等问题。 我们非常欣赏比特币，以太坊和其他平台的巨大创新，这些平台大大推进了去中心化组织的发展，迎来了加密货币和智能合约的新时代。但是，我们也看到这些项目">
+<meta name="keywords" content="blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rchain 架构文档翻译（Motivation）">
+<meta property="og:url" content="http://yoursite.com/2018/01/18/rchain-jia-gou-wen-dang-fan-yi-motivation/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="原文 动机去中心化运动雄心勃勃，将为新的社会和经济提供绝佳的机遇。同时，去中心化平衡了权力集中的大型组织偶尔发生的滥权和腐败。去中心化运动使得自我决策，分散的社区组织大量出现。当然，分散的社区组织也将会面临挑战和问题，如法律问题，公共利益如何兑现等问题。 我们非常欣赏比特币，以太坊和其他平台的巨大创新，这些平台大大推进了去中心化组织的发展，迎来了加密货币和智能合约的新时代。但是，我们也看到这些项目">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.268Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rchain 架构文档翻译（Motivation）">
+<meta name="twitter:description" content="原文 动机去中心化运动雄心勃勃，将为新的社会和经济提供绝佳的机遇。同时，去中心化平衡了权力集中的大型组织偶尔发生的滥权和腐败。去中心化运动使得自我决策，分散的社区组织大量出现。当然，分散的社区组织也将会面临挑战和问题，如法律问题，公共利益如何兑现等问题。 我们非常欣赏比特币，以太坊和其他平台的巨大创新，这些平台大大推进了去中心化组织的发展，迎来了加密货币和智能合约的新时代。但是，我们也看到这些项目">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-rchain-jia-gou-wen-dang-fan-yi-motivation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/18/rchain-jia-gou-wen-dang-fan-yi-motivation/" class="article-date">
+  <time datetime="2018-01-17T21:12:00.000Z" itemprop="datePublished">2018-01-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>►<a class="article-category-link" href="/categories/BlockChain/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Rchain 架构文档翻译（Motivation）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://github.com/rchain/architecture-docs/blob/master/introduction/motivation.rst" target="_blank" rel="noopener">原文</a></p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>去中心化运动雄心勃勃，将为新的社会和经济提供绝佳的机遇。同时，去中心化平衡了权力集中的大型组织偶尔发生的滥权和腐败。去中心化运动使得自我决策，分散的社区组织大量出现。当然，分散的社区组织也将会面临挑战和问题，如法律问题，公共利益如何兑现等问题。</p>
+<p>我们非常欣赏比特币，以太坊和其他平台的巨大创新，这些平台大大推进了去中心化组织的发展，迎来了加密货币和智能合约的新时代。但是，我们也看到这些项目没有使用最好的工程模型以支持扩展。目前社区正在热烈讨论的扩容问题和可靠性问题正反应了这些平台底层架构的不足。例如，对于在地球上进行的所有区块链交易，坚持一个明确的序列化处理顺序是否是可扩展的设计？</p>
+<p>要成为具有工业规模的区块链解决方案，RChain必须以Facebook的规模提供内容支持，并以Visa的速度支持交易。对众多区块链项目的现状进行调查之后，与其他区块链开发团队的深入合作，了解了各自的路线图之后，我们得出结论：当前和近期的区块链架构不能满足这些要求。在2016年年中，我们决心设计一个更好的区块链架构。</p>
+<p>与区块链行业一起，我们仍处于这种分散运动的曙光之中。现在是时候奠定坚实的基础。对于那些相信这个雄心勃勃的愿景的人来说，前进的道路是值得的，而且这份文件总结了这个愿景以及我们如何实现这一愿景。</p>
+<h2 id="途径"><a href="#途径" class="headerlink" title="途径"></a>途径</h2><p>这个平台将实现以下最低要求：<br>* 动态的，响应式的，可证明正确的智能合约。<br>* 同时执行独立智能合约。<br>* 数据分离以减少独立代币和智能合约的不必要的数据复制。<br>* 保证节点到节点间通信的鲁棒性。<br>* 非计算密集型的共识算法/验证协议。</p>
+<p>构建高质量的软件是非常具有挑战性的，相对来说构建一个看上去“聪明”的软件会容易的多。然而，由此产生的软件往往质量低劣，充满了缺陷，难以维护，难以发展。对于开发团队来说，继承和开发这样的软件对于他们以及他们的客户来说是残忍的。尤其是在构建一个用于支持重要任务的开源系统时，我们不会采用最小成功的思维模式，以此来保证软件的质量和正确性。</p>
+<p>为了达到上述要求，我们的设计致力于以下几个方面：<br>* 一个假定细粒度并行和动态网络拓扑的计算模型。<br>* 一个可组合以及动态的资源寻址方案。<br>* 使用函数式编程范式，因为它更自然地适应分布式和并行处理。<br>* 严谨正式的验证，利用模型检查和定理证明。<br>* 遵循内涵和复合性原则。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/18/rchain-jia-gou-wen-dang-fan-yi-motivation/" data-id="cjlyw4d3q0021jgva71tpvnhe" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/19/shi-yong-kong-xian-de-ying-pan-jin-xing-burst-wa-k/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用空闲的硬盘进行 Burst 挖矿
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/17/shi-yong-solidity-bian-xie-crypto-zombies-you-xi-s/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用 Solidity 编写 Crypto Zombies 游戏（三）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

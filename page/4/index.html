@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="记录是为了更好的创造">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:locale" content="zh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记录是为了更好的创造">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-sass-xiao-jie-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/25/sass-xiao-jie-2/" class="article-date">
+  <time datetime="2017-12-25T04:11:54.000Z" itemprop="datePublished">2017-12-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web/">Web</a>►<a class="article-category-link" href="/categories/Web/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/25/sass-xiao-jie-2/">Sass 小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前端的CSS和JS都存在很多问题，其中完善CSS的解决方案有好几种，本文介绍的Sass是其中一种。这些解决方案会引入很多方便的语法，本文做一个简单的小结。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><pre><code>$highlight-color: #F90;
+.selected {
+  border: 1px solid $highlight-color;
+}
+
+//编译后
+
+.selected {
+  border: 1px solid #F90;
+}
+</code></pre><h2 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h2><pre><code>#content {
+  article {
+    h1 { color: #333 }
+    p { margin-bottom: 1.4em }
+  }
+  aside { background-color: #EEE }
+}
+</code></pre><h2 id="父选择器的标识符-amp"><a href="#父选择器的标识符-amp" class="headerlink" title="父选择器的标识符&amp;"></a>父选择器的标识符&amp;</h2><pre><code>sass:
+article a {
+  &amp;:hover { color: red }
+}
+
+css: 
+article a:hover { color: red }
+</code></pre><h2 id="群组选择器的嵌套"><a href="#群组选择器的嵌套" class="headerlink" title="群组选择器的嵌套"></a>群组选择器的嵌套</h2><pre><code>css: 
+.container h1, .container h2, .container h3 { margin-bottom: .8em }
+
+sass:
+.container {
+  h1, h2, h3 {margin-bottom: .8em}
+}
+</code></pre><h2 id="嵌套属性"><a href="#嵌套属性" class="headerlink" title="嵌套属性"></a>嵌套属性</h2><pre><code>sass:
+nav {
+  border: {
+  style: solid;
+  width: 1px;
+  color: #ccc;
+  }
+}
+
+css:
+nav {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ccc;
+}
+</code></pre><h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>子组合选择器&gt;选择一个元素的直接子元素<br>同层相邻组合选择器+选择元素后紧跟的元素<br>同层全体组合选择器~，选择所有跟在元素后的同层元素，不管它们之间隔了多少其他元素</p>
+<h2 id="混合器"><a href="#混合器" class="headerlink" title="混合器"></a>混合器</h2><pre><code>@mixin rounded-corners {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+notice {
+  background-color: green;
+  border: 2px solid #00aa00;
+  @include rounded-corners;
+}
+</code></pre><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><pre><code>//.seriousError从.error继承样式
+.error a{  //应用到.seriousError a
+  color: red;
+  font-weight: 100;
+}
+h1.error { //应用到hl.seriousError
+  font-size: 1.2rem;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/25/sass-xiao-jie-2/" data-id="cjlyw4d4f0033jgvahq4c3byv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-di-yi-ge-zhi-neng-he-yue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/04/di-yi-ge-zhi-neng-he-yue/" class="article-date">
+  <time datetime="2017-12-03T23:31:24.000Z" itemprop="datePublished">2017-12-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>►<a class="article-category-link" href="/categories/BlockChain/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/04/di-yi-ge-zhi-neng-he-yue/">第一个智能合约</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>安装以太坊客户端，以太坊是一种标准，官方有三种实现，分别是python版本，c++版本和go版本。非官方比较著名的是rust实现parity。这里我们安装go版本的go-ethereum。（<a href="https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum）" target="_blank" rel="noopener">https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum）</a></p>
+<pre><code>brew tap ethereum/ethereum
+brew install ethereum
+</code></pre><p>安装完成启动以太坊本地开发网络，使用–datadir指定数据存储目录，使用–dev启动开发模式。</p>
+<pre><code>geth --datadir ./dev/ --rpc --dev console
+</code></pre><p>创建一个测试账户，挖矿获得区块奖励：</p>
+<pre><code>&gt; personal.newAccount()
+&gt; eth.accounts
+[&apos;0xdf7cb8d8d289b4a4a7ea503574eeefb57a8e8a6d&apos;]
+&gt; miner.start(1);admin.sleepBlocks(1);miner.stop();
+&gt; eth.getBalance(&quot;0xdf7cb8d8d289b4a4a7ea503574eeefb57a8e8a6d&quot;)
+65000000000000000000
+&gt; personal.unlockAccount(eth.accounts[0])
+</code></pre><p>使用solidity编写一个简单智能合约，只有两个方法，get和set：</p>
+<pre><code>pragma solidity ^0.4.10;
+contract Storage {
+  uint256 storedData;
+  function set(uint256 data) {
+    storedData = data;
+  }
+  function get() constant returns (uint256) {
+    return storedData;
+  }
+}
+</code></pre><p>编译</p>
+<pre><code>&gt; touch Storage.sol
+&gt; echo &quot;var storageOutput=`solc --optimize --combined-json abi,bin,interface Storage.sol`&quot; &gt; storage.js
+</code></pre><p>在geth的console里加载编译完成的js文件：</p>
+<pre><code>&gt; loadScript(&apos;storage.js&apos;)
+true
+&gt; storageOutput
+{
+  contracts: {
+    Storage.sol:Storage: {
+      abi: &quot;[{\&quot;constant\&quot;:false,\&quot;inputs\&quot;:[{\&quot;name\&quot;:\&quot;data\&quot;,\&quot;type\&quot;:\&quot;uint256\&quot;}],\&quot;name\&quot;:\&quot;set\&quot;,\&quot;outputs\&quot;:[],\&quot;payable\&quot;:false,\&quot;type\&quot;:\&quot;function\&quot;},{\&quot;constant\&quot;:true,\&quot;inputs\&quot;:[],\&quot;name\&quot;:\&quot;get\&quot;,\&quot;outputs\&quot;:[{\&quot;name\&quot;:\&quot;\&quot;,\&quot;type\&quot;:\&quot;uint256\&quot;}],\&quot;payable\&quot;:false,\&quot;type\&quot;:\&quot;function\&quot;}]&quot;,
+      bin: &quot;60606040523415600b57fe5b5b60978061001a6000396000f300606060405263ffffffff60e060020a60003504166360fe47b18114602a5780636d4ce63c14603c575bfe5b3415603157fe5b603a600435605b565b005b3415604357fe5b60496064565b60408051918252519081900360200190f35b60008190555b50565b6000545b905600a165627a7a7230582052ccd035d0e1b92d60b2dbc6ffd8a86d947fcaa3199be580f3d95fc289b0c39a0029&quot;
+    }
+  },
+  version: &quot;0.4.11-develop.2017.4.24+commit.a9f42157.Linux.g++&quot;
+}
+</code></pre><p>提取一些必要的参数：</p>
+<pre><code>&gt; var storageContractAbi = storageOutput.contracts[&apos;Storage.sol:Storage&apos;].abi
+&gt; var storageContract = eth.contract(JSON.parse(storageContractAbi))
+&gt; var storageBinCode = &quot;0x&quot; + storageOutput.contracts[&apos;Storage.sol:Storage&apos;].bin
+</code></pre><p>开始部署智能合约：</p>
+<pre><code>&gt; var deployTransationObject = { from: eth.accounts[0], data: storageBinCode, gas: 1000000 };
+&gt; var storageInstance = storageContract.new(deployTransationObject)
+&gt; &gt; storageInstance
+{
+  abi: [{
+      constant: false,
+      inputs: [{...}],
+      name: &quot;set&quot;,
+      outputs: [],
+      payable: false,
+      type: &quot;function&quot;
+  }, {
+      constant: true,
+      inputs: [],
+      name: &quot;get&quot;,
+      outputs: [{...}],
+      payable: false,
+      type: &quot;function&quot;
+  }],
+  address: undefined,
+  transactionHash: &quot;0xcbe9921400083ca543e4e62386e3a02eed6cb327f23c9a445f3ec81a3bfad830&quot;
+}
+</code></pre><p>这个时候我们已经看到了智能合约的实例，实例里面有一个transactionHash，通过 eth.getTransactionReceipt 我们查看一下这笔交易，发现没有返回任何数据。这是因为这个交易还没有被旷工打包，所以我们启动旷工：</p>
+<pre><code>&gt; miner.start(1);admin.sleepBlocks(1);miner.stop();
+&gt;eth.getTransactionReceipt(&quot;0xcbe9921400083ca543e4e62386e3a02eed6cb327f23c9a445f3ec81a3bfad830&quot;)
+{
+  blockHash: &quot;0x6eafe70f6224b20fd6b99720e0da79399c6dea0aea4a91d21ebb29b5d500a299&quot;,
+  blockNumber: 14,
+  contractAddress: &quot;0x35f838baa30ad1143f9b919188af61b58715888c&quot;,
+  cumulativeGasUsed: 99591,
+  from: &quot;0xdf7cb8d8d289b4a4a7ea503574eeefb57a8e8a6d&quot;,
+  gasUsed: 99591,
+  logs: [],
+  logsBloom: &quot;0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;,
+  root: &quot;0xb7aa831920d1385352d3674b978ba1e284f317dc95829efaf456521b8e1092da&quot;,
+  to: null,
+  transactionHash: &quot;0xac0bead2c115672a4a785b5bfc8d46b31a5c1e794a9ae050138d86e11415660c&quot;,
+  transactionIndex: 0
+}
+</code></pre><p>这个时候再去查看交易就返回了交易数据。至此，智能合约已经部署到以太坊的网络上去了，接下来我们会和智能合约进行交互。</p>
+<pre><code>&gt; var storageAddress = eth.getTransactionReceipt(storageInstance.transactionHash).contractAddress
+&gt; var storage = storageContract.at(storageAddress);
+&gt; storage
+{
+  abi: [{
+      constant: false,
+      inputs: [{...}],
+      name: &quot;set&quot;,
+      outputs: [],
+      payable: false,
+      type: &quot;function&quot;
+  }, {
+      constant: true,
+      inputs: [],
+      name: &quot;get&quot;,
+      outputs: [{...}],
+      payable: false,
+      type: &quot;function&quot;
+  }],
+  address: &quot;0xc05c7ee9b13dd103581accfead6074e0522475e0&quot;,
+  transactionHash: null,
+  allEvents: function(),
+  get: function(),
+  set: function()
+}
+&gt; storage.get.call()
+0
+&gt; storage.set.sendTransaction(42, {from: eth.accounts[0], gas: 1000000})
+&quot;0x7a54ab329fcbf551432eb78c4b2a1ff48fc8b9f9aa23d94fa86330e5c1d711f3&quot;
+&gt; miner.start(1);admin.sleepBlocks(1);miner.stop();
+&gt; storage.get.call()
+42
+</code></pre><p>成功调用了智能合约的方法！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/04/di-yi-ge-zhi-neng-he-yue/" data-id="cjlyw4d2r0006jgva6s9mmtld" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-golang-ji-chu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/13/golang-ji-chu/" class="article-date">
+  <time datetime="2017-10-13T08:44:55.000Z" itemprop="datePublished">2017-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Golang/">Golang</a>►<a class="article-category-link" href="/categories/Golang/运维/">运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/13/golang-ji-chu/">golang 基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>igo REPL</p>
+<p>编译<br>Golang支持交叉编译，也就是说你在32位平台的机器上开发，可以编译生成64位平台上的可执行程序。<br>交叉编译依赖下面几个环境变量：<br>\(GOARCH 目标平台（编译后的目标平台）的处理器架构（386、amd64、arm）<br>\)GOOS 目标平台（编译后的目标平台）的操作系统（darwin、freebsd、linux、windows）</p>
+<p><img src="http://121.40.171.175/wp-content/uploads/2017/10/15008642112559.jpg" alt="">￼</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;hello, world&quot;)
+}
+</code></pre><p>导入包<br>如果包名不是以 . 或 / 开头，如 “fmt” 或者 “container/list”，则 Go 会在全局文件进行查找；如果包名以 ./ 开头，则 Go 会在相对目录中查找；如果包名以 / 开头（在 Windows 下也可以这样使用），则会在系统的绝对路径中查找。</p>
+<p>可见性<br>当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）；标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 private ）。</p>
+<p>变量</p>
+<pre><code>//类型相同多个变量, 非全局变量
+var vname1, vname2, vname3 type
+vname1, vname2, vname3 = v1, v2, v3
+
+var vname1, vname2, vname3 = v1, v2, v3 //和python很像,不需要显示声明类型，自动推断
+
+vname1, vname2, vname3 := v1, v2, v3 //出现在:=左侧的变量不应该是已经被声明过的，否则会导致编译错误
+
+
+// 这种因式分解关键字的写法一般用于声明全局变量
+var (
+    vname1 v_type1
+    vname2 v_type2
+)
+</code></pre><p>方法绑定<br>一个类型加上它的方法等价于面向对象中的一个类。一个重要的区别是：在 Go 中，类型的代码和绑定在它上面的方法的代码可以不放置在一起，它们可以存在在不同的源文件，唯一的要求是：它们必须是同一个包的。</p>
+<pre><code>type TwoInts struct {
+    a int
+    b int
+}
+func (tn *TwoInts) AddThem() int {
+    return tn.a + tn.b
+}
+func main() {
+    two1 := new(TwoInts)
+    two1.a = 12
+    two1.b = 10
+    fmt.Printf(&quot;The sum is: %d\n&quot;, two1.AddThem())
+}
+</code></pre><p>接口<br>接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量。接口提供了一种方式来 说明 对象的行为：如果谁能搞定这件事，它就可以用在这儿。</p>
+<pre><code>package main
+import &quot;fmt&quot;
+
+type Shaper interface {
+    Area() float32
+}
+
+type Square struct {
+    side float32
+}
+
+func (sq *Square) Area() float32 {
+    return sq.side * sq.side
+}
+
+type Rectangle struct {
+    length, width float32
+}
+
+func (r Rectangle) Area() float32 {
+    return r.length * r.width
+}
+
+func main() {
+
+    r := Rectangle{5, 3} // Area() of Rectangle needs a value
+    q := &amp;Square{5}      // Area() of Square needs a pointer
+    shapes := []Shaper{r, q}
+    for n, _ := range shapes {
+        fmt.Println(&quot;Area of this shape is: &quot;, shapes[n].Area())
+    }
+}
+</code></pre><p>defer<br>defer就是延迟执行，先进后出原则。在函数结束时执行，常用于资源的释放。</p>
+<p>make和new的区别<br>make用于内建类型（map、slice 和channel）的内存分配。new用于各种类型的内存分配。<br>内建函数new本质上说跟其它语言中的同名函数功能一样：new(T)分配了零值填充的T类型的内存空间，并且返回其地址，即一个*T类型的值。用Go的术语说，它返回了一个指针，指向新分配的类型T的零值。有一点非常重要：new返回指针。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/13/golang-ji-chu/" data-id="cjlyw4d3d0015jgvajr4szigq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-fibo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/13/fibo/" class="article-date">
+  <time datetime="2017-10-13T07:28:27.000Z" itemprop="datePublished">2017-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Golang/">Golang</a>►<a class="article-category-link" href="/categories/Golang/运维/">运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/13/fibo/">Fibo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Fibo是一种快速、现代、零配置的HTTP(S)和TCP负载均衡路由器。 在consul注册服务，提供健康检查，fibo会使用consul的信息来分发流量，不需要配置。 除了consul，fibo还支持Vault, Amazon ELB, Amazon API Gateway。</p>
+<p>Fibo的特性： 1. 带有动态证书存储的TLS 2. 原始的TCP代理 3. tcp+sni代理的完整端到端TLS的代理，不进行解密 4. HTTPS支持 5. websocket和SSE 6. 动态重载 7. “蓝/绿”部署， 8. 支持多种监控指标系统 9. WebUI</p>
+<p>反向代理代码解读： 启动后fibo首先会读取配置信息，生成cfg配置对象。通过cfg里配置的backend类型初始化backend对象。之后调用 startServers(cfg) 这个函数来绑定端口。 遍历cfg对象里的Listen对象，每个Listen对象代表一个反向代理的前端配置信息，里面包括地址，协议，超时时间，证书信息等。具体见下面的代码定义：</p>
+<p>config.go</p>
+<p><img src="http://121.40.171.175/wp-content/uploads/2017/10/15078795725838.jpg" alt="">￼</p>
+<p>针对每个Listen，fibo会生成对应的proxy对象，总共支持三层次的协议：http或https，tcp，tcp+sni。这里我们着重分析一下http(s)协议，其他协议都是类似的。</p>
+<p>main.go <img src="http://121.40.171.175/wp-content/uploads/2017/10/15078796036018.jpg" alt="">￼</p>
+<p>newHTTPProxy(cfg) 函数主要功能是生成proxy对象。通过传入的cfg依次生成Transport，传入Lookup函数，生成一个proxy.HTTPProxy对象。proxy.HTTPProxy是一个带有ServeHTTP方法的结构体，所以proxy.HTTPProxy可以作为http.Handler。</p>
+<p>main.go <img src="http://121.40.171.175/wp-content/uploads/2017/10/15078796192970.jpg" alt="">￼</p>
+<p>查看ServeHTTP方法具体实现，主要有三个步骤： 1. 根据request，通过Lookup函数查找对应的backend 2. 根据backend信息生成目标url 3. 根据目标url，通过newHTTPProxy函数生成代理对象</p>
+<p>http_proxy.go <img src="http://121.40.171.175/wp-content/uploads/2017/10/15078796447283.jpg" alt="">￼</p>
+<p>newHTTPProxy方法接受target地址，transport，flush作为参数。使用golang包自带的httputil. ReverseProxy对象实现反向代理。transport用于描述如何完成一次http请求，在main.go里定义：</p>
+<p>main.go <img src="http://121.40.171.175/wp-content/uploads/2017/10/15078796597349.jpg" alt="">￼</p>
+<p>flush参数是用于控制http请求完成后连接的保持时长，如果不指定则认为是SSE（server side event）模式。</p>
+<p>http_handler.go <img src="http://121.40.171.175/wp-content/uploads/2017/10/15078797006062.jpg" alt="">￼</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/13/fibo/" data-id="cjlyw4d36000rjgvai0z4guzl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-marathonlb-dai-li-huo-qu-zhen-shiip" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/" class="article-date">
+  <time datetime="2017-05-08T00:58:26.000Z" itemprop="datePublished">2017-05-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Marathon/">Marathon</a>►<a class="article-category-link" href="/categories/Marathon/技术积累/">技术积累</a>►<a class="article-category-link" href="/categories/Marathon/技术积累/运维/">运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/">Marathon-Lb 代理获取真实IP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在实际的部署场景中有一个很常见的需求：需要根据用户的ip来确定用户的地理信息。所以使用Marathon-lb作为负载均衡需要具备这个能力。查询lb的文档发现提供了这一功能：</p>
+<pre><code>HAPROXY_BACKEND_HTTP_OPTIONS
+
+Overridable per app
+
+Specified as HAPROXY_BACKEND_HTTP_OPTIONS template or with label HAPROXY_{n}_BACKEND_HTTP_OPTIONS.
+
+Sets HTTP headers, for example X-Forwarded-For and X-Forwarded-Proto.
+
+Default template for HAPROXY_BACKEND_HTTP_OPTIONS:
+
+  option forwardfor
+  http-request set-header X-Forwarded-Port %[dst_port]
+  http-request add-header X-Forwarded-Proto https if { ssl_fc }
+</code></pre><p>通过设置 option forwardfor 这个参数可以在接受到的请求头里添加 x-forward 参数。X-Forwarded-For 是一个 HTTP 扩展头部,用来表示 HTTP 请求端真实 IP,被各大 HTTP 代理、负载均衡等转发服务广泛使用。X-Forwarded-For 请求头格式非常简单，就这样：</p>
+<p>X-Forwarded-For: client, proxy1, proxy2</p>
+<p>可以看到，XFF 的内容由「英文逗号 + 空格」隔开的多个部分组成，最开始的是离服务端最远的设备 IP，然后是每一级代理设备的 IP。</p>
+<p>如果一个 HTTP 请求到达服务器之前，经过了三个代理 Proxy1、Proxy2、Proxy3，IP 分别为 IP1、IP2、IP3，用户真实 IP 为 IP0，那么按照 XFF 标准，服务端最终会收到以下信息：</p>
+<p>X-Forwarded-For: IP0, IP1, IP2<br>这个选项可以通过设置lb的环境变量开启，也可以通过设置每个app的lable来进行覆盖。注意开启x-forward的app必须设置vhost，这样lb才会使用http协议代理流量，如果不设置vhost，默认是tcp协议，这样就没有http头这一说了。如下，每个app设置自己的vhost：</p>
+<pre><code>&quot;HAPROXY_0_VHOST&quot;:&quot;www.app.com&quot;
+</code></pre><p>最后通过haproxy的config页面验证已经开启了设置：</p>
+<pre><code>backend app_9000
+  balance roundrobin
+  mode http
+  option forwardfor
+  http-request set-header X-Forwarded-Port %[dst_port]
+  http-request add-header X-Forwarded-Proto https if { ssl_fc }
+</code></pre><p>通过tcpdump抓包的方法可以查看请求里的x-forward头：</p>
+<pre><code>tcpdump -A -s 0 &apos;tcp port 9000 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)&apos; -i docker0
+</code></pre><p>附上haproxy的元数据页面：</p>
+<p>Endpoint</p>
+<p>Description</p>
+<p><code>:9090/haproxy?stats</code></p>
+<p>HAProxy stats endpoint. This produces an HTML page which can be viewed in your browser, providing various statistics about the current HAProxy instance.</p>
+<p><code>:9090/haproxy?stats;csv</code></p>
+<p>This is a CSV version of the stats above, which can be consumed by other tools. For example, it’s used in the <a href="zdd.py"><code>zdd.py</code></a> script.</p>
+<p><code>:9090/_haproxy_health_check</code></p>
+<p>HAProxy health check endpoint. Returns <code>200 OK</code> if HAProxy is healthy.</p>
+<p><code>:9090/_haproxy_getconfig</code></p>
+<p>Returns the HAProxy config file as it was when HAProxy was started. Implemented in <a href="getconfig.lua"><code>getconfig.lua</code></a>.</p>
+<p><code>:9090/_haproxy_getvhostmap</code></p>
+<p>Returns the HAProxy vhost to backend map. This endpoint returns HAProxy map file only when the <code>--haproxy-map</code> flag is enabled, it returns an empty string otherwise. Implemented in <a href="getmaps.lua"><code>getmaps.lua</code></a>.</p>
+<p><code>:9090/_haproxy_getappmap</code></p>
+<p>Returns the HAProxy app ID to backend map. Like <code>_haproxy_getvhostmap</code>, this requires the <code>--haproxy-map</code> flag to be enabled and returns an empty string otherwise. Also implemented in <code>getmaps.lua</code>.</p>
+<p><code>:9090/_haproxy_getpids</code></p>
+<p>Returns the PIDs for all HAProxy instances within the current process namespace. This literally returns <code>$(pidof haproxy)</code>. Implemented in <a href="getpids.lua"><code>getpids.lua</code></a>. This is also used by the <a href="zdd.py"><code>zdd.py</code></a> script to determine if connections have finished draining during a deploy.</p>
+<p><code>:9090/_mlb_signal/hup</code>*</p>
+<p>Sends a <code>SIGHUP</code> signal to the marathon-lb process, causing it to fetch the running apps from Marathon and reload the HAProxy config as though an event was received from Marathon.</p>
+<p><code>:9090/_mlb_signal/usr1</code>*</p>
+<p>Sends a <code>SIGUSR1</code> signal to the marathon-lb process, causing it to restart HAProxy with the existing config, without checking Marathon for changes.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/" data-id="cjlyw4d3m001rjgvaia9r4fwz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-fu-zai-jun-heng-na-xie-shi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/fu-zai-jun-heng-na-xie-shi/" class="article-date">
+  <time datetime="2017-04-14T07:01:47.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web/">Web</a>►<a class="article-category-link" href="/categories/Web/运维/">运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/fu-zai-jun-heng-na-xie-shi/">负载均衡那些事</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现在最常见的负载均衡有Nginx，Haproxy，LVS，这三款开源的负载均衡各有特点，下面是各自小结：</p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>优点：<br>1. nginx最早是工作在7层上的，只支持http，https，email协议。nginx从1.9.0后引入模块,可以用于简单场景下的tcp负载均衡了。这也算是弥补了nginx一个很明显的缺点。<a href="http://nginx.org/en/docs/stream/ngx_stream_core_module.html" target="_blank" rel="noopener">ngx_stream_core_module</a><br>2. nginx的功能非常强大， 主要体现在丰富的路由正则功能上，这点Haproxy相对较弱，这也是nginx非常流行的一个重要原因，通过nginx的路由功能能实现非常复杂的路由规则。<br>3. nginx可以作为web反向代理加速器，速度相比squid快不少。<br>4. nginx作为静态页面和图片服务器，性能非常强悍。<br>5. 第三方模块众多，开发社区活跃，支持lua扩展，这方面有非常著名的国人项目<a href="https://openresty.org/cn/" target="_blank" rel="noopener">openresty</a>。<br>缺点：<br>1. 除非使用ip_hash的轮询方案，否则无法直接保持session<br>2. 对后端服务的健康检查只支持端口检测的方式</p>
+<h2 id="Haproxy"><a href="#Haproxy" class="headerlink" title="Haproxy"></a>Haproxy</h2><p>优点：<br>1. 支持session保持，cookie引导。<br>2. 原生支持tcp负载均衡，可以对数据库做负载均衡。<br>3. 本身专注在负载均衡上，单纯从效率上讲比nginx更高。<br>4. 多样的负载均衡策略，实时检查后端服务的健康情况，nginx是根据访问失败的结果来踢掉失效的服务的。<br>5. 支持lua扩展 <a href="http://www.arpalert.org/src/haproxy-lua-api/1.6/index.html" target="_blank" rel="noopener">How lua runs in haproxy</a><br>缺点：<br>1. 功能过于单一，相比nginx这种全功能的负载均衡工具，haproxy的关注点比较聚焦。<br>2. 开发社区不算活跃</p>
+<h2 id="LVS"><a href="#LVS" class="headerlink" title="LVS"></a>LVS</h2><p>优点：<br>1. 性能最强，工作在4层网络，仅仅做分发用，没有流量的产生，对cpu和内存消耗低。<br>2. 工作稳定，可以使用LVS+Keepalived这种非常成熟的解决方案。<br>3. 代理范围广，几乎可以对所有应用做负载均衡。<br>缺点：<br>1. 功能单一，几乎没有配置项。<br>2. LVS+Keepalived实施起来比较复杂。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Nginx适合工作在对复杂路由协议的场景下，对http级别的负载均衡非常合适。Haproxy适合内部服务的透明负载均衡，因为原生支持tcp，所以支持的服务较多。LVS适合做流量入口，抗压能力比较强。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/fu-zai-jun-heng-na-xie-shi/" data-id="cjlyw4d39000yjgva52jo5ki5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-fpgroth-suan-fa" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/05/fpgroth-suan-fa/" class="article-date">
+  <time datetime="2017-04-05T06:58:44.000Z" itemprop="datePublished">2017-04-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/05/fpgroth-suan-fa/">FP-Groth 算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>FP-Growth算法的任务是找出数据集中的频繁项集，假设有一组购物车的数据：</p>
+<p>Tid</p>
+<p>items</p>
+<p>1</p>
+<p>apple,meat,egg</p>
+<p>2</p>
+<p>apple,beer,diaper</p>
+<p>3</p>
+<p>apple,beer,harm</p>
+<p>4</p>
+<p>diaper,beer</p>
+<p>tid 代表交易流水号，items代表购物车里的商品信息。<br>算法总共分两步：（1）FP-Tree构建 （2）FP-Tree上频繁项挖掘</p>
+<h2 id="FP-Tee-构造"><a href="#FP-Tee-构造" class="headerlink" title="FP-Tee 构造"></a>FP-Tee 构造</h2><ol>
+<li>扫描一遍全数据，找到频繁项列表L，进入L列表的规则是起码超过两次出现在不同的Tid里。所以上面数据里的meat和egg，harm就被删除了。剩下的item统计其出现的次数得到列表 L: (apple:3, beer:3,diaper:2)</li>
+<li>再次扫面全数据，由每比交易构建FP-Tree，过程如下： 1 设置 FP-Tree 根节点为null。 2 读取数据按照列表 L 的顺序将每个项排序。第一笔交易排序后得到：{apple}，第二笔交易排序后得到：{apple, beer,diaper}，第三笔得到：{beer,diaper}。 通过这些路径我们可以构造出一个树： <img src="http://121.40.171.175/wp-content/uploads/2017/04/14909407433995.jpg" alt="">￼ 把同一个层次的节点相同item合并后得到FP-Tree如下： <img src="http://121.40.171.175/wp-content/uploads/2017/04/14909395614501.jpg" alt="">￼ 下一步是寻找每个项的条件模式基（CPB），比如diaper的CPB是除了diaper本身的前缀路径，即：beer:1,apple/beer:1两项。统计所有项的CPB得到下表:</li>
+</ol>
+<p>item</p>
+<p>CPB</p>
+<p>diaper</p>
+<p>beer:1,apple/beer:1</p>
+<p>beer</p>
+<p>apple:2</p>
+<p>apple</p>
+<p>NULL</p>
+<p>累加每个CPB上的item的频繁度（计数），过滤低于阈值的item，构建FP-tree，比如diaper的CPB：beer:1,apple/beer:1，得到每个item的频繁度：apple:1,beer:2，如果我们设置阈值为大于1，那么会过滤掉apple，只留下beer。这个过程只执行一次不一定能得到最后的频繁路径解，我们举得例子比较简单所以一次迭代就得到了结果。如果迭代一次剩下的item还能组成树，那么需要继续迭代。</p>
+<h2 id="Spark-MLLib-的实现"><a href="#Spark-MLLib-的实现" class="headerlink" title="Spark MLLib 的实现"></a>Spark MLLib 的实现</h2><p>在开始介绍算法前我们先明确两个概念：<br>1. 一个项集的支持度（support）被定义数据集中包含该项集的记录所占的比例。<br>2. 可信度或置信度（confidence）是针对关联规则来定义的。规则{尿布}➞{啤酒}的可信度被定义为”支持度({尿布,啤酒})/支持度({尿布})”，假设{尿布,啤酒}的支持度为3/5，尿布的支持度为4/5，所以”尿布➞啤酒”的可信度为3/4。<br>下面是 spark 的官方例子，这里的几个关键参数就是前面提到的支持度(mini support)和可信度(mini confidence)。</p>
+<pre><code>import org.apache.spark.mllib.fpm.FPGrowth
+import org.apache.spark.rdd.RDD
+// 装载数据
+val data = sc.textFile(&quot;data/mllib/sample_fpgrowth.txt&quot;)
+// 将数据转化成 RDD
+val transactions: RDD[Array[String]] = data.map(s =&gt; s.trim.split(&apos; &apos;))
+// 定义 FPG 的模型，设置最小支持度为0.2
+val fpg = new FPGrowth()
+  .setMinSupport(0.2)
+  .setNumPartitions(10)
+// 指定训练数据
+val model = fpg.run(transactions)
+// collect方法触发开始训练
+model.freqItemsets.collect().foreach { itemset =&gt;
+  println(itemset.items.mkString(&quot;[&quot;, &quot;,&quot;, &quot;]&quot;) + &quot;, &quot; + itemset.freq)
+}
+// 指定最小可信度
+val minConfidence = 0.8
+// 采用用最小可信度产生关联规则重新训练
+model.generateAssociationRules(minConfidence).collect().foreach { rule =&gt;
+  println(
+    rule.antecedent.mkString(&quot;[&quot;, &quot;,&quot;, &quot;]&quot;)
+      + &quot; =&gt; &quot; + rule.consequent .mkString(&quot;[&quot;, &quot;,&quot;, &quot;]&quot;)
+      + &quot;, &quot; + rule.confidence)
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/05/fpgroth-suan-fa/" data-id="cjlyw4d38000wjgvazm23c124" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-cong-yi-ci-xia-zai-gong-neng-xue-xi-flux" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/29/cong-yi-ci-xia-zai-gong-neng-xue-xi-flux/" class="article-date">
+  <time datetime="2017-03-29T07:26:39.000Z" itemprop="datePublished">2017-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web/">Web</a>►<a class="article-category-link" href="/categories/Web/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/29/cong-yi-ci-xia-zai-gong-neng-xue-xi-flux/">从一次下载功能学习 Flux</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14907593955561.jpg" alt="">￼</p>
+<p>Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上它是逻辑层，整个flux其实只有两层，负责显示的view和负责逻辑的store。它们之间通过dispatcher的回调连接。</p>
+<p>下面我们看一个实际的例子，marathon的ui层是由flux编写的，在应用的展示界面有个下载日志按钮，如图:<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14907599040005-1.jpg" alt="">￼<br>点击下载按钮即可获得应用的日志文件。这个过程是动态的，即下载连接是通过多次请求拼接而成的。下面我们开始分析源码。首先根据界面上的stdout文字全局搜索找到相关的component（在react里所有view层的组件都统称为component），相关的render函数如下:</p>
+<pre><code> render: function () {
+  // 初始化组件属性
+  var state = this.state;
+  var props = this.props;
+  var name = props.fileName;
+  var file = state.file;
+  var fileIsRequestedByUser = state.fileIsRequestedByUser;
+  var fileRequestFailed = state.fileRequestFailed;
+  var href = &quot;&quot;;
+  var errorMessage = &quot;Sorry there was a problem retrieving file. &quot; +
+    &quot;Click to retry.&quot;;
+
+  // 如果file存在直接取file的下载链接，第一次渲染file为空
+  if (file) {
+    href = file.downloadURI;
+  }
+
+  var iconClassName = classNames(&quot;icon&quot;, &quot;icon-mini&quot;, {
+    &quot;loading&quot;: fileIsRequestedByUser,
+    &quot;warning&quot;: !fileIsRequestedByUser &amp;&amp; fileRequestFailed,
+    &quot;file&quot;: !fileIsRequestedByUser &amp;&amp; !fileRequestFailed
+  });
+
+  return (
+    &lt;TooltipComponent disabled={fileIsRequestedByUser || !fileRequestFailed}
+        message={errorMessage}&gt;
+        // 这里有个关键的 handleClick 处理函数
+      &lt;a href={href} onClick={this.handleClick}&gt;
+        &lt;i className={iconClassName}/&gt; {name}
+      &lt;/a&gt;
+    &lt;/TooltipComponent&gt;
+  );
+}
+</code></pre><p>第一次点击下载日志会被 handleClick 函数拦截，我们看一下具体内容：</p>
+<pre><code>handleClick: function (event) {
+  var file = this.state.file;
+  if(file) {
+    event.preventDefault();
+    let task = this.props.task;
+    // 注册 REQUEST_TASK_FILES_COMPLETE 事件，由 onMesosRequestTaskFilesComplete 函数处理
+    MesosStore.on(MesosEvents.REQUEST_TASK_FILES_COMPLETE,
+      this.onMesosRequestTaskFilesComplete);
+
+  // 注册 REQUEST_TASK_FILES_ERROR 事件，由 onMesosRequestTaskFilesError 函数处理
+    MesosStore.on(MesosEvents.REQUEST_TASK_FILES_ERROR,
+      this.onMesosRequestTaskFilesError);
+    this.setState({
+      fileIsRequestedByUser: true}, 
+
+      // 触发请求下载文件的 Action
+      () =&gt; MesosActions.requestTaskFiles(task.slaveId, task.id));
+  }
+}
+</code></pre><p>首先 handleClick 函数注册了两个事件，分别对应请求文件成功和失败的情况。然后触发了下载文件的具体 Action，即调用了 MesosActions.requestTaskFiles(task.slaveId, task.id))。 这个函数的具体内容如下:</p>
+<pre><code>requestTaskFiles: function (agentId, taskId) {
+  AppDispatcher.dispatchNext({
+    actionType: MesosEvents.REQUEST_TASK_FILES,
+    data: {agentId: agentId, taskId: taskId}
+  });
+}
+</code></pre><p>很简单，Action 将事件的类型和数据打包在一起扔给了 dispatcher ，结合前面的知识：dispatcher 就是一个调度器，存储事件类型和事件响应函数的映射。这个映射关系一般是放在 store 层的，查看 MesosStore 的代码发现映射关系:</p>
+<pre><code>AppDispatcher.register(function (action) {
+  var data = action.data;
+  switch (action.actionType) {
+    case MesosEvents.REQUEST_TASK_FILES:
+      storeData.taskFileRequestQueue.push({
+        agentId: data.agentId,
+        taskId: data.taskId
+      });
+      storeData.info = InfoStore.info;
+      resolveTaskFileRequests();
+      break;
+
+      省略 ... ...
+</code></pre><p>看到这里我们已经发现了请求下载文件的关键部分，dispatcher 会先把数据推到一个队列里，最后调用 MesosStore 的 resolveTaskFileRequests 函数。下面是 resolveTaskFileRequests 具体内容：</p>
+<pre><code>function resolveTaskFileRequests() {
+
+  if (storeData.taskFileRequestQueue.length === 0) {
+    return;
+  }
+
+  if (!storeData.info) {
+    performRequest(INFO_ID,
+      () =&gt; InfoActions.requestInfo(),
+      () =&gt; storeData.taskFileRequestQueue.forEach(rejectFileRequest));
+    return;
+  }
+
+     // 省略 ... ...
+
+    resetRequest(agentId);
+    resetRequest(taskId);
+    // 通知 view 层重新绘制界面
+    resolveFileRequest(fileRequest, queueIndex);
+  });
+}
+</code></pre><p>这段非常长，但是大部分的内容都是在拼接文件下载的 URL ，这里不做过多分析，有兴趣的同学可以自行研究。在这段代码的末尾调用了 resolveFileRequest 函数，它的作用很简单：通知 view 层逻辑处理已经完成了，我们可以重新绘制界面了。</p>
+<pre><code>function resolveFileRequest(fileRequest, queueIndex) {
+  MesosStore.emit(MesosEvents.REQUEST_TASK_FILES_COMPLETE, fileRequest);
+  storeData.taskFileRequestQueue.splice(queueIndex, 1);
+}
+</code></pre><p>这里使用了 emit 方法去通知监听 store 的 component 重新 render。细心的同学已经发现了，这个事件名称就是 component 监听的事件名称，让我们回顾一下：</p>
+<pre><code>MesosStore.on(MesosEvents.REQUEST_TASK_FILES_COMPLETE,
+this.onMesosRequestTaskFilesComplete);
+</code></pre><p>接受到通知后 component 会调用 onMesosRequestTaskFilesComplete 方法：</p>
+<pre><code>onMesosRequestTaskFilesComplete: function (request) {
+  if (!request || request.taskId !== this.props.task.id) {
+    return;
+  }
+
+  // 关键步骤，从 store 层取出更新后的数据
+  let file = this.getFile();
+  let fileIsRequestedByUser = this.state.fileIsRequestedByUser;
+
+  MesosStore.removeListener(MesosEvents.REQUEST_TASK_FILES_COMPLETE,
+    this.onMesosRequestTaskFilesComplete);
+  MesosStore.removeListener(MesosEvents.REQUEST_TASK_FILES_ERROR,
+    this.onMesosRequestTaskFilesError);
+
+  if (file != null &amp;&amp; fileIsRequestedByUser) {
+    window.open(&apos;/html/pailer.html&apos;, file.downloadURI, &apos;width=680px, height=750px&apos;);
+    fileIsRequestedByUser = false;
+  }
+
+  this.setState({
+    file: file,
+    fileIsRequestedByUser: fileIsRequestedByUser,
+    fileRequestFailed: false
+  });
+},
+
+// 关键步骤，从 store 层取出更新后的数据
+getFile: function () {
+  var props = this.props;
+  var task = props.task;
+  var files = MesosStore.getTaskFiles(task.id);
+
+  if (files != null &amp;&amp; files.length) {
+    return files.filter(file =&gt; file.name === props.fileName)[0];
+  }
+
+  return null;
+},
+</code></pre><p>onMesosRequestTaskFilesComplete 做的事情也很简单，从 store 层拿到新的数据并且重新绘图。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>上面这个例子是非常典型的 flux 工作方式，view 专注绘制，store 专注逻辑，两者通过回调和 dispatcher 连接。下面是工作流：</p>
+<pre><code>view render() -&gt; UI // 渲染页面
+
+dispatcher:register -&gt; (Even Name : Callback Function) // store 调用 dispatcher 注册事件
+
+view:handleClick -&gt; view:regist callback funciton -&gt; action:requestTaskFiles -&gt; dispatcher:dispatchNext -&gt; store:resolveTaskFileRequests -&gt; store:emit callback funciton -&gt; view:render
+// view 接受到用户的动作，注册回调，调用 action 触发 store 执行具体业务逻辑，完成后 emit view 的回调，view 重新绘图
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/29/cong-yi-ci-xia-zai-gong-neng-xue-xi-flux/" data-id="cjlyw4d2p0005jgvazidl0wul" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-rong-qi-hua-tan-suo-di-si-pian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/" class="article-date">
+  <time datetime="2017-03-24T05:49:28.000Z" itemprop="datePublished">2017-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>►<a class="article-category-link" href="/categories/Docker/Marathon/">Marathon</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/">工具</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/">容器化探索 第四篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="基础设施"><a href="#基础设施" class="headerlink" title="基础设施"></a>基础设施</h2><p>日志和监控<br>在容器化之前团队采用zabbix做基础服务的监控和告警，一部分错误日志也通过zabbix agent直接抓取。zabbix虽然经常发生一些莫名其妙的小bug，不过总体来说是一套可用的低成本方案。随着容器技术的普及，很多新的运维工具也渐渐出现，这一代的工具通常都是遵循单一职责设计的，采集，过滤，存储，展示，告警，每个环节都有多种方案可供选择。相比于zabbix这种单体应用要灵活许多。</p>
+<p>日志方案采用了传统的ELK技术栈，在容器日志收集这块使用了一个小工具，logspout来进行容器日志的转发。logspout通过监听docker deamon 的socket地址来获取所有运行容器的stdout和stderr信息，它本身不存储日志，准确的讲是一个日志路由工具，对同一条日志可以往多个目标转发。logspout本身有一套扩展机制，可以自行编写插件。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813772624-4.jpg" alt="">￼<br>把所有日志当做事件都往stdout和stderr打，然后通过统一的日志处理系统集中处理，好处是你可以借用工具强大的搜索和分析能力快速得到你想要的信息。坏处是如果日志处理不当，很可能会造成大量的垃圾信息，反而阻碍了故障排查，所以一条有效的日志信息应该包含以下几个方面：</p>
+<ol>
+<li>level:信息等级，INFO\WARM\ERROR</li>
+<li>host:服务器ip</li>
+<li>application:应用名</li>
+<li>file:代码文件名</li>
+<li>line:文件内第几行</li>
+<li>date:时间</li>
+<li>content:内容 <img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813851872-4.jpg" alt="">￼</li>
+</ol>
+<p>指标监控尝试了influxdb和prometheus，两者都非常容易上手，influxdb的集群版是收费的，相比而言prometheus采取支持第三方分布式存储的做法，同时支持告警，开源社区也比较活跃，所以最后还是选择了prometheus。prometheus其实是一整套解决方案，它采取pull的模式周期的去拉export的数据，exporter本身非常简单，只负责把数据转成prometheus的格式暴露到端口即可，所以它们之间完全是松耦合的。任何一个组件挂了都不会对现有的系统造成额外的压力。prometheus本身提供非常多的exporter，可以监控容器，主机，jvm等信息。对于我们而言不太希望在节点上安装太多的exporter，influxdb提供的telegraf很好的解决了这个问题。telegraf集成了非常多的监控来源，同时支持prometheus作为输出端。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813940656-4.jpg" alt="">￼<br>prometheus的功能非常强大，可以支持指标的多种数值运算。查询方面提供了一套DSL即promQL，支持任意维度的过滤，过滤规则支持正则表达式式。甚至我们还可以使用各种函数，对指标进行求速率，求和，取整等操作。<br>支持四则运算<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814232228-4.jpg" alt="">￼<br>支持任意维度过滤<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814325202-4.jpg" alt="">￼</p>
+<p>prometheus的查询功能非常强大，本身也有一个简单的ui，不做作为监控系统的展示层来说还是太弱了。同时我们也行把每个系统零散的监控信息汇总起来，这样我们在排查问题的时候就只需要查看一个平台即可，不需要来回切换浪费时间。Grafana是一款专注展示的开源软件，grafana本身支持插件机制，可以通过社区大量的开源插件来完成信息集成。（推荐使用grafana-xxl，可以省去安装插件的过程。）下面就是grafana集成prometheus的监控界面，同时grafana有支持elasticsearch的集成，这样就可以将指标信息和日志信息集中到一个看板里。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814564269-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814614305-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814656715-4.jpg" alt="">￼</p>
+<p>告警<br>Prometheus周期性进行抓取数据，完成抓取后会检查是否有告警规则并进行计算，满足告警规则就会触发告<br>警，发送到alertmanager。配置报警非常简单，使用指标的表达式配置报警规则，需要指定触发报警的最大持续时间，同时可以设置报警自身的标签方便后续的路由规则设置。 alertmanager支持报警规则的路由，可以定义多条路由将不同标签的报警分类发送，支持报警静默规则的配置，报警渠道支持邮件，短信，webhook。我们最常用的是webhook，接入团队的im工具可以接收到实时的告警信息。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814960095-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814989401-4.jpg" alt="">￼</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>简单小结一下我们团队在进行容器化探索的过程中得到的一些经验：</p>
+<ol>
+<li>在进行技术选型的时候要结合自身的实际情况，最流行的不一定最合适。</li>
+<li>不要盲目相信一个工具能解决所有问题，要给自己留出退路，最好选择开放的，可扩展的工具。</li>
+<li>应用容器化后会带来一些负面影响，团队需要改变以前的运维策略，如果基础设施没有到位不要急着上生产。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/" data-id="cjlyw4d4a002tjgvajhunz5ia" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-rong-qi-hua-tan-suo-di-san-pian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/" class="article-date">
+  <time datetime="2017-03-24T05:49:04.000Z" itemprop="datePublished">2017-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>►<a class="article-category-link" href="/categories/Docker/Marathon/">Marathon</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/">工具</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/">容器化探索 第三篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Marathon"><a href="#Marathon" class="headerlink" title="Marathon"></a>Marathon</h2><p>在marathon上部署一个应用非常简单，你可以选择在界面上编辑，也可以使用它提供的REST接口。实际测试下来ui还是有些不稳定的bug，虽然在ui上操作很直观但在生产环境肯定不能使用有bug的ui。所以我们还是选择使用脚本来控制应用的更新，使用json文件存储应用的定义。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881783619482-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881783680261-4.jpg" alt="">￼</p>
+<p>这里有个坑提一下，新手在部署的时候可能会经常碰到应用的状态显示waitting。这是因为mesos无法响应marathon的资源offer，这个时候你要坚持你的资源配置，比如机器的CPU是不是不够用，另一个常见的原因是mesos把端口当成一种资源，如果你的mesos slave节点在启动的时候没有申明自己的端口范围，很可能<br>应用指定的端口不在默认端口范围里。所以需要在启动的时候指定端口资源范围–resources=’ports(*):[1-32000]‘。</p>
+<p>约束<br>为了防止应用在你的资源池里随意漂移，marathon提供了约束的功能。常见的约束有基于hostname的约束，你可以指定应用跑在一台特定ip的机器上。这点在团队正在向容器化过渡的期间非常有用，我们只是把原来的应用跑在容器里，其他的条件还是和原来一致。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14895651980342-4.jpg" alt="">￼</p>
+<p>另一种约束是基于lable的，你可以在mesos slave启动的时候指定这台slave的lable集合。这样我们就可以在调度的时候指定特定的lable。比如如图所示，指定这个应用跑在机架编号1-3的机器上。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881789831468-4.jpg" alt="">￼</p>
+<p>弹性伸缩<br>弹性伸缩是根据业务需求和策略，自动调整其弹性计算资源的管理服务，达到优化资源组合的服务能力。在业务量上升时增加计算能力，当业务量下降时减小计算能力，以此保障业务系统的稳定性和高可用性，同时节约计算资源成本。弹性伸缩又分为水平伸缩和垂直伸缩，水平伸缩指的是增加更多的机器，增强应用的计算能力来支撑增加的访问量。垂直伸缩指的是增强单机的配置，比如升级cpu核数，或者增加内存，扩展性有限。无状态的应用，比如一般的web应用，把数据存储在数据库和缓存中间件里，在容器化后不依赖具体的机器，这种应用非常适合水平扩展。编排工具最重要的特性也正是提供这种水平扩展的能力，配合前面介绍的约束功能，只需更改实例个数的数值就可以达到水平伸缩的目的。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881791471671-4.jpg" alt="">￼</p>
+<p>负载均衡和服务发现<br>负载均衡和服务发现通常有两种做法，第一种是基于DNS的实现。第二种是在服务前面挂一个proxy。对应的marathon分布提供了mesos-dns和marathon-lb两个工具。<br>Mesos-DNS 提供服务名和ip端口号查询服务，没有负载均衡功。<br>Marathon-lb 监听Marathon的事件总线，提供基于端口号的TCP负载均衡。</p>
+<p>因为dns需要自己实现负载均衡功能，所以我们选择了lb的方案。lb本身是一个haproxy，通过监听marathon的事件总线，lb会动态更新配置文件以达到服务发现的目的。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881794140333-4.jpg" alt="">￼<br>上面提到lb是基于端口的负载均衡，也就是说lb本身是通过端口来区分不同的服务的。打开lb的9090<br>端口，可以看到lb的负载均衡信息，包括对外的服务端口和对应的后台服务的实际ip和端口号。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14895652342125-4.jpg" alt="">￼</p>
+<p>这里还有一个坑，lb通过marathon获取服务的具体ip和端口，也就是说我们要保证marathon能正确获取服务的端口，在网桥模式下我们会指定container port和 host port，但是在host网络模式下没有映射信息，需要我们显示的声明服务需要的端口号，即定义port同时标注我们需要这个端口资源。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881811123179-4.jpg" alt="">￼</p>
+<p>健康检查<br>应用的健康检查是保证服务稳定非常重要的一个功能，传统做法通常是自己编写脚本定期的去轮询健康检查的接口，如果发现接口返回异常需要采取相应的措施，比如重启。marathon也提供类似的健康检查功能，功能非常强大。支持多种协议，包括http/https/tcp，也可以自己编写shell命令进行检查。可以设置应用的启动时间，在这段时间内会忽略健康检查。支持超时设置，检查的时间间隔设置，最大失败次数设置。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813023229-4.jpg" alt="">￼</p>
+<p>健康检查只是第一步，重要的是如何应对健康检查的结果，marathon提供了一套非常完整的应对机制，下图是marathon对于集群不同健康状况采取相应措施的状态转移图。简单解释一下：<br>i代表设置实例数目，r代表集群中正在运行的实例数目，h代表健康的实例数目。<br>r&lt;i 表示运行的实例数目少于设置的实例数目，marathon会进行扩容操作。<br>h!=r ^ r=i 表示实例的运行数目和设置数目一致，但是实例中存在不健康的实例，所以marathon会销毁不健康的实例，此时集群到达 r&lt;i 这个状态。<br>如果扩容非常顺利，所有实例都是健康的，那么集群会达到 r=i ^ h=i 这个整个集群健康的稳态。<br>稳态并不是一成不变，如果运行的实例因为种种原因变得不健康了，即 h!=r，那么marathon也会进行销毁操作剔除不健康的实例，集群再次进入扩容态。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813060727-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813136662-4.jpg" alt="">￼</p>
+<p>更新策略<br>Marathon 可以通过设置upgradeStrategy里的mini和max参数调整升级最小和最大的在线实例与预设值的比例。假设你有一个web应用，在升级过程中你希望集群中保持一定比例的健康实例，这个场景你就可以设置mininumHealthCapacity为一个大于0小于1的小数，marathon会保证集群中存在大于等于这个比例的健康实例。另一场景是在测试环境很多应用本身会有启动失败的情况，如果不采取措施，很快你的集群里就会充满大量已经挂掉的容器。marathon提供了一个重启延迟的功能可以避免上述问题，通过设置backoffSeconds和backoffFactor这两个参数，我们可以控制应用的重启时间间隔。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813317020-4.jpg" alt="">￼</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/" data-id="cjlyw4d47002mjgva4rh1jr82" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

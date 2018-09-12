@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>容器化探索 第三篇 | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Marathon在marathon上部署一个应用非常简单，你可以选择在界面上编辑，也可以使用它提供的REST接口。实际测试下来ui还是有些不稳定的bug，虽然在ui上操作很直观但在生产环境肯定不能使用有bug的ui。所以我们还是选择使用脚本来控制应用的更新，使用json文件存储应用的定义。￼￼ 这里有个坑提一下，新手在部署的时候可能会经常碰到应用的状态显示waitting。这是因为mesos无法响">
+<meta name="keywords" content="Marathon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容器化探索 第三篇">
+<meta property="og:url" content="http://yoursite.com/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="Marathon在marathon上部署一个应用非常简单，你可以选择在界面上编辑，也可以使用它提供的REST接口。实际测试下来ui还是有些不稳定的bug，虽然在ui上操作很直观但在生产环境肯定不能使用有bug的ui。所以我们还是选择使用脚本来控制应用的更新，使用json文件存储应用的定义。￼￼ 这里有个坑提一下，新手在部署的时候可能会经常碰到应用的状态显示waitting。这是因为mesos无法响">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881783619482-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881783680261-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14895651980342-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881789831468-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881791471671-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881794140333-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14895652342125-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881811123179-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813023229-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813060727-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813136662-4.jpg">
+<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813317020-4.jpg">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="容器化探索 第三篇">
+<meta name="twitter:description" content="Marathon在marathon上部署一个应用非常简单，你可以选择在界面上编辑，也可以使用它提供的REST接口。实际测试下来ui还是有些不稳定的bug，虽然在ui上操作很直观但在生产环境肯定不能使用有bug的ui。所以我们还是选择使用脚本来控制应用的更新，使用json文件存储应用的定义。￼￼ 这里有个坑提一下，新手在部署的时候可能会经常碰到应用的状态显示waitting。这是因为mesos无法响">
+<meta name="twitter:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881783619482-4.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-rong-qi-hua-tan-suo-di-san-pian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/" class="article-date">
+  <time datetime="2017-03-24T05:49:04.000Z" itemprop="datePublished">2017-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>►<a class="article-category-link" href="/categories/Docker/Marathon/">Marathon</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/">工具</a>►<a class="article-category-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      容器化探索 第三篇
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Marathon"><a href="#Marathon" class="headerlink" title="Marathon"></a>Marathon</h2><p>在marathon上部署一个应用非常简单，你可以选择在界面上编辑，也可以使用它提供的REST接口。实际测试下来ui还是有些不稳定的bug，虽然在ui上操作很直观但在生产环境肯定不能使用有bug的ui。所以我们还是选择使用脚本来控制应用的更新，使用json文件存储应用的定义。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881783619482-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881783680261-4.jpg" alt="">￼</p>
+<p>这里有个坑提一下，新手在部署的时候可能会经常碰到应用的状态显示waitting。这是因为mesos无法响应marathon的资源offer，这个时候你要坚持你的资源配置，比如机器的CPU是不是不够用，另一个常见的原因是mesos把端口当成一种资源，如果你的mesos slave节点在启动的时候没有申明自己的端口范围，很可能<br>应用指定的端口不在默认端口范围里。所以需要在启动的时候指定端口资源范围–resources=’ports(*):[1-32000]‘。</p>
+<p>约束<br>为了防止应用在你的资源池里随意漂移，marathon提供了约束的功能。常见的约束有基于hostname的约束，你可以指定应用跑在一台特定ip的机器上。这点在团队正在向容器化过渡的期间非常有用，我们只是把原来的应用跑在容器里，其他的条件还是和原来一致。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14895651980342-4.jpg" alt="">￼</p>
+<p>另一种约束是基于lable的，你可以在mesos slave启动的时候指定这台slave的lable集合。这样我们就可以在调度的时候指定特定的lable。比如如图所示，指定这个应用跑在机架编号1-3的机器上。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881789831468-4.jpg" alt="">￼</p>
+<p>弹性伸缩<br>弹性伸缩是根据业务需求和策略，自动调整其弹性计算资源的管理服务，达到优化资源组合的服务能力。在业务量上升时增加计算能力，当业务量下降时减小计算能力，以此保障业务系统的稳定性和高可用性，同时节约计算资源成本。弹性伸缩又分为水平伸缩和垂直伸缩，水平伸缩指的是增加更多的机器，增强应用的计算能力来支撑增加的访问量。垂直伸缩指的是增强单机的配置，比如升级cpu核数，或者增加内存，扩展性有限。无状态的应用，比如一般的web应用，把数据存储在数据库和缓存中间件里，在容器化后不依赖具体的机器，这种应用非常适合水平扩展。编排工具最重要的特性也正是提供这种水平扩展的能力，配合前面介绍的约束功能，只需更改实例个数的数值就可以达到水平伸缩的目的。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881791471671-4.jpg" alt="">￼</p>
+<p>负载均衡和服务发现<br>负载均衡和服务发现通常有两种做法，第一种是基于DNS的实现。第二种是在服务前面挂一个proxy。对应的marathon分布提供了mesos-dns和marathon-lb两个工具。<br>Mesos-DNS 提供服务名和ip端口号查询服务，没有负载均衡功。<br>Marathon-lb 监听Marathon的事件总线，提供基于端口号的TCP负载均衡。</p>
+<p>因为dns需要自己实现负载均衡功能，所以我们选择了lb的方案。lb本身是一个haproxy，通过监听marathon的事件总线，lb会动态更新配置文件以达到服务发现的目的。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881794140333-4.jpg" alt="">￼<br>上面提到lb是基于端口的负载均衡，也就是说lb本身是通过端口来区分不同的服务的。打开lb的9090<br>端口，可以看到lb的负载均衡信息，包括对外的服务端口和对应的后台服务的实际ip和端口号。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14895652342125-4.jpg" alt="">￼</p>
+<p>这里还有一个坑，lb通过marathon获取服务的具体ip和端口，也就是说我们要保证marathon能正确获取服务的端口，在网桥模式下我们会指定container port和 host port，但是在host网络模式下没有映射信息，需要我们显示的声明服务需要的端口号，即定义port同时标注我们需要这个端口资源。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881811123179-4.jpg" alt="">￼</p>
+<p>健康检查<br>应用的健康检查是保证服务稳定非常重要的一个功能，传统做法通常是自己编写脚本定期的去轮询健康检查的接口，如果发现接口返回异常需要采取相应的措施，比如重启。marathon也提供类似的健康检查功能，功能非常强大。支持多种协议，包括http/https/tcp，也可以自己编写shell命令进行检查。可以设置应用的启动时间，在这段时间内会忽略健康检查。支持超时设置，检查的时间间隔设置，最大失败次数设置。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813023229-4.jpg" alt="">￼</p>
+<p>健康检查只是第一步，重要的是如何应对健康检查的结果，marathon提供了一套非常完整的应对机制，下图是marathon对于集群不同健康状况采取相应措施的状态转移图。简单解释一下：<br>i代表设置实例数目，r代表集群中正在运行的实例数目，h代表健康的实例数目。<br>r&lt;i 表示运行的实例数目少于设置的实例数目，marathon会进行扩容操作。<br>h!=r ^ r=i 表示实例的运行数目和设置数目一致，但是实例中存在不健康的实例，所以marathon会销毁不健康的实例，此时集群到达 r&lt;i 这个状态。<br>如果扩容非常顺利，所有实例都是健康的，那么集群会达到 r=i ^ h=i 这个整个集群健康的稳态。<br>稳态并不是一成不变，如果运行的实例因为种种原因变得不健康了，即 h!=r，那么marathon也会进行销毁操作剔除不健康的实例，集群再次进入扩容态。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813060727-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813136662-4.jpg" alt="">￼</p>
+<p>更新策略<br>Marathon 可以通过设置upgradeStrategy里的mini和max参数调整升级最小和最大的在线实例与预设值的比例。假设你有一个web应用，在升级过程中你希望集群中保持一定比例的健康实例，这个场景你就可以设置mininumHealthCapacity为一个大于0小于1的小数，marathon会保证集群中存在大于等于这个比例的健康实例。另一场景是在测试环境很多应用本身会有启动失败的情况，如果不采取措施，很快你的集群里就会充满大量已经挂掉的容器。marathon提供了一个重启延迟的功能可以避免上述问题，通过设置backoffSeconds和backoffFactor这两个参数，我们可以控制应用的重启时间间隔。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813317020-4.jpg" alt="">￼</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/24/rong-qi-hua-tan-suo-di-san-pian/" data-id="cjlyw4d47002mjgva4rh1jr82" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/24/rong-qi-hua-tan-suo-di-si-pian/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          容器化探索 第四篇
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/24/rong-qi-hua-tan-suo-di-er-pian/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">容器化探索 第二篇</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

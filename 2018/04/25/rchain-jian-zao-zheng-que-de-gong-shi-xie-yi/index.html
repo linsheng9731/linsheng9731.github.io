@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Rchain 建造正确的共识协议 | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：￼看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接">
+<meta name="keywords" content="blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rchain 建造正确的共识协议">
+<meta property="og:url" content="http://yoursite.com/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：￼看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15246595078406.jpg">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rchain 建造正确的共识协议">
+<meta name="twitter:description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：￼看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接">
+<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15246595078406.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-rchain-jian-zao-zheng-que-de-gong-shi-xie-yi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/" class="article-date">
+  <time datetime="2018-04-25T12:47:58.000Z" itemprop="datePublished">2018-04-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Rchain 建造正确的共识协议
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15246595078406.jpg" alt="">￼<br>看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接资料中找到有用的信息：</p>
+<ul>
+<li>Vlad Zamfir的介绍：<a href="https://youtu.be/Yo9o5nDTAAQ?t%3D21398&amp;sa=D&amp;ust=1513639850437000&amp;usg=AFQjCNHAVrG0k7-3E1uhvjLaCZM-U0X8Tw" target="_blank" rel="noopener">Casper友好的GHOST</a>;</li>
+<li>RChain开发人员之间的讨论：<a href="https://www.youtube.com/watch?v=qJFCtmlCu-0" target="_blank" rel="noopener">RChain开发人员撤退时的Casper</a>。</li>
+<li><a href="https://blog.coinfund.io/rchain-series-introduction-985a05804ab" target="_blank" rel="noopener">RChain系列</a>：Coinfund的Alex B介绍。</li>
+</ul>
+<p>有了上述的一些知识背景，我们可以开始继续探索。</p>
+<h2 id="正确的建设（CBC）卡斯帕介绍"><a href="#正确的建设（CBC）卡斯帕介绍" class="headerlink" title="正确的建设（CBC）卡斯帕介绍"></a>正确的建设（CBC）卡斯帕介绍</h2><p>正确的设计理念遵循以下步骤：</p>
+<ul>
+<li>为您想要创建的事物提供一个抽象（数学）框架;</li>
+<li>证明在该框架之后的所有事例都具有某些理想的特性（即证明它是正确的）;</li>
+<li>在经过验证的正确框架内创建一个具体的东西，与您的用例相匹配。</li>
+</ul>
+<p>这种方法的主要优点是确保结果具有需要的属性。 而且，在抽象背景下工作意味着步骤1和步骤2如果具有足够的相似性，可以一次解决许多问题。 例如，抽象共识框架不一定需要参考我们正在寻求共识的具体内容; 因此，单一框架可以为许多不同的区块链系统（不管架构）或事实上我们可能希望多方商定的许多不同的区块链系统生成经过验证的正确协议。</p>
+<p>CBC流程前两步的大部分工作已经在分布式，异步，不可靠的共识算法的情况下完成了（细节已经上传到GitHub）。 这项工作是由Vlad Zamfir与Vitalik Buterin，Greg Meredith等人在一个由以太坊基金会发起的研究小组合作完成的。 简而言之，抽象框架将协议本身表示为一种类别，其中对象是协议状态，态射是协议执行，并且定义称为“估计器”的功能，其将协议状态映射到关于共识的可满足的逻辑命题。</p>
+<p>这个框架所具有的一个特性是“共识安全性”。这意味着只要两个协议状态有共同的未来（即有一对协议执行将两个状态带到同一状态），那么任何命题 每个状态都是肯定不能相互矛盾的。 换句话说，共识总是可能的。</p>
+<p>Vlad和其他人也做了一些工作，将他们的框架应用于我们希望区块链达成共识的情况下（论文上传到GitHub）。该工作的一个关键洞察是，如果需要“证明”作为协议的一部分，则可以很容易地检测到某些拜占庭故障（非协议行为），从而为协议提供进一步的安全性。从这个角度来看，这项工作的主要成果是指定一个非常低消息传递开销的异步和拜占庭容错协议。本文还利用最初由Aviv Zohar和Yonatan Sompolinsky开发的“贪婪最重观察子树”（GHOST）分岔选择规则（这是一个100％有目的的双关语）。 GHOST告诉验证者如何根据他们到目前为止收到的信息来决定建立链条的哪个分支。 GHOST本身的细节可以在弗拉德的论文中找到，但这些细节对于本文不是严格必要的。主要思想是根据与验证器相关的一些“权重”计算链条顶部每个块的“分数”，得分最高的块是被选为新块的父块。</p>
+<h2 id="RChain-的-CBC-Casper"><a href="#RChain-的-CBC-Casper" class="headerlink" title="RChain 的 CBC Casper"></a>RChain 的 CBC Casper</h2><p>RChain合作社的开发团队正在以上两个重要和相关的方式构建上述基础性工作：</p>
+<ul>
+<li>一致性正在发生在一个块的有向无环图（blockDAG）上，而不是区块链;</li>
+<li>通过区块确认和政治资本（PC）引入验证人的代理机构。</li>
+</ul>
+<p>第一点意味着一个区块可能有多个父母和多个孩子。 DAG结构允许多个块的确认（按照第二点）。 这反过来又起到“加入”的作用，并允许独立的分支机构可以合并成一个分支机构，从而减少达成共识的时间。</p>
+<p>第二点，验证机构，是以前CBC Casper工作的关键。验证器在块上花费的PC数量对应于GHOST分支选择规则中的权重。因此，拥有更多PC的块更可能仍然是主块DAG的一部分。验证者选择附加到块的PC数量可以被认为是该块成功的“下注”。验证机构的另一方面是确认块的能力。确认声明与新建区块提议不同，不受GHOST分支选择规则的约束，因此验证程序对继续使用哪个blockDAG的分支有更多影响。对块的确认既可以作为支持的表决，也可以作为赢得PC的唯一机制。仅通过确认获得PC是非常重要的，因为这意味着对附加大量PC的新块进行贡献的唯一方式（因此将更有可能保留为主DAG的一部分）是参与共识延长一段时间。</p>
+<p>有关协议的更详细描述可以在RChain的wiki上找到。</p>
+<h2 id="了解代理的影响"><a href="#了解代理的影响" class="headerlink" title="了解代理的影响"></a>了解代理的影响</h2><p>一旦机构被允许进入协议，它基本上变成了一种游戏。 对于诸如RChain之类的股权证明分布式计算平台上的验证器，该游戏的目标是最大化运行智能合约赚取的费用。 这个游戏存在无限多的策略，并不是所有的策略都适合这个网络。 因此，试图确保只有体现所需行为的策略是成功的才是至关重要的。 为此，RChain的Casper模拟引擎已经被编写，以允许尝试不同的策略。 最后，坏角色必须被识别并从网络中解脱出来，但重要的是要首先系统地抑制这种行为，以便为每个人提供更安全的网络。 模拟的目的是帮助我们确保与改善网络的行为相比，不良行为确实是不利的。</p>
+<p>模拟得到的数据使我们能够得出关于协议促进行为的结论。 定量数据可以将数字放在陈述之后，就像某种策略是有利的，告诉我们它可能比其他策略好多少。 另一方面，可视化可以提供定量数据的直觉和更深层的解释 - 两者都很重要。 事实证明，RChain的Casper实现看起来非常酷！</p>
+<p>文章开头处的图像是由仿真生成的，并显示了Casper与三个验证器一起工作。 节点（圆圈）对应于DAG中的块，并根据哪个验证器创建它们来着色。 开始处的单个橙色节点是生成块。 节点的大小与在该块中运行的合同数量成比例（最小的节点没有合同并且是确认）。 箭头是父块指针。 红色箭头对应于主DAG中的连接，由GHOST分支选择规则确定，而黑色箭头被丢弃或尚未决定分支。</p>
+<p>随着仿真和其他基础工作的继续，像这样的未来图片将有助于理解，并因此有助于确保我们开发RChain作为第三代区块链平台的最安全，最高效的（技术上和功耗方面）一致性算法：正式验证， 快速和可扩展。</p>
+<p>要深入了解RChain的CBC Casper方法，请访问开发人员wiki并通过member.rchain.coop以会员身份加入。</p>
+<p>*特别感谢RChain合作社成员为本文的编辑和编辑作出贡献（Vlad Zamfir，Greg Meredith，Lawrence Lerner，Leah McKelvie和Patrick Maguire。）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/" data-id="cjlyw4d3y0025jgvafe88lu3i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Kubernetes 快速上手
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/23/yi-tai-fang-xiang-guan-mi-ma-xue-suan-fa/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">以太坊相关密码学算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Clique共识算法[转载] | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背景在以太坊中，默认使用ethash（pow）共识算法进行网络正确性的保障，这种共识算法采用的是工作量证明的机制，也就是我们所熟知的“挖矿”。 除了主网络，以太坊社区还提供了测试网络供dapp开发者进行开发调试。由于dapp的运行需要消耗一定的gas，在测试网络中进行开发调试，可以帮助开发者节省经济成本。 以太坊的第一个测试网络Morden从2015年7月开始运行，直至2016年的11月，由于不同">
+<meta name="keywords" content="blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clique共识算法[转载]">
+<meta property="og:url" content="http://yoursite.com/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="背景在以太坊中，默认使用ethash（pow）共识算法进行网络正确性的保障，这种共识算法采用的是工作量证明的机制，也就是我们所熟知的“挖矿”。 除了主网络，以太坊社区还提供了测试网络供dapp开发者进行开发调试。由于dapp的运行需要消耗一定的gas，在测试网络中进行开发调试，可以帮助开发者节省经济成本。 以太坊的第一个测试网络Morden从2015年7月开始运行，直至2016年的11月，由于不同">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/pic/clique_authority.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/pic/clique_signer_limit.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/pic/chain_reorg.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/pic/clique_vote.jpeg">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Clique共识算法[转载]">
+<meta name="twitter:description" content="背景在以太坊中，默认使用ethash（pow）共识算法进行网络正确性的保障，这种共识算法采用的是工作量证明的机制，也就是我们所熟知的“挖矿”。 除了主网络，以太坊社区还提供了测试网络供dapp开发者进行开发调试。由于dapp的运行需要消耗一定的gas，在测试网络中进行开发调试，可以帮助开发者节省经济成本。 以太坊的第一个测试网络Morden从2015年7月开始运行，直至2016年的11月，由于不同">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/pic/clique_authority.jpeg">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-clique-gong-shi-suan-fa-zhuan-zai" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/" class="article-date">
+  <time datetime="2018-03-10T06:36:40.000Z" itemprop="datePublished">2018-03-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Clique共识算法[转载]
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在以太坊中，默认使用ethash（pow）共识算法进行网络正确性的保障，这种共识算法采用的是工作量证明的机制，也就是我们所熟知的“挖矿”。</p>
+<p>除了主网络，以太坊社区还提供了测试网络供dapp开发者进行开发调试。由于dapp的运行需要消耗一定的gas，在测试网络中进行开发调试，可以帮助开发者节省经济成本。</p>
+<p>以太坊的第一个测试网络<strong>Morden</strong>从2015年7月开始运行，直至2016年的11月，由于不同客户端之间不共识的问题，导致区块链分叉而被弃用。</p>
+<p>以太坊的第二个测试网络<strong>Ropsten</strong>与此同时被部署，直至运行到2017年的2月，由于测试网络本身算力不足，恶意攻击者在网络中传递巨大的区块数据，导致整体网络瘫痪，造成区块链分叉，测试网络再次不可用。</p>
+<p><strong>Ropsten</strong>网络瘫痪的根本原因是测试网络中没有足够算力来支撑ethash共识算法，导致共识算法失去作用。即便是重新部署一个测试网络，也无法解决该问题，因此，所有工作量证明类的算法都不适用于测试网络。</p>
+<p>自然而然，大家把目光转向了casper（pos）共识算法，但是casper算法距离真正使用仍有一段距离，为了弥补这段时间内的空缺，以太坊go team的leader <em>Péter Szilágyi</em>提出了一种基于认证的共识算法<strong>Clique</strong>。这种算法的原理十分简单，即网络中的每一个区块是由某一个<em>认证节点</em>进行认证的，其他节点仅需要验证<em>认证信息</em>来判断该区块是否合法。</p>
+<h3 id="区块认证"><a href="#区块认证" class="headerlink" title="区块认证"></a>区块认证</h3><h4 id="节点类别"><a href="#节点类别" class="headerlink" title="节点类别"></a>节点类别</h4><p>在介绍算法原理之前，首先介绍一下在clique算法中，节点的分类。</p>
+<p>节点可以分为两类：</p>
+<ul>
+<li>认证节点</li>
+<li>非认证节点</li>
+</ul>
+<p>前者具有为一个区块签名的权利，可以对应pow算法中的矿工节点；</p>
+<p>后者不具备签名的权利，是区块链网络中的普通同步节点；</p>
+<p>两者可以相互转换，而这种<em>动态管理所有认证节点的机制</em>也是clique算法的难点与精髓之一。</p>
+<h4 id="认证原理"><a href="#认证原理" class="headerlink" title="认证原理"></a>认证原理</h4><p>clique中使用的认证原理非常简单，借用了<strong>椭圆曲线数字签名算法</strong>进行实现。</p>
+<p>每一个认证节点，可以利用本地节点的私钥对一个区块的数据进行签名，并将产生的数字签名放置在区块头中；</p>
+<p>其他节点在接收到该区块后，利用数字签名和区块数据反解出签名节点的公钥信息，并截取出相应的节点地址，若该节点地址在本地节点所维护的<em>认证节点列表中</em>，且该区块通过所有共识相关的检测，则认为该区块是合法的；否则就认为接收到了一个恶意区块。</p>
+<p>为了不破坏区块本身的数据结构，clique在实现时复用了之前定义的字段，将认证节点的签名放在区块头的extraData字段中。</p>
+<p><img src="./pic/clique_authority.jpeg" alt=""></p>
+<h4 id="机会均等"><a href="#机会均等" class="headerlink" title="机会均等"></a>机会均等</h4><p>为了使得出块的负载（或者说是机会）对于每个认证节点尽量均等，同时避免某些恶意节点持续出块，clique中规定每一个认证节点在连续的<code>SIGNER_LIMIT</code>个区块中，最多只能签发一个区块，也就是说，每一轮中，最多只有<code>SIGNER_COUNT - SIGNER_LIMIT</code>个认证节点可以参与区块签发。</p>
+<p>其中<code>SIGNER_LIMIT = floor(SIGNER_COUNT / 2) + 1</code>，<code>SIGNER_COUNT</code>表示认证节点的个数。</p>
+<p>这样设计的目的：</p>
+<p>在保证_好<em>节点的个数大于</em>坏<em>节点的前提下，</em>好_节点最少的个数为<code>SIGNER_LIMIT</code>（大于50%），坏节点最多的个数为<code>SIGNER_COUNT - SIGNER_LIMIT</code>（小于50%）。一个节点在<code>SIGNER_LIMIT</code>这个时间窗口内最多只能签发一个区块，这就使得恶意节点在不超过50%的情况下，从理论上无法一直掌握区块的签发权。</p>
+<p><img src="./pic/clique_signer_limit.jpeg" alt=""></p>
+<h4 id="难度计算"><a href="#难度计算" class="headerlink" title="难度计算"></a>难度计算</h4><p>在以太坊中，每个节点都会维护一条<strong>难度总值最大</strong>的区块链作为主链，在其他叉链上的区块成为叔区块。因此为了兼容现有的架构，clique中同样有难度值这个概念。</p>
+<p>为了让每个认证节点都有均等的机会去签发一个区块，每个节点在签发时都会判断本节点是不是本轮的“inturn”节点，若是inturn节点，则该节点产生的区块难度为2，否则为1。每一轮仅有一个节点为inturn节点。</p>
+<p>判断当前节点是否为inturn节点的方法十分简单，将本地维护的认证节点按照字典序排序，若当前区块号除以认证节点个数的余数等于该节点的下标，则该节点为inturn节点。</p>
+<pre><code>// inturn returns if a signer at a given block height is in-turn or not.
+func (s *Snapshot) inturn(number uint64, signer common.Address) bool {
+    signers, offset := s.signers(), 0
+    for offset &lt; len(signers) &amp;&amp; signers[offset] != signer {
+        offset++
+    }
+    return (number % uint64(len(signers))) == uint64(offset)
+}
+</code></pre><p>为inturn节点设计更高难度值的目的是：使得区块链能够朝着某一个方向进行收敛。倘若所有节点签发区块的难度没有区别，则会出现多条难度相同的叉链导致网络无法达成共识。</p>
+<p>但是即便inturn节点能够签发高难度区块，其他节点竟然会参与竞争。这是因为inturn节点可能在此期间处于离线状态，其他节点可以弥补inturn节点的空缺，继续为网络签发区块。不过这也就会导致这一轮可能会有若干条不同状态的区块链产生（因为其他节点签发的难度值相同），这种状态最终会通过下一轮或者下几轮inturn节点签发的高难度区块而达到收敛。</p>
+<p><strong>缺陷</strong></p>
+<p>inturn节点拥有签发高难度区块的权利，从理论上来说，也就是“预定”了本轮区块竞赛最终的胜者会是这个inturn节点，这也是clique算法不完备的地方，恶意攻击者可以预知每一轮的出块者，并且提前向他发起攻击。</p>
+<h4 id="区块分发"><a href="#区块分发" class="headerlink" title="区块分发"></a>区块分发</h4><p>clique算法每一轮出块的间隔时间是可配置的，假设每一轮出块的时间配置为10秒，那么每个认证节点在完成一个区块的签名流程后，会计算当前区块的时间戳，计算方式为父区块的时间加上10秒，并且延迟至该时间才向外广播区块。</p>
+<p>但是在一轮区块竞赛中，网络中会有<code>SIGNER_COUNT</code> - <code>SIGNER_LIMIT</code>个认证节点可以参与签发区块，为了<strong>避免网络拥堵</strong>以及不必要的<strong>区块链重组</strong>，在每个节点完成签发，分发区块之前，采用了非inturn节点延迟分发的优化。</p>
+<p>具体的策略为非inturn节点随机延迟<code>rand(SIGNER_LIMIT)*500ms</code>的时间，而inturn节点不增加额外的延迟时间。</p>
+<pre><code>// Sweet, the protocol permits us to sign the block, wait for our time
+    delay := time.Unix(header.Time.Int64(), 0).Sub(time.Now())
+    if header.Difficulty.Cmp(diffNoTurn) == 0 {
+        // It&apos;s not our turn explicitly to sign, delay it a bit
+        wiggle := time.Duration(len(snap.Signers)/2+1) * wiggleTime
+        delay += time.Duration(rand.Int63n(int64(wiggle)))
+    }
+    select {
+    case &lt;-stop:
+        return nil, nil
+    case &lt;-time.After(delay):
+    }
+</code></pre><blockquote>
+<p>区块链重组：</p>
+<p>由于在以太坊网络中，每个节点接收到不同”矿工“节点产生的区块时间不同，因此可能产生首先接收到了一个难度值较低的区块，随后又接收到了一个难度值更高且处于同一高度的新区块，当发生这种这种情况时，便会进行区块链头部的切换，以总难度值最大的区块链为主链。</p>
+</blockquote>
+<p><img src="./pic/chain_reorg.jpeg" alt=""></p>
+<h4 id="区块验证"><a href="#区块验证" class="headerlink" title="区块验证"></a>区块验证</h4><p>普通节点在收到一个新区块时，会从区块头的extraData字段中取出认证节点的签名，利用标准的<code>spec256k1</code>椭圆曲线进行反解公钥信息，并且从公钥中截取出签发节点的地址，若该节点是认证节点，且该节点本轮拥有签名的权限，则认为该区块为合法区块。</p>
+<h3 id="基于投票的认证节点维护"><a href="#基于投票的认证节点维护" class="headerlink" title="基于投票的认证节点维护"></a>基于投票的认证节点维护</h3><p>clique的区块认证机制十分简单，难点在于如何动态地维护认证节点列表信息。因此，clique中采用了一种基于投票的认证节点维护机制。</p>
+<p>首先先介绍几个基本概念：</p>
+<ul>
+<li><p><strong>signer</strong></p>
+<p>认证节点</p>
+</li>
+<li><p><strong>purposal</strong></p>
+<p>用户可以利用rpc接口发起一次purposal，指定要加入或移除某一个认证节点。一个purposal的结构为（1）需要改变状态的认证节点的地址（2）新状态；</p>
+</li>
+<li><p><strong>vote</strong></p>
+<p>每个<strong>认证节点</strong>在每一轮<strong>签发区块</strong>时，都会从<code>pending</code>的purposal池里随机挑选一个purposal，并将purposal的目标节点地址填在<code>beneficiary</code>字段中，将新状态填在<code>nonce</code>字段中，以此作为一次投票；</p>
+</li>
+<li><p><strong>tally</strong></p>
+<p>每个认证节点本地会维护一个投票结果计数器tally，其中记录了每一个被选举节点（1）新状态&lt;加入或移除&gt; （2）已经获取的票数。一旦获得票数超过半数，就立即更改认证节点的状态；</p>
+</li>
+</ul>
+<p>clique的一次投票流程如下图所示：</p>
+<ol>
+<li>用户通过rpc接口发起一次请求，要求对地址为a的节点进行状态变更，将其从普通节点变为认证节点或者从认证节点变为普通节点。生成的请求会缓存在本地的purposal池中，等待应用；</li>
+<li><strong>本地认证节点</strong>在一次区块打包的过程中，从purposal池中随机挑选一条<em>还未被应用</em>的purposal，并将信息填入区块头，将区块广播给其他节点；</li>
+<li>其他节点在接收到区块后，取出其中的信息，封装成一个vote进行存储，并将投票结果应用到本地，若关于目标节点的状态更改获得的一致投票超过半数，则更改目标节点的状态：<ol>
+<li>若为新增认证节点，将目标节点的地址添加到本地的认证节点的列表中；</li>
+<li>若为删除认证节点，将目标节点的地址从本地的认证节点列表中删除；</li>
+</ol>
+</li>
+</ol>
+<p>较为复杂的情况是删除一个认证节点。由于认证节点的减少，导致之前还未到达共识的purposal由于节点数的减少而达到了一致，也就是说在一次投票应用的过程中，可能会有多个purposal同时达到满足条件，针对这种情况，clique规定在一个投票应用中，只能对<code>beneficiary</code>字段指定的地址进行状态变更，而对于其他的purposal，需要等待到下一次<code>beneficiary</code>与其目标地址一致时才可以被触发。</p>
+<p><img src="./pic/clique_vote.jpeg" alt=""></p>
+<p><strong>注意</strong>：由于可能发生区块链重组的情况，因此即便一个新的认证节点被加入，或者被删除，都有可能发生<strong>回滚</strong>。</p>
+<h4 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h4><p>为了防止某些恶意节点不断地发起purposal，导致每个节点在内存中维护大量的投票统计信息，clique加入了一个checkpoint机制。每隔一个<code>epoch</code>，所有节点将pending状态的投票信息、统计信息都删除，并在这个区块头中填入当前所有认证节点的地址信息，供其他节点进行一次状态同步。</p>
+<p>这样做的优势是：</p>
+<ol>
+<li>避免了维护统计信息无限增大的内存开销；</li>
+<li>使得新加入的节点不必要从头同步区块数据，来重放投票过程生成认证节点地址列表，而直接通过checkpoint的区块获取完整的认证节点地址（例如fast sync）；</li>
+</ol>
+<p><strong>注意</strong>：可以看到，其实与区块数据一样，认证节点信息在各个节点的每一个阶段也都是严格的一致的！换一句话说，认证节点的信息也是<strong>“编码”</strong>在区块信息中的。例如初始的认证节点信息被编码在创世区块的区块头中。所有新加入的节点通过不断重放投票过程可以得到相同的认证节点信息。这也就能够保证新节点加入时，无论采用哪种同步方式（normal, fast, light, warp），都能够在每一个阶段得到一致的结果。</p>
+<h3 id="搭建Clique私有网络"><a href="#搭建Clique私有网络" class="headerlink" title="搭建Clique私有网络"></a>搭建Clique私有网络</h3><p>在介绍了clique算法的实现原理后，在本章中简要介绍一下如何利用<code>puppeth</code>工具快速地搭建一个基于clique共识算法的私有网络。</p>
+<p><strong>准备环境</strong></p>
+<p>首先从<a href="https://ethereum.github.io/go-ethereum/downloads/" target="_blank" rel="noopener">https://ethereum.github.io/go-ethereum/downloads/</a>下载go-ethereum即辅助工具，创建四个节点的目录，并在每个节点目录下创建一个账户。</p>
+<pre><code>mkdir node1 node2 node3 node4
+for i in 1 2 3 4; do geth --datadir node$i/data account new; done
+</code></pre><p><strong>生成genesis文件</strong></p>
+<p>利用puppeth工具生成使用clique算法的genesis文件</p>
+<pre><code>$ puppeth
++-----------------------------------------------------------+
+| Welcome to puppeth, your Ethereum private network manager |
+|                                                           |
+| This tool lets you create a new Ethereum network down to  |
+| the genesis block, bootnodes, miners and ethstats servers |
+| without the hassle that it would normally entail.         |
+|                                                           |
+| Puppeth uses SSH to dial in to remote servers, and builds |
+| its network components out of Docker containers using the |
+| docker-compose toolset.                                   |
++-----------------------------------------------------------+
+
+Please specify a network name to administer (no spaces, please)
+&gt; garden
+
+
+Sweet, you can set this via --network=garden next time!
+
+INFO [11-21|13:42:36] Administering Ethereum network           name=garden
+WARN [11-21|13:42:36] No previous configurations found         path=/Users/gary/.puppeth/garden
+
+What would you like to do? (default = stats)
+ 1. Show network stats
+ 2. Configure new genesis
+ 3. Track new remote server
+ 4. Deploy network components
+&gt; 2
+
+
+Which consensus engine to use? (default = clique)
+ 1. Ethash - proof-of-work
+ 2. Clique - proof-of-authority
+&gt; 2
+
+
+How many seconds should blocks take? (default = 15)
+&gt; 10
+# 选择一个节点账号作为创始的认证节点
+Which accounts are allowed to seal? (mandatory at least one)
+&gt; 0xe4b38fb40123740a6fdce5da8e4faebc663c0b7f
+&gt; 0x
+# 选择若干个账户为其添加初始以太币
+Which accounts should be pre-funded? (advisable at least one)
+&gt; 0xe4b38fb40123740a6fdce5da8e4faebc663c0b7f
+&gt; 0xe29513049a329c1e1e54e366b42434ccf49dcf48
+&gt; 0x
+
+
+Specify your chain/network ID if you want an explicit one (default = random)
+&gt;
+
+Anything fun to embed into the genesis block? (max 32 bytes)
+&gt; None
+</code></pre><p>然后利用puppeth工具导出，即可在当前目录中看到生成的genesis文件。</p>
+<pre><code>What would you like to do? (default = stats)
+ 1. Show network stats
+ 2. Manage existing genesis
+ 3. Track new remote server
+ 4. Deploy network components
+&gt; 2
+
+ 1. Modify existing fork rules
+ 2. Export genesis configuration
+&gt; 2
+
+Which file to save the genesis into? (default = garden.json)
+&gt;
+INFO [11-21|13:46:14] Exported existing genesis block
+</code></pre><p><strong>应用genesis</strong></p>
+<pre><code>for i in 1 2 3 4; do geth --datadir node$i/data init garden.json; done
+</code></pre><p><strong>启动节点</strong></p>
+<p>从genesis文件中查到networkId，并以此启动四个节点（注意网络Id必须与genesis区块中记载的是一致的，且每个node对应的端口号须不一样，unlock的账号也为本节点对应的账号）</p>
+<pre><code>geth --datadir node1/data --networkid 18904 --port 10001 --unlock 139af9691eee4836550461b1b631eee1af958a35 console
+</code></pre><p><strong>添加对端节点</strong></p>
+<p>每个节点在网络中都会有一个唯一的标识enode，该信息可以从节点启动日志中读取。由于目前该网络中没有一个bootnode，因此四个节点即使在同一个网络中，也无法进行互联，所有我们在node2,node3,node4中依次添加node1的信息，使得这三个节点都与node1组成一个星状网络。</p>
+<pre><code>admin.addPeer(&quot;enode://54790190c258daef3b220dfd0ed06233d52cb6ed30eb74c576b739941ad37422bcf895cb06baa975f7f5ad4f69dbea19d7fbe9106cf539adf43d4007b576cacc@127.0.0.1:10001&quot;)
+</code></pre><blockquote>
+<p>注意要把@后的ip地址改为127.0.0.1</p>
+</blockquote>
+<p>完成以后，在node1中查看已经连接的对端点，可以看到已经有三个对端点了</p>
+<pre><code>admin.peers
+</code></pre><p><strong>启动clique</strong></p>
+<p>还记得我们在配置genesis的时候，将节点1中的账户添加到了sealer中了，即node1已经具备了认证区块的资格了，在node1中输入以下命令，node1就开始正常工作了。</p>
+<pre><code>miner.start()
+</code></pre><p><strong>新增认证节点</strong></p>
+<p>目前网络中共有1个认证节点node1，根据算法，只需要超过一半的认证节点同意新增该节点，该节点即可变成一个新的认证节点，因此在这里只需要由node1发起一个purposal，即可添加新的认证节点。</p>
+<pre><code># 将node2添加进认证节点中
+clique.propose(&quot;0xe29513049a329c1e1e54e366b42434ccf49dcf48&quot;, true)
+
+
+cique.getSnapshot()
+{
+  hash: &quot;0x75b5997bc31547aa3cb2d0ccd1de707a0bfc3a827b98c11951dbdce8cbcf72d2&quot;,
+  number: 58,
+  recents: {
+    58: &quot;0xe4b38fb40123740a6fdce5da8e4faebc663c0b7f&quot;
+  },
+  signers: {
+    0xe29513049a329c1e1e54e366b42434ccf49dcf48: {},
+    0xe4b38fb40123740a6fdce5da8e4faebc663c0b7f: {} # node2已经成为了新的认证节点
+  },
+  tally: {},
+  votes: []
+}
+</code></pre><h3 id="作者简介"><a href="#作者简介" class="headerlink" title="作者简介"></a>作者简介</h3><p>戎佳磊，浙江大学VLIS实验室在读研究生。</p>
+<p>以太坊爱好者&amp;贡献者</p>
+<p>趣链科技工程师&amp;hyperchain平台核心开发</p>
+<p><a href="mailto:rongjialei@hyperchain.cn" target="_blank" rel="noopener">rongjialei@hyperchain.cn</a></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ol>
+<li><a href="https://medium.com/taipei-ethereum-meetup/%E4%BD%BF%E7%94%A8-go-ethereum-1-6-clique-poa-consensus-%E5%BB%BA%E7%AB%8B-private-chain-1-4d359f28feff" target="_blank" rel="noopener">https://medium.com/taipei-ethereum-meetup/%E4%BD%BF%E7%94%A8-go-ethereum-1-6-clique-poa-consensus-%E5%BB%BA%E7%AB%8B-private-chain-1-4d359f28feff</a></li>
+<li><a href="https://github.com/ethereum/EIPs/issues/225" target="_blank" rel="noopener">https://github.com/ethereum/EIPs/issues/225</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/10/clique-gong-shi-suan-fa-zhuan-zai/" data-id="cjlyw4d2i0001jgvadw3jtf94" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/10/rchain-rosette-gui-fan-fu-he-gou-zao-compound-cons/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Rchain Rosette规范 复合构造（Compound constructs）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/10/scala-yin-shi-can-shu/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">scala隐式参数</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

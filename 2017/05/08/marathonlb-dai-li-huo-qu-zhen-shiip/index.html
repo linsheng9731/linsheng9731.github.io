@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Marathon-Lb 代理获取真实IP | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在实际的部署场景中有一个很常见的需求：需要根据用户的ip来确定用户的地理信息。所以使用Marathon-lb作为负载均衡需要具备这个能力。查询lb的文档发现提供了这一功能： HAPROXY_BACKEND_HTTP_OPTIONS  Overridable per app  Specified as HAPROXY_BACKEND_HTTP_OPTIONS template or with lab">
+<meta name="keywords" content="Marathon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Marathon-Lb 代理获取真实IP">
+<meta property="og:url" content="http://yoursite.com/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="在实际的部署场景中有一个很常见的需求：需要根据用户的ip来确定用户的地理信息。所以使用Marathon-lb作为负载均衡需要具备这个能力。查询lb的文档发现提供了这一功能： HAPROXY_BACKEND_HTTP_OPTIONS  Overridable per app  Specified as HAPROXY_BACKEND_HTTP_OPTIONS template or with lab">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Marathon-Lb 代理获取真实IP">
+<meta name="twitter:description" content="在实际的部署场景中有一个很常见的需求：需要根据用户的ip来确定用户的地理信息。所以使用Marathon-lb作为负载均衡需要具备这个能力。查询lb的文档发现提供了这一功能： HAPROXY_BACKEND_HTTP_OPTIONS  Overridable per app  Specified as HAPROXY_BACKEND_HTTP_OPTIONS template or with lab">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-marathonlb-dai-li-huo-qu-zhen-shiip" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/" class="article-date">
+  <time datetime="2017-05-08T00:58:26.000Z" itemprop="datePublished">2017-05-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Marathon/">Marathon</a>►<a class="article-category-link" href="/categories/Marathon/技术积累/">技术积累</a>►<a class="article-category-link" href="/categories/Marathon/技术积累/运维/">运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Marathon-Lb 代理获取真实IP
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在实际的部署场景中有一个很常见的需求：需要根据用户的ip来确定用户的地理信息。所以使用Marathon-lb作为负载均衡需要具备这个能力。查询lb的文档发现提供了这一功能：</p>
+<pre><code>HAPROXY_BACKEND_HTTP_OPTIONS
+
+Overridable per app
+
+Specified as HAPROXY_BACKEND_HTTP_OPTIONS template or with label HAPROXY_{n}_BACKEND_HTTP_OPTIONS.
+
+Sets HTTP headers, for example X-Forwarded-For and X-Forwarded-Proto.
+
+Default template for HAPROXY_BACKEND_HTTP_OPTIONS:
+
+  option forwardfor
+  http-request set-header X-Forwarded-Port %[dst_port]
+  http-request add-header X-Forwarded-Proto https if { ssl_fc }
+</code></pre><p>通过设置 option forwardfor 这个参数可以在接受到的请求头里添加 x-forward 参数。X-Forwarded-For 是一个 HTTP 扩展头部,用来表示 HTTP 请求端真实 IP,被各大 HTTP 代理、负载均衡等转发服务广泛使用。X-Forwarded-For 请求头格式非常简单，就这样：</p>
+<p>X-Forwarded-For: client, proxy1, proxy2</p>
+<p>可以看到，XFF 的内容由「英文逗号 + 空格」隔开的多个部分组成，最开始的是离服务端最远的设备 IP，然后是每一级代理设备的 IP。</p>
+<p>如果一个 HTTP 请求到达服务器之前，经过了三个代理 Proxy1、Proxy2、Proxy3，IP 分别为 IP1、IP2、IP3，用户真实 IP 为 IP0，那么按照 XFF 标准，服务端最终会收到以下信息：</p>
+<p>X-Forwarded-For: IP0, IP1, IP2<br>这个选项可以通过设置lb的环境变量开启，也可以通过设置每个app的lable来进行覆盖。注意开启x-forward的app必须设置vhost，这样lb才会使用http协议代理流量，如果不设置vhost，默认是tcp协议，这样就没有http头这一说了。如下，每个app设置自己的vhost：</p>
+<pre><code>&quot;HAPROXY_0_VHOST&quot;:&quot;www.app.com&quot;
+</code></pre><p>最后通过haproxy的config页面验证已经开启了设置：</p>
+<pre><code>backend app_9000
+  balance roundrobin
+  mode http
+  option forwardfor
+  http-request set-header X-Forwarded-Port %[dst_port]
+  http-request add-header X-Forwarded-Proto https if { ssl_fc }
+</code></pre><p>通过tcpdump抓包的方法可以查看请求里的x-forward头：</p>
+<pre><code>tcpdump -A -s 0 &apos;tcp port 9000 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)&apos; -i docker0
+</code></pre><p>附上haproxy的元数据页面：</p>
+<p>Endpoint</p>
+<p>Description</p>
+<p><code>:9090/haproxy?stats</code></p>
+<p>HAProxy stats endpoint. This produces an HTML page which can be viewed in your browser, providing various statistics about the current HAProxy instance.</p>
+<p><code>:9090/haproxy?stats;csv</code></p>
+<p>This is a CSV version of the stats above, which can be consumed by other tools. For example, it’s used in the <a href="zdd.py"><code>zdd.py</code></a> script.</p>
+<p><code>:9090/_haproxy_health_check</code></p>
+<p>HAProxy health check endpoint. Returns <code>200 OK</code> if HAProxy is healthy.</p>
+<p><code>:9090/_haproxy_getconfig</code></p>
+<p>Returns the HAProxy config file as it was when HAProxy was started. Implemented in <a href="getconfig.lua"><code>getconfig.lua</code></a>.</p>
+<p><code>:9090/_haproxy_getvhostmap</code></p>
+<p>Returns the HAProxy vhost to backend map. This endpoint returns HAProxy map file only when the <code>--haproxy-map</code> flag is enabled, it returns an empty string otherwise. Implemented in <a href="getmaps.lua"><code>getmaps.lua</code></a>.</p>
+<p><code>:9090/_haproxy_getappmap</code></p>
+<p>Returns the HAProxy app ID to backend map. Like <code>_haproxy_getvhostmap</code>, this requires the <code>--haproxy-map</code> flag to be enabled and returns an empty string otherwise. Also implemented in <code>getmaps.lua</code>.</p>
+<p><code>:9090/_haproxy_getpids</code></p>
+<p>Returns the PIDs for all HAProxy instances within the current process namespace. This literally returns <code>$(pidof haproxy)</code>. Implemented in <a href="getpids.lua"><code>getpids.lua</code></a>. This is also used by the <a href="zdd.py"><code>zdd.py</code></a> script to determine if connections have finished draining during a deploy.</p>
+<p><code>:9090/_mlb_signal/hup</code>*</p>
+<p>Sends a <code>SIGHUP</code> signal to the marathon-lb process, causing it to fetch the running apps from Marathon and reload the HAProxy config as though an event was received from Marathon.</p>
+<p><code>:9090/_mlb_signal/usr1</code>*</p>
+<p>Sends a <code>SIGUSR1</code> signal to the marathon-lb process, causing it to restart HAProxy with the existing config, without checking Marathon for changes.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/08/marathonlb-dai-li-huo-qu-zhen-shiip/" data-id="cjlyw4d3m001rjgvaia9r4fwz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Marathon/">Marathon</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/13/fibo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Fibo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/14/fu-zai-jun-heng-na-xie-shi/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">负载均衡那些事</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

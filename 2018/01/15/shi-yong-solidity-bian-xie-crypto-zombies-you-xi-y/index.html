@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>使用 Solidity 编写 Crypto Zombies 游戏（一） | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近一款名为以太猫的小游戏火了，以太猫是一款基于以太坊的宠物游戏，用户可以使用以太坊账户生成自己的宠物，每只宠物有自己独特的DNA（一个随机数字）。用户可以通过喂食来养大宠物，同时用户可以出售自己的宠物来赚取以太坊代币。而Crypto Zombies和以太猫一样，也是一款基于以太坊的电子宠物培养游戏，用户使用以太坊来培养僵尸宠物。在Crypto Zombies中给宠物喂食会改变宠物的DNA，从而改">
+<meta name="keywords" content="blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Solidity 编写 Crypto Zombies 游戏（一）">
+<meta property="og:url" content="http://yoursite.com/2018/01/15/shi-yong-solidity-bian-xie-crypto-zombies-you-xi-y/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="最近一款名为以太猫的小游戏火了，以太猫是一款基于以太坊的宠物游戏，用户可以使用以太坊账户生成自己的宠物，每只宠物有自己独特的DNA（一个随机数字）。用户可以通过喂食来养大宠物，同时用户可以出售自己的宠物来赚取以太坊代币。而Crypto Zombies和以太猫一样，也是一款基于以太坊的电子宠物培养游戏，用户使用以太坊来培养僵尸宠物。在Crypto Zombies中给宠物喂食会改变宠物的DNA，从而改">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Solidity 编写 Crypto Zombies 游戏（一）">
+<meta name="twitter:description" content="最近一款名为以太猫的小游戏火了，以太猫是一款基于以太坊的宠物游戏，用户可以使用以太坊账户生成自己的宠物，每只宠物有自己独特的DNA（一个随机数字）。用户可以通过喂食来养大宠物，同时用户可以出售自己的宠物来赚取以太坊代币。而Crypto Zombies和以太猫一样，也是一款基于以太坊的电子宠物培养游戏，用户使用以太坊来培养僵尸宠物。在Crypto Zombies中给宠物喂食会改变宠物的DNA，从而改">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-shi-yong-solidity-bian-xie-crypto-zombies-you-xi-y" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/15/shi-yong-solidity-bian-xie-crypto-zombies-you-xi-y/" class="article-date">
+  <time datetime="2018-01-15T00:28:19.000Z" itemprop="datePublished">2018-01-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>►<a class="article-category-link" href="/categories/BlockChain/技术积累/">技术积累</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 Solidity 编写 Crypto Zombies 游戏（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近一款名为以太猫的小游戏火了，以太猫是一款基于以太坊的宠物游戏，用户可以使用以太坊账户生成自己的宠物，每只宠物有自己独特的DNA（一个随机数字）。用户可以通过喂食来养大宠物，同时用户可以出售自己的宠物来赚取以太坊代币。而Crypto Zombies和以太猫一样，也是一款基于以太坊的电子宠物培养游戏，用户使用以太坊来培养僵尸宠物。在Crypto Zombies中给宠物喂食会改变宠物的DNA，从而改变宠物的外貌，同时Crypto Zombies会有等级系统和格斗系统。</p>
+<p>本文是Crypto Zombies的简单实现，通过solidity编写智能合约。首先介绍一些solidity的基本知识。在solidity里使用contract关键字标示一个智能合约，类似很多语言里的class，一个contract有自己的状态，有独立的命名空间，也有自己的方法。</p>
+<p>一个简单contract：</p>
+<pre><code>pragma solidity ^0.4.19;
+contract ZombieFactory {
+    //start here
+}
+</code></pre><p>第一行是solidity的版本声明，因为以太坊目前还在不断更新，所以solidity 需要一个版本号以便编译器做兼容。第二行使用了contract关键字来声明一个智能合约。</p>
+<p>和主流语言一样，solidity支持常见的运算符：<br>1. 加法: x + y<br>2. 减法: x - y,<br>3. 乘法: x * y<br>4. 除法: x / y<br>5. 取模运算: x % y<br>6. 指数运算：**</p>
+<p>支持多种变量声明：<br>1. uint(uint8,uint32)<br>2. string<br>3. address<br>4. struct</p>
+<p>uint是整数，可以选择uint8或者uint32来控制大小，这在定义struct结构体的时候比较有用，因为在以太坊中struct中uint成员越小消耗的gas越低。string是字符串类型。address是一个比较特殊的类型，表示一个账户地址。struct和其他语言的结构体类似，是一种自定义的数据结构。</p>
+<p>数组定义：<br>在类型后面加上中括号就是数组的定义，uint[],string[],address[]。使用push方法可以往数组里添加元素。</p>
+<p>申明一个函数：<br>Solidity使用function关键字声明一个函数，函数的定义需要指定入参，也可以指定返回值，函数可见性，装饰器。</p>
+<p>有了以上的知识，我们就可以创建一个 ZombieFactory 的智能合约，用于生产 Zombie宠物。<br>zombieFactory.sol</p>
+<pre><code>pragma solidity ^0.4.19;
+
+contract ZombieFactory {
+    // 限制DNA的长度
+    uint dnaDigits = 16;
+    uint dnaModulus = 10 ** dnaDigits;
+
+    // 每次创建一个新的Zombie会发出一个事件
+    event NewZombie(uint zombieId, string name, uint dna);
+
+    // 使用struct定义Zombie
+    struct Zombie {
+        string name;
+        uint dna;
+    }
+    // 使用一个数组来记录所有生成的Zombie
+    Zombie[] public zombies;
+
+    // 声明一个创建Zombie的函数
+    function createZombie(string _name, uint _dna) {
+        zombies.push(Zombie(_name, _dna));
+        // 发出一个事件
+        NewZombie(id, _name, _dna);
+    }
+
+    // 声明一个生产随机DNA的函数 使用private规定函数的可见性，使用view表示函数只查看数据不修改数据。
+    function _generateRandomDna(string _str) private view returns (uint) {
+        uint rand = uint(keccak256(_str));
+        return rand % dnaModulus;
+    }
+
+    // 调用_generateRandomDna和createZombie生成Zomobie     
+    function createRandomZombie(string _name) public {
+        uint randDna = _generateRandomDna(_name);
+        _createZombie(_name, randDna);
+    }
+
+
+}
+</code></pre><p>上面的代码就是我们的智能合约ZombieFactory，通过命令行编译后得到智能合约的api，部署到主网后得到智能合约的地址。使用web3.js可以从前端发起智能合约的调用。捕捉用户输入参数，调用createRandomZombie方法生成一个带有随机DNA的Zombie。</p>
+<p>前端调用：</p>
+<pre><code>// 智能合约编译后得到的abi
+var abi = myAbi
+var ZombieFactoryContract = web3.eth.contract(abi)
+// 智能合约部署后得到的账户地址
+var contractAddress = myAddress
+// 生成一个智能合约对象
+var ZombieFactory = ZombieFactoryContract.at(contractAddress)
+// 捕捉用户点击事件
+$(&quot;#ourButton&quot;).click(function(e) {
+  var name = $(&quot;#nameInput&quot;).val()
+  // 调用智能合约的方法
+  ZombieFactory.createRandomZombie(name)
+})
+</code></pre><p>这里有个小问题：web3.js是如何捕获返回的结果呢？Solidity使用了一种消息通知的机制，因为区块链系统不是一个高吞吐的系统，不能立马返回结果，所以只能依靠这种异步的方式处理。使用event关键字声明一个事件，在事件发生处通过类似调用函数的语法来触发一个事件。</p>
+<pre><code>// 每次创建一个新的Zombie会发出一个事件
+event NewZombie(uint zombieId, string name, uint dna);
+
+function createZombie(string _name, uint _dna) {
+   zombies.push(Zombie(_name, _dna));
+   // 触发一个事件
+   NewZombie(id, _name, _dna);
+}
+</code></pre><p>前端监听智能合约提供的事件：</p>
+<pre><code>// 监听智能合约的NewZombie事件
+var event = ZombieFactory.NewZombie(function(error, result) {
+  if (error) return
+  generateZombie(result.zombieId, result.name, result.dna)
+})
+</code></pre><p>到此已经完成了一个简单的Crypto Zombies游戏原型，下一篇文章会介绍更多的solidity特性，以便我们丰富这个游戏的内容。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/15/shi-yong-solidity-bian-xie-crypto-zombies-you-xi-y/" data-id="cjlyw4d4r003rjgva4ile39s0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/16/shi-yong-solidity-bian-xie-crypto-zombies-you-xi-e/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用 Solidity 编写 Crypto Zombies 游戏（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/12/qu-kuai-lian-gong-shi-suan-fa/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">区块链共识算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

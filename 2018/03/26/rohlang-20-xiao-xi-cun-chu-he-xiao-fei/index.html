@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Rohlang 2.0 消息存储和消费 | 记录是为了更好的创造</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当通过通道发送数据时，默认行为是发送的数据和消费者获取数据都是短暂的，即数据在读取后从通道中消失，并且数据的使用者恰好从通道读取一次。 这是我们迄今为止所看到的行为，与基础微积分完全相同。 然而，我们也提供了语法糖允许数据，获取数据，或两者都是持久的，从而产生了相当有趣和实用的模式，允许通道模仿例如数据流和内存存储。 本节介绍不同的组合，并解释它们如何脱离默认行为。 为了清楚起见，我们考虑所有满足">
+<meta name="keywords" content="blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rohlang 2.0 消息存储和消费">
+<meta property="og:url" content="http://yoursite.com/2018/03/26/rohlang-20-xiao-xi-cun-chu-he-xiao-fei/index.html">
+<meta property="og:site_name" content="记录是为了更好的创造">
+<meta property="og:description" content="当通过通道发送数据时，默认行为是发送的数据和消费者获取数据都是短暂的，即数据在读取后从通道中消失，并且数据的使用者恰好从通道读取一次。 这是我们迄今为止所看到的行为，与基础微积分完全相同。 然而，我们也提供了语法糖允许数据，获取数据，或两者都是持久的，从而产生了相当有趣和实用的模式，允许通道模仿例如数据流和内存存储。 本节介绍不同的组合，并解释它们如何脱离默认行为。 为了清楚起见，我们考虑所有满足">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-09-12T08:32:59.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rohlang 2.0 消息存储和消费">
+<meta name="twitter:description" content="当通过通道发送数据时，默认行为是发送的数据和消费者获取数据都是短暂的，即数据在读取后从通道中消失，并且数据的使用者恰好从通道读取一次。 这是我们迄今为止所看到的行为，与基础微积分完全相同。 然而，我们也提供了语法糖允许数据，获取数据，或两者都是持久的，从而产生了相当有趣和实用的模式，允许通道模仿例如数据流和内存存储。 本节介绍不同的组合，并解释它们如何脱离默认行为。 为了清楚起见，我们考虑所有满足">
+  
+    <link rel="alternate" href="/atom.xml" title="记录是为了更好的创造" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">记录是为了更好的创造</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-rohlang-20-xiao-xi-cun-chu-he-xiao-fei" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/26/rohlang-20-xiao-xi-cun-chu-he-xiao-fei/" class="article-date">
+  <time datetime="2018-03-26T06:19:00.000Z" itemprop="datePublished">2018-03-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlockChain/">BlockChain</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Rohlang 2.0 消息存储和消费
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当通过通道发送数据时，默认行为是发送的数据和消费者获取数据都是短暂的，即数据在读取后从通道中消失，并且数据的使用者恰好从通道读取一次。 这是我们迄今为止所看到的行为，与基础微积分完全相同。 然而，我们也提供了语法糖允许数据，获取数据，或两者都是持久的，从而产生了相当有趣和实用的模式，允许通道模仿例如数据流和内存存储。</p>
+<p>本节介绍不同的组合，并解释它们如何脱离默认行为。 为了清楚起见，我们考虑所有满足如下形式的情况：</p>
+<pre><code>data consumer  |  data producer
+</code></pre><p><strong>一次性数据，一次性消费</strong><br>这是标准过程演算表达式，其中数据和数据消费都是一次性的。 也就是说，消费者只使用一次该频道，并且一旦读取了频道，数据就会从频道中删除：</p>
+<pre><code>for(v &lt;- channel) { P }  |  channel!(Q)
+</code></pre><p><strong>数据持久，一次性消费</strong><br>这意味着该通道被用作仅附加值的一组数值，也就是在读取数据之后，每个值仍保留在通道中。</p>
+<pre><code>for(v &lt;- channel) { P }  |  channel!!(Q)
+</code></pre><p>然而，在某些情况下，消费者如果能够简单的查看通道里的一个值会很有用处，即使通道没有保存这个值。通过使用接收然后重新发送操作符&lt;！可以实现这个功能 ，如下所示：</p>
+<pre><code>for(v &lt;! channel) { P }  |  channel(Q)
+</code></pre><p>这个操作其实是下面语法的语法糖包装：</p>
+<pre><code>for(v &lt;- channel) { channel!(*v) | P }  |  channel(Q)
+</code></pre><p>当然，对于数据和消费的持久性可以同时存在。 生产者和消费者都希望确保价值将留在渠道中，他们表示为：</p>
+<pre><code>for(v &lt;! channel) { P  } |  channel!!(Q)
+</code></pre><p>结合之前的例子，这种组合其实是下面语法的语法糖：</p>
+<pre><code>for(v &lt;- channel) { channel!(*v) | P }  |  channel!!(Q)
+</code></pre><p><strong>数据短暂，固定消费</strong><br>如果消费者希望以流的形式监听通道，希望对收到的每条消息执行相同的消费。换句话说，消费路径应该被保存下来。 箭头&lt;=表示保存消费路径。</p>
+<pre><code>for(v &lt;= channel) { P }  |  channel!(Q)
+</code></pre><p><strong>数据持久，固定消费</strong><br>最后，我们来看看数据和消费都应该持续下去的情况。下面的式子表达了一个无限的计算：</p>
+<pre><code>for(v &lt;= channel) { P }  |  channel!!(Q)
+</code></pre><p>也就是说，应该通过频道无限次地发送相同的值，并且它应该阅读并无限次地传递给消费者。注意这个式子：</p>
+<pre><code>for(v &lt;= channel) { P }  |  channel!!(Q)  |  channel!!(Q&apos;)
+</code></pre><p>是数据值Q和Q’以及连续P都保持的过程。另一方面，程序员可能需要在这个过程中，持续等待某个其他通道上的信号，然后才处理数据：</p>
+<pre><code>for (_ &lt;= signal) { for (v &lt;- channel) { P }  |  channel!(Q)  }
+</code></pre><p>每次在信号通道上收到一条消息，一个新的一次性消费和一个产生新的短暂数据值。</p>
+<p><strong>串行通信</strong><br>如果事先具体知道一个列表，可以通过一条消息发送它：</p>
+<pre><code>for (@list &lt;- channel) { print!(list) }  |  channel!([4, 5, 6])
+</code></pre><p>如果列表一次生成一个词，整个过程变得更加复杂：</p>
+<pre><code>new printEach, iterate, channel, ack in {
+           contract printEach() = {
+               for (@item, @done &lt;- channel) {
+                     print!(item, *ack) |
+                     if (done) { printEach() } 
+                     else { Nil } 
+                     }
+                }  |
+
+contract iterate(@list, @i, @limit) = { 
+         channel!(list[i], i &lt; limit) |
+               for(_ &lt;- ack) {
+                if (i &lt; limit) { 
+                   iterate(list, i + 1, limit) 
+                } else { Nil }
+              } 
+            }|
+printEach()  |  iterate([4, 5, 6], 0, 3) }
+</code></pre><p>这种模式非常普遍，下面是语法糖：</p>
+<pre><code>for ( v, ack &lt;&lt; channel ) { P }
+</code></pre><p>反解得到：</p>
+<pre><code>for(ack &lt; channel){
+    ack!()
+    new left in {
+        for(_&lt;=left){
+            for(v,keepGoing &lt;- channel){
+                P|
+                if(keepGoing){left!()} else{Nil}
+                }
+            }
+        }
+    }
+</code></pre><p>上述过程首先会等待通道ack的消息，然后等待由v和keepGoing返回的数值。P运算得到v和ack返回的消息后进行处理，但是剩余部分是否会继续，得由返回的keepGoing字段来决定。</p>
+<p>同样，列表有一个与上面的代码交互的迭代方法，如下所示：</p>
+<pre><code>contract iterate(channel) = {
+    new ack,right in {
+        channel!(*acik)|
+        for(_&lt;-ack){
+            for(@i,@limit &lt;= right){
+                channel!(Coll[i],i&lt;limit)|
+                for(_&lt;-ack){
+                    if(i&lt;limit){right(i+1, limit)}else{Nil}
+                    }
+                }|
+                right(0,Coll.size)
+            }
+        }
+    }
+</code></pre><p>所以下面的式子：</p>
+<pre><code>for ( v, ack &lt;&lt; channel ) { print!(*v, *ack) }  |  [4, 5, 6].iterate(*channel)
+</code></pre><p>调用了“print”三次，每次调用4,5和6. Sets和Maps的方法返回可以调用迭代方法的数据列表。</p>
+<p><strong>原语和外部扩展</strong><br>所有值，如布尔值，整数，字符串，日期时间，URI和这些的集合都是过程。这意味着@57, @”joe”, @(123, false), @{“hello” =&gt; “world”}等都是进程，可以进行通信。请注意，语法规则阻止进程P在@P上进行侦听，因此@57与57号进行通信没有任何意义。<br>函数可以作为进程的输入和返回通道，然后将结果发送到返回通道。 例如，JavaScript函数</p>
+<pre><code>function inc(x) { return x+1; }
+</code></pre><p>可以像下面这样嵌入Rholang：</p>
+<pre><code>contract inc(@x, ret) = { ret!(x + 1) }.
+</code></pre><p>Rholang语法中没有明确规定外部函数。 相反，平台可能会将功能公开为特殊的<em>public names</em>。 请注意，我们可以通过使用类型系统来限制这些<em>public names</em>的权限。 例如，如果我们坚持认为一段代码仅在@private命名空间中的名称上进行通信，那么代码可以使用<em>public names</em>的唯一方式是通过代理进程来监听转发给<em>public names</em>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/26/rohlang-20-xiao-xi-cun-chu-he-xiao-fei/" data-id="cjlyw4d44002fjgva24nktrf9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/31/han-shu-shi-bian-cheng-gai-nian/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          函数式编程概念
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/24/ying-yong-ceng-huan-cun/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">应用层缓存</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/工具/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/技术积累/">技术积累</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Marathon/工具/技术积累/">技术积累</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/">Marathon</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Marathon/技术积累/运维/">运维</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/Web/技术积累/未分类/">未分类</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/">技术积累</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/技术积累/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/运维/">运维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术积累/">技术积累</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/收藏/">收藏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marathon/">Marathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rchain/">rchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术文档/">技术文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Marathon/" style="font-size: 16px;">Marathon</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/golang/" style="font-size: 12px;">golang</a> <a href="/tags/rchain/" style="font-size: 10px;">rchain</a> <a href="/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/技术文档/" style="font-size: 14px;">技术文档</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/logo/">Logo</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/11/yi-tai-fang-ri-zhi/">以太坊日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/kubernetes-kuai-su-shang-shou/">Kubernetes 快速上手</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/">Rchain 建造正确的共识协议</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Damon Lin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
