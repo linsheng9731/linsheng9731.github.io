@@ -14,13 +14,13 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="选择一个编排工具刚开始测试容器的时候，大部分情况都是开发人员自己编写一些脚本来控制容器的分发，创建和销毁。没过多久我们就发现我们需要一个统一的编排工具来规范流程，减少自己造轮子的情况。我们把目光放在了业内最流行的三款编排工具上，他们分别是docker官方支持的swarm，源自google的kubernetes以及mesos资源调度框架marathon。选工具是非常主观的事情，不管一个开源项目本身宣">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881765783131-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881776781486-4.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.266Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-46.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-47.png">
+<meta property="og:updated_time" content="2018-09-12T11:28:59.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="容器化探索 第二篇">
 <meta name="twitter:description" content="选择一个编排工具刚开始测试容器的时候，大部分情况都是开发人员自己编写一些脚本来控制容器的分发，创建和销毁。没过多久我们就发现我们需要一个统一的编排工具来规范流程，减少自己造轮子的情况。我们把目光放在了业内最流行的三款编排工具上，他们分别是docker官方支持的swarm，源自google的kubernetes以及mesos资源调度框架marathon。选工具是非常主观的事情，不管一个开源项目本身宣">
-<meta name="twitter:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881765783131-4.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-46.png">
     
     
         
@@ -175,10 +175,11 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="选择一个编排工具"><a href="#选择一个编排工具" class="headerlink" title="选择一个编排工具"></a>选择一个编排工具</h2><p>刚开始测试容器的时候，大部分情况都是开发人员自己编写一些脚本来控制容器的分发，创建和销毁。没过多久我们就发现我们需要一个统一的编排工具来规范流程，减少自己造轮子的情况。我们把目光放在了业内最流行的三款编排工具上，他们分别是docker官方支持的swarm，源自google的kubernetes以及mesos资源调度框架marathon。选工具是非常主观的事情，不管一个开源项目本身宣传的理念有多好，最终都要实际上手一遍才会知道和自身的实际情况是否匹配。这里我们先抓取了这三个项目在github上的一些信息，结合自身的实践来做一个以我们团队视角的主观评价。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881765783131-4.jpg" alt="">￼</p>
-<p>swarm：架构最简单，部署最快，关注度随着docker的官方支持上升较快。缺点是docker团队刚投入研发没多久，没有大规模经过生产考验。同时最新的swarm和docker绑定在了一起，升级是个问题。</p>
+    <h2 id="选择一个编排工具"><a href="#选择一个编排工具" class="headerlink" title="选择一个编排工具"></a>选择一个编排工具</h2><p>刚开始测试容器的时候，大部分情况都是开发人员自己编写一些脚本来控制容器的分发，创建和销毁。没过多久我们就发现我们需要一个统一的编排工具来规范流程，减少自己造轮子的情况。我们把目光放在了业内最流行的三款编排工具上，他们分别是docker官方支持的swarm，源自google的kubernetes以及mesos资源调度框架marathon。选工具是非常主观的事情，不管一个开源项目本身宣传的理念有多好，最终都要实际上手一遍才会知道和自身的实际情况是否匹配。这里我们先抓取了这三个项目在github上的一些信息，结合自身的实践来做一个以我们团队视角的主观评价。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-46.png" alt="uploaded!"><br>swarm：架构最简单，部署最快，关注度随着docker的官方支持上升较快。缺点是docker团队刚投入研发没多久，没有大规模经过生产考验。同时最新的swarm和docker绑定在了一起，升级是个问题。</p>
 <p>kubernetes：过去的一年里编排工具最闪耀的明星肯定是kubernetes，kubernetes受到的关注度和他的竞争对手完全不在一个量级。kubernetes的理念非常适合微服务的架构，Pod，Service，Cluster IP，ReplicationController。然而我们在实际使用后发现复杂度过高，组件过于分散，调试起来非常麻烦。去年 Kubernetes 推出了 kubeadm，很大程度的降低了部署的复杂度。但易用度上和 Swarm 以及 marathon都还是有差距。让我们放弃kubernetes的另一个原因是kubernetes对大数据的支持力度不够，从长远来看我们需要做大数据应用的容器化。虽然最近听到社区有kubernetes-mesos这种企图将两者的长处合并的项目，不过现在还完全不成气候。</p>
-<p>marathon：与单台主机的调度问题相比，跨集群之间的调度会更加复杂。单台主机的调度重点关注少数CPU上如何运行尽可能多线程和进程的问题，保证单个进程不会运行太长时间并且确保进程能命中资源。分布式背景下的调度问题要复杂的多，因为主机之间的网络交互会有延迟，和kubernetes不同，mesos是以资源为基础进行调度，关注点在资源分配上。mesos本身只维护集群资源，然后基于优势资源公平算法觉得把资源分配给哪个服务框架。所以mesos不关心资源分配的细节，细节都交给二次调度框架。marathon就是一个构建在mesos之上的二次资源调度系统，marathon的架构非常简单，是典型的master-slave架构，本身依赖zookeeper实现HA。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881776781486-4.jpg" alt="">￼<br>marathon的开发时间是最早的，在2013年就开始研发。同时他也是最早到达生成可用的，使用marathon的大公司最著名就是推特了，所以稳定性方面有保证。另一个很重要的原因就是之前提到的，mesos和spark集成非常友好，mesophere最近推出基于marathon的DCOS就是抓住了这个卖点，将业务系统和大数据系统跑在同一个集群上。这对成本压缩非常有好处，因为这两类系统的资源利用时间正好错峰，业务系统一般在白天达到请求的峰值，而大数据系统则在夜晚才会开始计算当天的数据。同时marathon本身是scala编写的，ui是react编写的，前面也介绍过我们团队的技术背景了，和我们的技术栈非常吻合，有利于二次开发。</p>
+<p>marathon：与单台主机的调度问题相比，跨集群之间的调度会更加复杂。单台主机的调度重点关注少数CPU上如何运行尽可能多线程和进程的问题，保证单个进程不会运行太长时间并且确保进程能命中资源。分布式背景下的调度问题要复杂的多，因为主机之间的网络交互会有延迟，和kubernetes不同，mesos是以资源为基础进行调度，关注点在资源分配上。mesos本身只维护集群资源，然后基于优势资源公平算法觉得把资源分配给哪个服务框架。所以mesos不关心资源分配的细节，细节都交给二次调度框架。marathon就是一个构建在mesos之上的二次资源调度系统，marathon的架构非常简单，是典型的master-slave架构，本身依赖zookeeper实现HA。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-47.png" alt="uploaded!"><br>marathon的开发时间是最早的，在2013年就开始研发。同时他也是最早到达生成可用的，使用marathon的大公司最著名就是推特了，所以稳定性方面有保证。另一个很重要的原因就是之前提到的，mesos和spark集成非常友好，mesophere最近推出基于marathon的DCOS就是抓住了这个卖点，将业务系统和大数据系统跑在同一个集群上。这对成本压缩非常有好处，因为这两类系统的资源利用时间正好错峰，业务系统一般在白天达到请求的峰值，而大数据系统则在夜晚才会开始计算当天的数据。同时marathon本身是scala编写的，ui是react编写的，前面也介绍过我们团队的技术背景了，和我们的技术栈非常吻合，有利于二次开发。</p>
 
   </div>
 </article>

@@ -14,14 +14,14 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="前言GrowingIO是基于用户行为的新一代数据分析产品，提供全球领先的数据采集和分析技术。作为一个创业公司我们时刻面临着业务的快速变化和规模的快速增长，所以团队在系统设计之初就采用了微服务的架构，获得良好的可扩展性。但是随着时间的推移，微服务的缺点也渐渐体现：  系统架构过于复杂，随着时间推移运维成本会逐渐增加。 传统的运维方式可复制性不高，环境迁移和横向扩展带来的成本过高。 资源利用率低，大量">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881733287563-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881739908490-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881749003402-4.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.266Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-43.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-44.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-45.png">
+<meta property="og:updated_time" content="2018-09-12T11:28:35.763Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="容器化探索 第一篇">
 <meta name="twitter:description" content="前言GrowingIO是基于用户行为的新一代数据分析产品，提供全球领先的数据采集和分析技术。作为一个创业公司我们时刻面临着业务的快速变化和规模的快速增长，所以团队在系统设计之初就采用了微服务的架构，获得良好的可扩展性。但是随着时间的推移，微服务的缺点也渐渐体现：  系统架构过于复杂，随着时间推移运维成本会逐渐增加。 传统的运维方式可复制性不高，环境迁移和横向扩展带来的成本过高。 资源利用率低，大量">
-<meta name="twitter:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881733287563-4.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-43.png">
     
     
         
@@ -183,12 +183,15 @@
 <li>资源利用率低，大量的专有机器。</li>
 </ol>
 <p>这些问题都会导致研发效率下降。作为一个中小型团队，我们经过了半年的探索，使用容器相关技术来搭建团队内部的私有PASS，取得了良好的效果。在继续分享前，我先简单介绍一下我们团队的技术栈，我们是一家大数据创业公司，整个技术组织架构分为三层，分别是前端，服务端，数据端。前端使用react框架开发，服务端和数据端统一采用了scala的技术栈，服务端采取微服务的架构。</p>
-<h2 id="迈出第一步"><a href="#迈出第一步" class="headerlink" title="迈出第一步"></a>迈出第一步</h2><p>容器化的第一步当然是把应用打包成一个镜像，我们尝试了两种方案。第一种是比较常见的做法，把编译环境和打包的依赖全部放到容器里。比如下面这个镜像的Dockerfile就是包含了所有的环境和编译过程。这个方案的好处是能做到百分之百复现一个镜像，因为没有任何外部依赖。坏处也很明显，对于依赖非常庞大的语言，比如java和scala，这种方案的编译速度非常慢，尤其是scala本身的编译速度并不快，这种方案对我们来说太重了。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881733287563-4.jpg" alt="">￼<br>第二种方案也是我们现在采用的方案是在宿主机打包，镜像只提供基础的运行环境。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881739908490-4.jpg" alt="">￼<br>这种做法的优点是速度和原生编译一样，缺点是对宿主机的环境会有一定的要求。因为我们的团队规模不大，所以固定配置几台打包的机器完全是可行的，相反如果开发人员因为要把应用放到容器里运行，就得牺牲大量的时间在编译上，肯定是无法让人接受的。</p>
+<h2 id="迈出第一步"><a href="#迈出第一步" class="headerlink" title="迈出第一步"></a>迈出第一步</h2><p>容器化的第一步当然是把应用打包成一个镜像，我们尝试了两种方案。第一种是比较常见的做法，把编译环境和打包的依赖全部放到容器里。比如下面这个镜像的Dockerfile就是包含了所有的环境和编译过程。这个方案的好处是能做到百分之百复现一个镜像，因为没有任何外部依赖。坏处也很明显，对于依赖非常庞大的语言，比如java和scala，这种方案的编译速度非常慢，尤其是scala本身的编译速度并不快，这种方案对我们来说太重了。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-43.png" alt="uploaded!"><br>第二种方案也是我们现在采用的方案是在宿主机打包，镜像只提供基础的运行环境。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-44.png" alt="uploaded!"><br>这种做法的优点是速度和原生编译一样，缺点是对宿主机的环境会有一定的要求。因为我们的团队规模不大，所以固定配置几台打包的机器完全是可行的，相反如果开发人员因为要把应用放到容器里运行，就得牺牲大量的时间在编译上，肯定是无法让人接受的。</p>
 <h2 id="管理配置"><a href="#管理配置" class="headerlink" title="管理配置"></a>管理配置</h2><p>应用容器化后碰到的第一个问题肯定是配置管理问题。总结一下我们尝试过的方案：</p>
 <ol>
 <li>使用专门的配置管理中心，比如etcd，consul。应用需要编写配置管理逻辑，需要额外开发工作。应用和环境多了以后使用界面来回切换编辑非常笨拙。好处是能够做到实时配置的更改。</li>
-<li>使用环境变量，大部分语言和工具都会对环境变量提供支持，比如typesafe的config和Openresty的conf，就算不支持也可以在应用启动的时候通过entrypoint脚本对配置文件进行渲染替换。启动后无法再更新配置，配置更改后需要重新启动应用。好处是工作量比较轻，结合具体的编排工具可以很方便的管理不同环境的配置。 <img src="http://121.40.171.175/wp-content/uploads/2017/03/14881749003402-4.jpg" alt="">￼</li>
+<li>使用环境变量，大部分语言和工具都会对环境变量提供支持，比如typesafe的config和Openresty的conf，就算不支持也可以在应用启动的时候通过entrypoint脚本对配置文件进行渲染替换。启动后无法再更新配置，配置更改后需要重新启动应用。好处是工作量比较轻，结合具体的编排工具可以很方便的管理不同环境的配置。</li>
 </ol>
+<p><img src="https://linsheng9731.github.io/images/pasted-45.png" alt="uploaded!"></p>
 <p>最后我们结合了两种方案的优点，consul管理需要热更新的配置项，大部分固定的配置通过环境变量注入。下一篇会探索编排工具的内容。</p>
 
   </div>

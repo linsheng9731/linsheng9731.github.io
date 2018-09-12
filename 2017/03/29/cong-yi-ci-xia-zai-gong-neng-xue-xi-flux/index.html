@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。￼ Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上它">
+    <meta name="description" content="Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。   Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上">
 <meta name="keywords" content="Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从一次下载功能学习 Flux">
 <meta property="og:url" content="https://linsheng9731.github.io/2017/03/29/cong-yi-ci-xia-zai-gong-neng-xue-xi-flux/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。￼ Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上它">
+<meta property="og:description" content="Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。   Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14907593955561.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14907599040005-1.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-76.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-77.png">
+<meta property="og:updated_time" content="2018-09-12T11:33:51.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从一次下载功能学习 Flux">
-<meta name="twitter:description" content="Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。￼ Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上它">
-<meta name="twitter:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14907593955561.jpg">
+<meta name="twitter:description" content="Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。   Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-76.png">
     
     
         
@@ -175,9 +175,10 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14907593955561.jpg" alt="">￼</p>
-<p>Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上它是逻辑层，整个flux其实只有两层，负责显示的view和负责逻辑的store。它们之间通过dispatcher的回调连接。</p>
-<p>下面我们看一个实际的例子，marathon的ui层是由flux编写的，在应用的展示界面有个下载日志按钮，如图:<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14907599040005-1.jpg" alt="">￼<br>点击下载按钮即可获得应用的日志文件。这个过程是动态的，即下载连接是通过多次请求拼接而成的。下面我们开始分析源码。首先根据界面上的stdout文字全局搜索找到相关的component（在react里所有view层的组件都统称为component），相关的render函数如下:</p>
+    <p>Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-76.png" alt="uploaded!"><br>Flux的核心概念都在上面这张图里了，最中心的是dispatcher，它主要负责管理store注册的回调函数。store这个名词让人很困惑，乍一看是存数据的地方，类似mvc的model层。事实上它是逻辑层，整个flux其实只有两层，负责显示的view和负责逻辑的store。它们之间通过dispatcher的回调连接。</p>
+<p>下面我们看一个实际的例子，marathon的ui层是由flux编写的，在应用的展示界面有个下载日志按钮，如图:  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-77.png" alt="uploaded!"><br>点击下载按钮即可获得应用的日志文件。这个过程是动态的，即下载连接是通过多次请求拼接而成的。下面我们开始分析源码。首先根据界面上的stdout文字全局搜索找到相关的component（在react里所有view层的组件都统称为component），相关的render函数如下:</p>
 <pre><code> render: function () {
   // 初始化组件属性
   var state = this.state;

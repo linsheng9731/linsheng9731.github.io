@@ -14,13 +14,13 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="FP-Growth算法的任务是找出数据集中的频繁项集，假设有一组购物车的数据： Tid items 1 apple,meat,egg 2 apple,beer,diaper 3 apple,beer,harm 4 diaper,beer tid 代表交易流水号，items代表购物车里的商品信息。算法总共分两步：（1）FP-Tree构建 （2）FP-Tree上频繁项挖掘 FP-Tee 构造 扫描一遍">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/04/14909407433995.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/04/14909395614501.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-74.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-75.png">
+<meta property="og:updated_time" content="2018-09-12T11:33:33.179Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FP-Groth 算法">
 <meta name="twitter:description" content="FP-Growth算法的任务是找出数据集中的频繁项集，假设有一组购物车的数据： Tid items 1 apple,meat,egg 2 apple,beer,diaper 3 apple,beer,harm 4 diaper,beer tid 代表交易流水号，items代表购物车里的商品信息。算法总共分两步：（1）FP-Tree构建 （2）FP-Tree上频繁项挖掘 FP-Tee 构造 扫描一遍">
-<meta name="twitter:image" content="http://121.40.171.175/wp-content/uploads/2017/04/14909407433995.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-74.png">
     
     
         
@@ -189,8 +189,9 @@
 <p>tid 代表交易流水号，items代表购物车里的商品信息。<br>算法总共分两步：（1）FP-Tree构建 （2）FP-Tree上频繁项挖掘</p>
 <h2 id="FP-Tee-构造"><a href="#FP-Tee-构造" class="headerlink" title="FP-Tee 构造"></a>FP-Tee 构造</h2><ol>
 <li>扫描一遍全数据，找到频繁项列表L，进入L列表的规则是起码超过两次出现在不同的Tid里。所以上面数据里的meat和egg，harm就被删除了。剩下的item统计其出现的次数得到列表 L: (apple:3, beer:3,diaper:2)</li>
-<li>再次扫面全数据，由每比交易构建FP-Tree，过程如下： 1 设置 FP-Tree 根节点为null。 2 读取数据按照列表 L 的顺序将每个项排序。第一笔交易排序后得到：{apple}，第二笔交易排序后得到：{apple, beer,diaper}，第三笔得到：{beer,diaper}。 通过这些路径我们可以构造出一个树： <img src="http://121.40.171.175/wp-content/uploads/2017/04/14909407433995.jpg" alt="">￼ 把同一个层次的节点相同item合并后得到FP-Tree如下： <img src="http://121.40.171.175/wp-content/uploads/2017/04/14909395614501.jpg" alt="">￼ 下一步是寻找每个项的条件模式基（CPB），比如diaper的CPB是除了diaper本身的前缀路径，即：beer:1,apple/beer:1两项。统计所有项的CPB得到下表:</li>
+<li>再次扫面全数据，由每比交易构建FP-Tree，过程如下： 1 设置 FP-Tree 根节点为null。 2 读取数据按照列表 L 的顺序将每个项排序。第一笔交易排序后得到：{apple}，第二笔交易排序后得到：{apple, beer,diaper}，第三笔得到：{beer,diaper}。 通过这些路径我们可以构造出一个树：<br><img src="https://linsheng9731.github.io/images/pasted-74.png" alt="uploaded!"><br>把同一个层次的节点相同item合并后得到FP-Tree如下： </li>
 </ol>
+<p><img src="https://linsheng9731.github.io/images/pasted-75.png" alt="uploaded!"><br>￼ 下一步是寻找每个项的条件模式基（CPB），比如diaper的CPB是除了diaper本身的前缀路径，即：beer:1,apple/beer:1两项。统计所有项的CPB得到下表:</p>
 <p>item</p>
 <p>CPB</p>
 <p>diaper</p>

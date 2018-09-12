@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。￼上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。下面这张图是一个">
+    <meta name="description" content="Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。   上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。下面这张图是">
 <meta name="keywords" content="Ansible">
 <meta property="og:type" content="article">
 <meta property="og:title" content="更好的组织任务 - Ansible Roles">
 <meta property="og:url" content="https://linsheng9731.github.io/2017/03/24/geng-hao-de-zu-zhi-ren-wu-ansible-roles/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。￼上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。下面这张图是一个">
+<meta property="og:description" content="Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。   上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。下面这张图是">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14903278835833.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14903279001279.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.266Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-41.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-42.png">
+<meta property="og:updated_time" content="2018-09-12T11:25:55.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="更好的组织任务 - Ansible Roles">
-<meta name="twitter:description" content="Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。￼上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。下面这张图是一个">
-<meta name="twitter:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14903278835833.jpg">
+<meta name="twitter:description" content="Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。   上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。下面这张图是">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-41.png">
     
     
         
@@ -175,7 +175,9 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14903278835833.jpg" alt="">￼<br>上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。<br>下面这张图是一个简单role文件夹下面的内容，files目录存放和role相关的文件，tasks目录存放role的主要执行步骤，templates目录存放role的执行步骤需要的模板文件。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14903279001279.jpg" alt="">￼<br>ansible会自动搜索这些目录下的内容，这个是一种约定，不需要使用者做额外的声明。举个例子，jdk这个role里有一步是上传jdk安装包，那么我们可以在task.yml文件里这样使用文件：</p>
+    <p>Ansible 提供一种名为roles的组织方式，可以更好的编写大型部署工程。Roles简单来讲就是把集群里的每个软件都当成最小单元，即一个role来组织所有和该软件相关的内容。比如jdk就是一个role，所有和jdk安装过程相关的内容聚集到一个文件夹下面。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-41.png" alt="uploaded!"><br>上图是ansible工程里roles文件夹下的内容，可以看到这个工程是由一个个role组成的，这样的组织形式非常清晰可维护。<br>下面这张图是一个简单role文件夹下面的内容，files目录存放和role相关的文件，tasks目录存放role的主要执行步骤，templates目录存放role的执行步骤需要的模板文件。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-42.png" alt="uploaded!"><br>ansible会自动搜索这些目录下的内容，这个是一种约定，不需要使用者做额外的声明。举个例子，jdk这个role里有一步是上传jdk安装包，那么我们可以在task.yml文件里这样使用文件：</p>
 <pre><code>- name: upload jdk tar ball by { { delegated_uploader }}
   synchronize: src=jdk-{ { jdk_version }}-linux-x64.tar.gz dest=/tmp
 </code></pre><p>可以看到files文件夹下的文件是可以直接引用的。同样的规则也适用模板文件，我们可以直接在任务里使用在templates目录下的模板文件。</p>

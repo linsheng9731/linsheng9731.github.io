@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Merkle Tree（默尔克树 比特币）默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。￼如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔交易">
+    <meta name="description" content="Merkle Tree（默尔克树 比特币）默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。   如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔">
 <meta name="keywords" content="blockchain">
 <meta property="og:type" content="article">
 <meta property="og:title" content="以太坊存储体系">
 <meta property="og:url" content="https://linsheng9731.github.io/2018/01/12/yi-tai-fang-cun-chu-ti-xi/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="Merkle Tree（默尔克树 比特币）默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。￼如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔交易">
+<meta property="og:description" content="Merkle Tree（默尔克树 比特币）默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。   如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15090723026362.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15090765422679.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-72.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-73.png">
+<meta property="og:updated_time" content="2018-09-12T11:32:53.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊存储体系">
-<meta name="twitter:description" content="Merkle Tree（默尔克树 比特币）默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。￼如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔交易">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15090723026362.jpg">
+<meta name="twitter:description" content="Merkle Tree（默尔克树 比特币）默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。   如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-72.png">
     
     
         
@@ -175,7 +175,8 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="Merkle-Tree（默尔克树-比特币）"><a href="#Merkle-Tree（默尔克树-比特币）" class="headerlink" title="Merkle Tree（默尔克树 比特币）"></a>Merkle Tree（默尔克树 比特币）</h2><p>默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15090723026362.jpg" alt="">￼<br>如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔交易。merkle tree 只存储hash，也就是上图红色的部分。默尔克树的特点是可以根据某个叶子hash值，以及一条路径来证明这个叶子节点是否存在于这棵树中。在比特币中就是用于证明一笔交易是否存在于一个区块里，以此来判断交易是否生效。</p>
+    <h2 id="Merkle-Tree（默尔克树-比特币）"><a href="#Merkle-Tree（默尔克树-比特币）" class="headerlink" title="Merkle Tree（默尔克树 比特币）"></a>Merkle Tree（默尔克树 比特币）</h2><p>默尔克树是比特币采用的交易存储结构，比特币使用这个结构的目的是用于轻量客户端的快速验证。默尔克树的叶子节点为文件块（一笔交易信息），每个文件块进行hash计算的到transaction id。两两一对，将得到的hash值再次进行hash计算，重复上述步骤，直到得到root hash,即整棵树的根节点。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-72.png" alt="uploaded!"><br>如果叶子节点是奇数，那么复制最后一笔交易得到偶数笔交易。merkle tree 只存储hash，也就是上图红色的部分。默尔克树的特点是可以根据某个叶子hash值，以及一条路径来证明这个叶子节点是否存在于这棵树中。在比特币中就是用于证明一笔交易是否存在于一个区块里，以此来判断交易是否生效。</p>
 <h2 id="SPV"><a href="#SPV" class="headerlink" title="SPV"></a>SPV</h2><p>上面说了，默尔克树的作用就是用于快速验证，全称 Simplified Payment Verification(简单支付验证)。所以接下来我们来介绍一下SPV是什么东西。<br>下面是SPV验证支付的简化流程：<br>1. spv client通过bloom filter向相邻全节点注册本身感兴趣的地址。<br>2. 如果有相关的交易和注册的地址相关，全节点通知spv。<br>3. 从网络上获取并保存最长链的所有block header至本地<br>4. 下载包含transaction的完整区块BLK1<br>5. 通过完整区块BLK1生成merkle tree MT1<br>6. 通过对比MT1和本地header列表里的merkle tree来验证MT1存在本地的header列表里。<br>7. 根据该block header所处的位置，确定该交易已经得到多少个确认。<br>8. 不断更新本地block header列表，重复6-8步骤，直到深度达到安全要求。</p>
 <p>第一步需要解释一下，因为spv不需要监听所有账户的变化，如果监听所有账户的余额变化会给全节点造成很大的压力。所以spv会使用bloom filter去过滤地址。全节点通过spv发送来的bloom filter来筛选地址。但是这里的bloom filter也不是完全准确的，因为完全准确的地址会泄露spv的隐私信息。</p>
 <p>简单说就是通过默尔克树来生成一个验证数据，spv只需要下载交易头就能做验证。这么做的优点是极大地节省存储空间。减轻终端用户的负担。无论未来的交易量有多大，block header的大小始终不变，只有80字节。按照每小时6个的出块速度，每年产出52560个区块。当只保存block header时，每年新增的存储需求约为4兆字节，100年后累计的存储需求仅为400兆，即使用户使用的是最低端的设备，正常情况下也完全能够负载。</p>
@@ -194,7 +195,8 @@
     valueNode []byte
 )
 </code></pre><p>value编码总共有三种类型：<br>* null 末节点<br>* k-v数组 [[k,v],[k,v]…] 存储叶子节点<br>* [v0,v1…,v15,vt] 17个值，vt是存储值的，代表branch节点</p>
-<p>world state trie 示意图：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15090765422679.jpg" alt="">￼</p>
+<p>world state trie 示意图：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-73.png" alt="uploaded!"></p>
 <p>trie.go tryGet 代码</p>
 <pre><code>func (t *Trie) tryGet(origNode node, key []byte, pos int) (value []byte, newnode node, didResolve bool, err error) {
     switch n := (origNode).(type) {

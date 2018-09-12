@@ -14,21 +14,21 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="基础设施日志和监控在容器化之前团队采用zabbix做基础服务的监控和告警，一部分错误日志也通过zabbix agent直接抓取。zabbix虽然经常发生一些莫名其妙的小bug，不过总体来说是一套可用的低成本方案。随着容器技术的普及，很多新的运维工具也渐渐出现，这一代的工具通常都是遵循单一职责设计的，采集，过滤，存储，展示，告警，每个环节都有多种方案可供选择。相比于zabbix这种单体应用要灵活许多">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813772624-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813851872-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813940656-4.jpg">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-60.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-61.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-62.png">
 <meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881814232228-4.jpg">
 <meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881814325202-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881814564269-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881814614305-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881814656715-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881814960095-4.jpg">
-<meta property="og:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881814989401-4.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.266Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-63.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-64.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-65.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-66.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-67.png">
+<meta property="og:updated_time" content="2018-09-12T11:31:38.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="容器化探索 第四篇">
 <meta name="twitter:description" content="基础设施日志和监控在容器化之前团队采用zabbix做基础服务的监控和告警，一部分错误日志也通过zabbix agent直接抓取。zabbix虽然经常发生一些莫名其妙的小bug，不过总体来说是一套可用的低成本方案。随着容器技术的普及，很多新的运维工具也渐渐出现，这一代的工具通常都是遵循单一职责设计的，采集，过滤，存储，展示，告警，每个环节都有多种方案可供选择。相比于zabbix这种单体应用要灵活许多">
-<meta name="twitter:image" content="http://121.40.171.175/wp-content/uploads/2017/03/14881813772624-4.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-60.png">
     
     
         
@@ -184,7 +184,8 @@
 
   <div class="content" itemprop="articleBody">
     <h2 id="基础设施"><a href="#基础设施" class="headerlink" title="基础设施"></a>基础设施</h2><p>日志和监控<br>在容器化之前团队采用zabbix做基础服务的监控和告警，一部分错误日志也通过zabbix agent直接抓取。zabbix虽然经常发生一些莫名其妙的小bug，不过总体来说是一套可用的低成本方案。随着容器技术的普及，很多新的运维工具也渐渐出现，这一代的工具通常都是遵循单一职责设计的，采集，过滤，存储，展示，告警，每个环节都有多种方案可供选择。相比于zabbix这种单体应用要灵活许多。</p>
-<p>日志方案采用了传统的ELK技术栈，在容器日志收集这块使用了一个小工具，logspout来进行容器日志的转发。logspout通过监听docker deamon 的socket地址来获取所有运行容器的stdout和stderr信息，它本身不存储日志，准确的讲是一个日志路由工具，对同一条日志可以往多个目标转发。logspout本身有一套扩展机制，可以自行编写插件。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813772624-4.jpg" alt="">￼<br>把所有日志当做事件都往stdout和stderr打，然后通过统一的日志处理系统集中处理，好处是你可以借用工具强大的搜索和分析能力快速得到你想要的信息。坏处是如果日志处理不当，很可能会造成大量的垃圾信息，反而阻碍了故障排查，所以一条有效的日志信息应该包含以下几个方面：</p>
+<p>日志方案采用了传统的ELK技术栈，在容器日志收集这块使用了一个小工具，logspout来进行容器日志的转发。logspout通过监听docker deamon 的socket地址来获取所有运行容器的stdout和stderr信息，它本身不存储日志，准确的讲是一个日志路由工具，对同一条日志可以往多个目标转发。logspout本身有一套扩展机制，可以自行编写插件。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-60.png" alt="uploaded!"><br>把所有日志当做事件都往stdout和stderr打，然后通过统一的日志处理系统集中处理，好处是你可以借用工具强大的搜索和分析能力快速得到你想要的信息。坏处是如果日志处理不当，很可能会造成大量的垃圾信息，反而阻碍了故障排查，所以一条有效的日志信息应该包含以下几个方面：</p>
 <ol>
 <li>level:信息等级，INFO\WARM\ERROR</li>
 <li>host:服务器ip</li>
@@ -192,11 +193,17 @@
 <li>file:代码文件名</li>
 <li>line:文件内第几行</li>
 <li>date:时间</li>
-<li>content:内容 <img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813851872-4.jpg" alt="">￼</li>
+<li>content:内容 </li>
 </ol>
-<p>指标监控尝试了influxdb和prometheus，两者都非常容易上手，influxdb的集群版是收费的，相比而言prometheus采取支持第三方分布式存储的做法，同时支持告警，开源社区也比较活跃，所以最后还是选择了prometheus。prometheus其实是一整套解决方案，它采取pull的模式周期的去拉export的数据，exporter本身非常简单，只负责把数据转成prometheus的格式暴露到端口即可，所以它们之间完全是松耦合的。任何一个组件挂了都不会对现有的系统造成额外的压力。prometheus本身提供非常多的exporter，可以监控容器，主机，jvm等信息。对于我们而言不太希望在节点上安装太多的exporter，influxdb提供的telegraf很好的解决了这个问题。telegraf集成了非常多的监控来源，同时支持prometheus作为输出端。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881813940656-4.jpg" alt="">￼<br>prometheus的功能非常强大，可以支持指标的多种数值运算。查询方面提供了一套DSL即promQL，支持任意维度的过滤，过滤规则支持正则表达式式。甚至我们还可以使用各种函数，对指标进行求速率，求和，取整等操作。<br>支持四则运算<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814232228-4.jpg" alt="">￼<br>支持任意维度过滤<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814325202-4.jpg" alt="">￼</p>
-<p>prometheus的查询功能非常强大，本身也有一个简单的ui，不做作为监控系统的展示层来说还是太弱了。同时我们也行把每个系统零散的监控信息汇总起来，这样我们在排查问题的时候就只需要查看一个平台即可，不需要来回切换浪费时间。Grafana是一款专注展示的开源软件，grafana本身支持插件机制，可以通过社区大量的开源插件来完成信息集成。（推荐使用grafana-xxl，可以省去安装插件的过程。）下面就是grafana集成prometheus的监控界面，同时grafana有支持elasticsearch的集成，这样就可以将指标信息和日志信息集中到一个看板里。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814564269-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814614305-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814656715-4.jpg" alt="">￼</p>
-<p>告警<br>Prometheus周期性进行抓取数据，完成抓取后会检查是否有告警规则并进行计算，满足告警规则就会触发告<br>警，发送到alertmanager。配置报警非常简单，使用指标的表达式配置报警规则，需要指定触发报警的最大持续时间，同时可以设置报警自身的标签方便后续的路由规则设置。 alertmanager支持报警规则的路由，可以定义多条路由将不同标签的报警分类发送，支持报警静默规则的配置，报警渠道支持邮件，短信，webhook。我们最常用的是webhook，接入团队的im工具可以接收到实时的告警信息。<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814960095-4.jpg" alt="">￼<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814989401-4.jpg" alt="">￼</p>
+<p><img src="https://linsheng9731.github.io/images/pasted-61.png" alt="uploaded!"><br>指标监控尝试了influxdb和prometheus，两者都非常容易上手，influxdb的集群版是收费的，相比而言prometheus采取支持第三方分布式存储的做法，同时支持告警，开源社区也比较活跃，所以最后还是选择了prometheus。prometheus其实是一整套解决方案，它采取pull的模式周期的去拉export的数据，exporter本身非常简单，只负责把数据转成prometheus的格式暴露到端口即可，所以它们之间完全是松耦合的。任何一个组件挂了都不会对现有的系统造成额外的压力。prometheus本身提供非常多的exporter，可以监控容器，主机，jvm等信息。对于我们而言不太希望在节点上安装太多的exporter，influxdb提供的telegraf很好的解决了这个问题。telegraf集成了非常多的监控来源，同时支持prometheus作为输出端。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-62.png" alt="uploaded!"><br>prometheus的功能非常强大，可以支持指标的多种数值运算。查询方面提供了一套DSL即promQL，支持任意维度的过滤，过滤规则支持正则表达式式。甚至我们还可以使用各种函数，对指标进行求速率，求和，取整等操作。<br>支持四则运算<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814232228-4.jpg" alt="">￼<br>支持任意维度过滤<br><img src="http://121.40.171.175/wp-content/uploads/2017/03/14881814325202-4.jpg" alt="">￼</p>
+<p>prometheus的查询功能非常强大，本身也有一个简单的ui，不做作为监控系统的展示层来说还是太弱了。同时我们也行把每个系统零散的监控信息汇总起来，这样我们在排查问题的时候就只需要查看一个平台即可，不需要来回切换浪费时间。Grafana是一款专注展示的开源软件，grafana本身支持插件机制，可以通过社区大量的开源插件来完成信息集成。（推荐使用grafana-xxl，可以省去安装插件的过程。）下面就是grafana集成prometheus的监控界面，同时grafana有支持elasticsearch的集成，这样就可以将指标信息和日志信息集中到一个看板里。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-63.png" alt="uploaded!"></p>
+<p><img src="https://linsheng9731.github.io/images/pasted-64.png" alt="uploaded!"></p>
+<p><img src="https://linsheng9731.github.io/images/pasted-65.png" alt="uploaded!"></p>
+<p>告警<br>Prometheus周期性进行抓取数据，完成抓取后会检查是否有告警规则并进行计算，满足告警规则就会触发告<br>警，发送到alertmanager。配置报警非常简单，使用指标的表达式配置报警规则，需要指定触发报警的最大持续时间，同时可以设置报警自身的标签方便后续的路由规则设置。 alertmanager支持报警规则的路由，可以定义多条路由将不同标签的报警分类发送，支持报警静默规则的配置，报警渠道支持邮件，短信，webhook。我们最常用的是webhook，接入团队的im工具可以接收到实时的告警信息。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-66.png" alt="uploaded!"></p>
+<p><img src="https://linsheng9731.github.io/images/pasted-67.png" alt="uploaded!"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>简单小结一下我们团队在进行容器化探索的过程中得到的一些经验：</p>
 <ol>
 <li>在进行技术选型的时候要结合自身的实际情况，最流行的不一定最合适。</li>

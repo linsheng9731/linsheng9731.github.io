@@ -14,15 +14,15 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="拜占庭将军问题共识算法是区块链技术的核心，共识算法的目的是让全网达成存储上的一致。在一个分布式的环境下如何能让独立的几点达成状态上的一致呢？因为节点是独立的，节点之间通过网络通信，这种情况下会有很多干扰因素，比如网络的中断或者延迟，某几个参与节点宕机。这个问题最早是由莱斯利·兰伯特提出，并且给它取名为：拜占庭将军问题（Byzantine failures）。含义是在存在消息丢失的不可靠信道上试图通">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15157392891214.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15157392305410.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15157394213395.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15157394397043.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.267Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-68.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-69.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-70.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-71.png">
+<meta property="og:updated_time" content="2018-09-12T11:32:31.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="区块链共识算法">
 <meta name="twitter:description" content="拜占庭将军问题共识算法是区块链技术的核心，共识算法的目的是让全网达成存储上的一致。在一个分布式的环境下如何能让独立的几点达成状态上的一致呢？因为节点是独立的，节点之间通过网络通信，这种情况下会有很多干扰因素，比如网络的中断或者延迟，某几个参与节点宕机。这个问题最早是由莱斯利·兰伯特提出，并且给它取名为：拜占庭将军问题（Byzantine failures）。含义是在存在消息丢失的不可靠信道上试图通">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/01/15157392891214.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-68.png">
     
     
         
@@ -178,7 +178,8 @@
 
   <div class="content" itemprop="articleBody">
     <h2 id="拜占庭将军问题"><a href="#拜占庭将军问题" class="headerlink" title="拜占庭将军问题"></a>拜占庭将军问题</h2><p>共识算法是区块链技术的核心，共识算法的目的是让全网达成存储上的一致。在一个分布式的环境下如何能让独立的几点达成状态上的一致呢？因为节点是独立的，节点之间通过网络通信，这种情况下会有很多干扰因素，比如网络的中断或者延迟，某几个参与节点宕机。这个问题最早是由莱斯利·兰伯特提出，并且给它取名为：拜占庭将军问题（Byzantine failures）。含义是在存在消息丢失的不可靠信道上试图通过消息传递的方式达到一致性是不可能的。因此对一致性的研究一般假设信道是可靠的。</p>
-<p>为了解决这个问题，陆续出现了几个算法，最著名的是Paxos算法，zookeeper使用的就是Paxos。因为Paxos较为复杂，难以理解，难以实现，所以后来有人简化了Paxos，提出了Raft一致性算法。这两个算法都是主从算法，节点会有角色区分，主节点负责写入，从节点负责复制备份，如果主节点挂了会有个选举的过程重新选出主节点，保证集群的可用性。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15157392891214.jpg" alt="">￼</p>
+<p>为了解决这个问题，陆续出现了几个算法，最著名的是Paxos算法，zookeeper使用的就是Paxos。因为Paxos较为复杂，难以理解，难以实现，所以后来有人简化了Paxos，提出了Raft一致性算法。这两个算法都是主从算法，节点会有角色区分，主节点负责写入，从节点负责复制备份，如果主节点挂了会有个选举的过程重新选出主节点，保证集群的可用性。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-68.png" alt="uploaded!"></p>
 <p>Raft的详细解释（<a href="http://www.jdon.com/artichect/raft.html%EF%BC%89" target="_blank" rel="noopener">http://www.jdon.com/artichect/raft.html）</a> 。但是这些算法都有一个较大的问题，即默认集群中的节点都是可信任的，也就是假设节点不会作恶，节点只会受到偶然因素的干扰而不会主动篡改数据。所以以上两个算法都不能作为区块链公有链应用的共识算法（企业链和联盟链除外）。</p>
 <h2 id="比特币-以太坊-POW"><a href="#比特币-以太坊-POW" class="headerlink" title="比特币 以太坊 POW"></a>比特币 以太坊 POW</h2><p>比特币的共识算法即POW（工作量证明算法）主要解决了一个可信问题，灵感来自与早期抵抗垃圾邮件攻击而采取的策略。电子邮件刚出现的时候面临一个垃圾邮件攻击的严重问题，作恶者只需要付出极低的成本就可以发送成千上万的垃圾邮件，对指定目标进行攻击。为了遏制这种攻击，有人提出了一种策略，即在发送邮件之前需要发送者做一定的hash运算，提高发送者发送邮件的成本。这个方案在发送一封邮件的时候不会有太多变化，但是随着发送邮件数量的增多会极大消耗攻击者的资源，从一定程度上提高了攻击者的成本从而遏制住垃圾邮件攻击。</p>
 <p>比特币的POW也是出于同样的原理，每个节点执行所谓的挖矿程序，流程如下：<br>1. 节点通过hash运算计算区块头和随机数的hash值<br>2. 对比hash值是否满足难度值的要求<br>3. 如果满足要求，打包区块，并且向全网广播。<br>4. 如果不满足，更换随机数，重新从第一个步骤开始。</p>
@@ -188,9 +189,12 @@
 <h3 id="难度值的要求是什么？"><a href="#难度值的要求是什么？" class="headerlink" title="难度值的要求是什么？"></a>难度值的要求是什么？</h3><p>所谓的要求实际上是计算得到的hash值必须满足一定要求。举个列子，现在的难度值是4，那么计算得到的hash值前4位必须都是0。df7cb8d8d289b4a4a7ea503574eeefb57a8e8a6d 这个hash值就不满足要求，而 0000cb8d8d289b4a4a7ea503574eeefb57a8e8a6d 这个hash值满足要求。而产生 0000cb8d8d289b4a4a7ea503574eeefb57a8e8a6d 这个hash值的随机数就是挖矿程序寻找的目标。</p>
 <h3 id="难度值是固定的么？"><a href="#难度值是固定的么？" class="headerlink" title="难度值是固定的么？"></a>难度值是固定的么？</h3><p>难度值是动态调整的，调整算法以以太坊为例：</p>
 <pre><code>diff = (parent_diff + (parent_diff / 2048 * max((2 if len(parent.uncles) else 1) - ((timestamp - parent.timestamp) // 9), -99)) ) + 2^(periodCount - 2)
-</code></pre><p>简单描述：diff = parent_diff + 难度调整 + 难度炸弹<br>难度调整部分：(parent_diff / 2048 * max((2 if len(parent.uncles) else 1) - ((timestamp - parent.timestamp) // 9), -99))<br>难度炸弹部分：2periodCount - 2<br>难度调整部分和出块时间相关，(timestamp - parent.timestamp) // 9，出块间隔越长难度调整越小。难度炸弹和区块高度有关，高度越高难度越大。整体的难度调整原则是：区块高度越高难度越高，出块时间间隔如果过长，那么适当降低难度。<br>下图是以太坊的难度调整示意图，可以看到随着区块高度的增加难度在逐渐攀升。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15157392305410.jpg" alt="">￼</p>
-<h3 id="全网广播不是瞬间达成的，如何解决延迟问题？"><a href="#全网广播不是瞬间达成的，如何解决延迟问题？" class="headerlink" title="全网广播不是瞬间达成的，如何解决延迟问题？"></a>全网广播不是瞬间达成的，如何解决延迟问题？</h3><p>网络延迟是不可避免的，那么就会出现这么一种情况：节点A打包了一个区块1开始向全网广播，但是因为网络延迟全球的节点不可能瞬间就接受到这个请求。同一时间，节点B也打包了一个区块2并向全网广播，又因为这两个节点网络距离很远，相互不知道对方的存在，所以在A周围的节点会接受区块1，并且在这个基础上继续挖矿。而B周围会接受区块2，同样在这个基础上继续挖矿。这就产生了所谓的分叉问题。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15157394213395.jpg" alt="">￼</p>
-<p>如何解决呢？这里需要引入一个验证的共识，到底使用哪条链不是A说了算，也不是B说了算，而是验证的客户端说了算。客户端怎么选择链呢？这个规则肯定是由接受方的客户端说了算，这个很好理解，你付款购买必须得到对方的承认。那么接受客户端该怎么选呢？默认选择最长的链作为胜出的链，这个逻辑的依据是如果一条链更长说明这条链获得的算力更多，那么这条链就更安全。那么如何处理被废弃的链，因为被废弃的链不会被客户端认可，所以旷工为了避免算力浪费肯定会重新选择更长的链进行挖矿，这就达成了重新共识。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/01/15157394397043.jpg" alt="">￼</p>
+</code></pre><p>简单描述：diff = parent_diff + 难度调整 + 难度炸弹<br>难度调整部分：(parent_diff / 2048 * max((2 if len(parent.uncles) else 1) - ((timestamp - parent.timestamp) // 9), -99))<br>难度炸弹部分：2periodCount - 2<br>难度调整部分和出块时间相关，(timestamp - parent.timestamp) // 9，出块间隔越长难度调整越小。难度炸弹和区块高度有关，高度越高难度越大。整体的难度调整原则是：区块高度越高难度越高，出块时间间隔如果过长，那么适当降低难度。<br>下图是以太坊的难度调整示意图，可以看到随着区块高度的增加难度在逐渐攀升。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-69.png" alt="uploaded!"></p>
+<h3 id="全网广播不是瞬间达成的，如何解决延迟问题？"><a href="#全网广播不是瞬间达成的，如何解决延迟问题？" class="headerlink" title="全网广播不是瞬间达成的，如何解决延迟问题？"></a>全网广播不是瞬间达成的，如何解决延迟问题？</h3><p>网络延迟是不可避免的，那么就会出现这么一种情况：节点A打包了一个区块1开始向全网广播，但是因为网络延迟全球的节点不可能瞬间就接受到这个请求。同一时间，节点B也打包了一个区块2并向全网广播，又因为这两个节点网络距离很远，相互不知道对方的存在，所以在A周围的节点会接受区块1，并且在这个基础上继续挖矿。而B周围会接受区块2，同样在这个基础上继续挖矿。这就产生了所谓的分叉问题。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-70.png" alt="uploaded!"></p>
+<p>如何解决呢？这里需要引入一个验证的共识，到底使用哪条链不是A说了算，也不是B说了算，而是验证的客户端说了算。客户端怎么选择链呢？这个规则肯定是由接受方的客户端说了算，这个很好理解，你付款购买必须得到对方的承认。那么接受客户端该怎么选呢？默认选择最长的链作为胜出的链，这个逻辑的依据是如果一条链更长说明这条链获得的算力更多，那么这条链就更安全。那么如何处理被废弃的链，因为被废弃的链不会被客户端认可，所以旷工为了避免算力浪费肯定会重新选择更长的链进行挖矿，这就达成了重新共识。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-71.png" alt="uploaded!"></p>
 <p>接下来另一个问题出现了：会不会出现某条被废弃的链突然变成了全网最长的链？答案是有可能，怎么避免这个问题？一个简单有效的方案是等待一段时间。因为区块链是不断增长的，如果客户端要验证的交易已经过去几十个区块了，基本可以判定不会出现大面积的算力切换，导致最长链被替换的情况，这也是为什么所有客户端都会有确认时间的概念，其实就是在等待区块增长。</p>
 <h3 id="存在攻击么？"><a href="#存在攻击么？" class="headerlink" title="存在攻击么？"></a>存在攻击么？</h3><p>基于上面的POW算法原理，实施算力攻击是完全可能的。只要你掌握了全网51%的算力你就可以任意更改区块的内容！但是没人会这么干，原理和阻止邮件攻击一样，如果有人发动了算力劫持，那整个系统会被摧毁，但是这样做需要耗费极大的资源，并且对攻击者本身没有一丝好处。相反，如果使用这些算力保护系统就可以获得巨额的利润，在这种情况下是没人会去发动攻击的。另一个方面，比特币的去中心化已经不是技术层面的去中心化了，中本聪在发表比特币后自身就隐退了，所以无论从哪个方面来看比特币都是一个中立的事物。</p>
 <h2 id="POS-和-DPOS"><a href="#POS-和-DPOS" class="headerlink" title="POS 和 DPOS"></a>POS 和 DPOS</h2><p>POS（股权证明）和DPOS（委任权益证明）是一种来源于公司股份制度的共识算法，没有太多技术方面的内容。POS会根据你持有数字货币的量和时间，分配给你相应的利息。持有的币数目越多，时间越长分到的利息越高，这种制度能保证网络的稳定，和POW的原理一样，持有代币的人投资了这个系统，如果他作恶，会导致系统奔溃而造成损失。DPOS在POS的基础上更进一步，采用了委托的机制，让每一个持有币的人进行投票，由此产生固定数目的代表，我们可以将其理解为超级节点或者矿池。从某种角度来看，DPOS完全是POW的另一种表达形式，POW的初衷没有料想到会有矿机和矿池的产生，但是目前的现状就是大矿池掌握了算力，个体挖矿需要选择一个矿池。DPOS把这个过程更直接的表述出来，直接使用代币进行投票，选出来的代表其实就是矿池。如果代表作恶，个体持币者可以重新投票更换代表。</p>

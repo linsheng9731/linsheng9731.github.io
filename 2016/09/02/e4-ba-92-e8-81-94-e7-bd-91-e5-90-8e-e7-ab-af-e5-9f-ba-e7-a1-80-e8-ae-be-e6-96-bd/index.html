@@ -6,24 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：   Api网关 业务应用和后端基础框架 缓存、数据库、搜索引擎、消息队列 文件存储 统一认证中心 单点登录系统 统一配置中心 服务治理框架 统一调度中心">
+    <meta name="description" content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术：  Api网关 业务应用和后端基础框架 缓存、数据库、搜索引擎、消息队列 文件存储 统一认证中心 单点登录系统 统一配置中心 服务治理框架 统一调度中心 统一日志服务 数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="互联网后端基础设施">
+<meta property="og:title" content="互联网后端基础设施(转)">
 <meta property="og:url" content="https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：   Api网关 业务应用和后端基础框架 缓存、数据库、搜索引擎、消息队列 文件存储 统一认证中心 单点登录系统 统一配置中心 服务治理框架 统一调度中心">
+<meta property="og:description" content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术：  Api网关 业务应用和后端基础框架 缓存、数据库、搜索引擎、消息队列 文件存储 统一认证中心 单点登录系统 统一配置中心 服务治理框架 统一调度中心 统一日志服务 数">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/tzia4bcY5HEKxURwUfLYeg45dAmxqy7Shbj5emb9Gc72nkodx136sX4upPlctPoYZkg5WW1WGSsg2a8ic7aVopTQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
-<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/tzia4bcY5HEKxURwUfLYeg45dAmxqy7ShdgKpjcRJdZ2jYp6eQL3GxjpoZWEnyKrfy8Df8tt1DiaYUUmRppQp6dg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_jpg/tzia4bcY5HEKxURwUfLYeg45dAmxqy7ShsfTeTkSibLmKFl8y1WSJdibeIE9RjMtJFjQRMiaBAsu4yEhic9DUKWNBoA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/tzia4bcY5HEKxURwUfLYeg45dAmxqy7ShLibwnyMNTibibicXPhhMaaYvONtRBIUuUGSCbE88fX3aww0HsJCHmmtbSA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/tzia4bcY5HEKxURwUfLYeg45dAmxqy7Shd6TExZr5jicIopVtNRSZC4OBC9ztaCWzAucZUqpnSM0rsw9XOZhk4yA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkJDQzA1MTVGNkE2MjExRTRBRjEzODVCM0Q0NEVFMjFBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkJDQzA1MTYwNkE2MjExRTRBRjEzODVCM0Q0NEVFMjFBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QkNDMDUxNUQ2QTYyMTFFNEFGMTM4NUIzRDQ0RUUyMUEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QkNDMDUxNUU2QTYyMTFFNEFGMTM4NUIzRDQ0RUUyMUEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6p+a6fAAAAD0lEQVR42mJ89/Y1QIABAAWXAsgVS/hWAAAAAElFTkSuQmCC">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.263Z">
+<meta property="og:updated_time" content="2018-09-12T11:27:17.176Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="互联网后端基础设施">
-<meta name="twitter:description" content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：   Api网关 业务应用和后端基础框架 缓存、数据库、搜索引擎、消息队列 文件存储 统一认证中心 单点登录系统 统一配置中心 服务治理框架 统一调度中心">
-<meta name="twitter:image" content="http://mmbiz.qpic.cn/mmbiz_png/tzia4bcY5HEKxURwUfLYeg45dAmxqy7Shbj5emb9Gc72nkodx136sX4upPlctPoYZkg5WW1WGSsg2a8ic7aVopTQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta name="twitter:title" content="互联网后端基础设施(转)">
+<meta name="twitter:description" content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术：  Api网关 业务应用和后端基础框架 缓存、数据库、搜索引擎、消息队列 文件存储 统一认证中心 单点登录系统 统一配置中心 服务治理框架 统一调度中心 统一日志服务 数">
+<meta name="twitter:image" content="http://mmbiz.qpic.cn/mmbiz_jpg/tzia4bcY5HEKxURwUfLYeg45dAmxqy7ShsfTeTkSibLmKFl8y1WSJdibeIE9RjMtJFjQRMiaBAsu4yEhic9DUKWNBoA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
     
     
         
@@ -43,7 +41,7 @@
         
     
     <!-- title -->
-    <title>互联网后端基础设施</title>
+    <title>互联网后端基础设施(转)</title>
     <!-- styles -->
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
@@ -112,7 +110,7 @@
         <li><a class="icon" href="/2016/09/02/e7-a0-94-e5-8f-91-e7-ae-a1-e7-90-86-e4-bd-93-e7-b3-bb/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
         
         
-        <li><a class="icon" href="/2016/09/02/e5-ae-b9-e5-99-a8-e7-9a-84-e6-97-a5-e5-bf-97-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        <li><a class="icon" href="/2016/09/02/e9-9b-86-e7-be-a4-e8-a7-84-e6-a8-a1-e4-b8-8b-e6-97-a5-e5-bf-97-e5-a4-84-e7-90-86-e5-92-8c-e7-bd-91-e7-bb-9c-e6-96-b9-e6-a1-88/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
@@ -126,15 +124,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&text=互联网后端基础设施"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&is_video=false&description=互联网后端基础设施"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=互联网后端基础设施&body=Check out this article: https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&name=互联网后端基础设施&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&text=互联网后端基础设施(转)"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&is_video=false&description=互联网后端基础设施(转)"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=互联网后端基础设施(转)&body=Check out this article: https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&name=互联网后端基础设施(转)&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -151,7 +149,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        互联网后端基础设施
+        互联网后端基础设施(转)
     </h1>
 
 
@@ -173,7 +171,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示： <img src="http://mmbiz.qpic.cn/mmbiz_png/tzia4bcY5HEKxURwUfLYeg45dAmxqy7Shbj5emb9Gc72nkodx136sX4upPlctPoYZkg5WW1WGSsg2a8ic7aVopTQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt=""></p>
+    <p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术：</p>
 <ul>
 <li>Api网关</li>
 <li>业务应用和后端基础框架</li>
@@ -195,7 +193,7 @@
 <li>api访问权限控制</li>
 <li>用户鉴权</li>
 </ul>
-<p>一般的做法，使用nginx做负载均衡，然后在每个业务应用里做api接口的访问权限控制和用户鉴权，更优化一点的方式则是把后两者做成公共类库供所有业务调用。但从总体上来看，这三种特性都属于业务的公共需求，更可取的方式则是集成到一起作为一个服务，既可以动态地修改权限控制和鉴权机制，也可以减少每个业务集成这些机制的成本。这种服务就是Api网关(<a href="http://blog.csdn.net/pzxwhc/article/details/49873623)，可以选择自己实现，也可以使用开源软件实现，如Kong。如下图所示：" target="_blank" rel="noopener">http://blog.csdn.net/pzxwhc/article/details/49873623)，可以选择自己实现，也可以使用开源软件实现，如Kong。如下图所示：</a> <img src="http://mmbiz.qpic.cn/mmbiz_png/tzia4bcY5HEKxURwUfLYeg45dAmxqy7ShdgKpjcRJdZ2jYp6eQL3GxjpoZWEnyKrfy8Df8tt1DiaYUUmRppQp6dg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt=""> 但是以上方案的一个问题是由于所有api请求都要经过网关，它很容易成为系统的性能瓶颈。因此，可以采取的方案是：去掉api网关，让业务应用直接对接统一认证中心，在基础框架层面保证每个api调用都需要先通过统一认证中心的认证，这里可以采取缓存认证结果的方式避免对统一认证中心产生过大的请求压力。</p>
+<p>一般的做法，使用nginx做负载均衡，然后在每个业务应用里做api接口的访问权限控制和用户鉴权，更优化一点的方式则是把后两者做成公共类库供所有业务调用。但从总体上来看，这三种特性都属于业务的公共需求，更可取的方式则是集成到一起作为一个服务，既可以动态地修改权限控制和鉴权机制，也可以减少每个业务集成这些机制的成本。这种服务就是Api网关(<a href="http://blog.csdn.net/pzxwhc/article/details/49873623)，可以选择自己实现，也可以使用开源软件实现，如Kong。" target="_blank" rel="noopener">http://blog.csdn.net/pzxwhc/article/details/49873623)，可以选择自己实现，也可以使用开源软件实现，如Kong。</a> 但是以上方案的一个问题是由于所有api请求都要经过网关，它很容易成为系统的性能瓶颈。因此，可以采取的方案是：去掉api网关，让业务应用直接对接统一认证中心，在基础框架层面保证每个api调用都需要先通过统一认证中心的认证，这里可以采取缓存认证结果的方式避免对统一认证中心产生过大的请求压力。</p>
 <h2 id="业务应用和后端基础框架"><a href="#业务应用和后端基础框架" class="headerlink" title="业务应用和后端基础框架"></a><strong>业务应用和后端基础框架</strong></h2><p>业务应用分为：在线业务应用和内部业务应用。</p>
 <ul>
 <li>在线业务应用：直接面向互联网用户的应用、接口等，典型的特点就是：请求量大、高并发、高可用、对故障的容忍度低。</li>
@@ -366,15 +364,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&text=互联网后端基础设施"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&is_video=false&description=互联网后端基础设施"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=互联网后端基础设施&body=Check out this article: https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&name=互联网后端基础设施&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&text=互联网后端基础设施(转)"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&is_video=false&description=互联网后端基础设施(转)"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=互联网后端基础设施(转)&body=Check out this article: https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&title=互联网后端基础设施(转)"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://linsheng9731.github.io/2016/09/02/e4-ba-92-e8-81-94-e7-bd-91-e5-90-8e-e7-ab-af-e5-9f-ba-e7-a1-80-e8-ae-be-e6-96-bd/&name=互联网后端基础设施(转)&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
