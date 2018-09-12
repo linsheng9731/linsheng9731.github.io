@@ -6,22 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。￼ 日志条目由一个主题和一个数据字段组成。第一">
+    <meta name="description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。    日志条目由一个主题和一个数据字段组成。">
 <meta name="keywords" content="blockchain">
 <meta property="og:type" content="article">
 <meta property="og:title" content="以太坊日志">
 <meta property="og:url" content="https://linsheng9731.github.io/2018/06/11/yi-tai-fang-ri-zhi/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。￼ 日志条目由一个主题和一个数据字段组成。第一">
+<meta property="og:description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。    日志条目由一个主题和一个数据字段组成。">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/06/15287097002312-1.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/06/15287097797365.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/06/15287098252948.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.271Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-1.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-2.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-3.png">
+<meta property="og:updated_time" content="2018-09-12T11:14:25.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊日志">
-<meta name="twitter:description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。￼ 日志条目由一个主题和一个数据字段组成。第一">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/06/15287097002312-1.jpg">
+<meta name="twitter:description" content="今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。 智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。    日志条目由一个主题和一个数据字段组成。">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-1.png">
     
     
         
@@ -160,7 +160,7 @@
       </span>
       
     <div class="postdate">
-        <time datetime="2018-06-11T10:00:53.000Z" itemprop="datePublished">2018-06-11</time>
+        <time datetime="2018-06-11T10:00:00.000Z" itemprop="datePublished">2018-06-11</time>
     </div>
 
 
@@ -177,7 +177,8 @@
 
   <div class="content" itemprop="articleBody">
     <p>今天我们要低层次了解以太坊的事件和日志是如何工作的。这次我们不会使用web3，因为它抽象化了一些东西，我们希望尽可能地了解原理。</p>
-<p>智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/06/15287097002312-1.jpg" alt="">￼</p>
+<p>智能合约通过触发事件生成日志。这是一个包含一个日志条目的交易收据，topics里的值为 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef 。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-1.png" alt="uploaded!"></p>
 <p>日志条目由一个主题和一个数据字段组成。第一个主题是指特定事件，但我们还不知道哪一个。为了解码数据，我们需要获得在地址字段中找到的合约的ABI 。</p>
 <p>我们对转账事件感兴趣，这是一个示例事件：</p>
 <pre><code>{ 
@@ -232,7 +233,8 @@ ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
  &apos;tokenId&apos;: 107696}
 </code></pre><p>我们终于可以阅读日志了。消息说：</p>
 <p>“从0x0035 …传送107696个令牌到 0x6469 …”。</p>
-<h2 id="索引字段"><a href="#索引字段" class="headerlink" title="索引字段"></a>索引字段</h2><p>每个索引字段都会生成一个从数据中排除的新主题。这允许高效的搜索，但使解析更复杂一点。<br>我们来看看另一张收据：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/06/15287097797365.jpg" alt="">￼</p>
+<h2 id="索引字段"><a href="#索引字段" class="headerlink" title="索引字段"></a>索引字段</h2><p>每个索引字段都会生成一个从数据中排除的新主题。这允许高效的搜索，但使解析更复杂一点。<br>我们来看看另一张收据：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-2.png" alt="uploaded!"></p>
 <p>这个有三个主题字段和一个小数据字段。尽管本合同中有不同的参数名称，但我们已经可以确定第一个主题是 Transfer(address,address,uint256)。</p>
 <pre><code>{ 
   “anonymous”：false，
@@ -277,7 +279,8 @@ ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
 </code></pre><p>该消息显示：</p>
 <p>“从0x00b4 …发送 5,000,000 个令牌到 0x54a2 …”。</p>
 <h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>现在您已准备好进行一些搜索。您可以使用json-rpc api查询区块链，查询服务由geth或Parity这样的完整节点或像Infura这样的服务提供。布隆过滤器允许您在几秒钟内扫描整个区块链，并查找与特定主题相匹配的日志。</p>
-<p>您还可以使用fromBlock和toBlock指定搜索范围，将搜索范围限制为特定的合同地址，并省略某些与null类似的通配符的主题。完整的规格可以在这里找到。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/06/15287098252948.jpg" alt="">￼</p>
+<p>您还可以使用fromBlock和toBlock指定搜索范围，将搜索范围限制为特定的合同地址，并省略某些与null类似的通配符的主题。完整的规格可以在这里找到。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-3.png" alt="uploaded!"></p>
 <p>当然，这里描述的所有内容都已经在web3中实现了，它允许您通过名称方便地查询事件并自动解码日志数据。</p>
 
   </div>

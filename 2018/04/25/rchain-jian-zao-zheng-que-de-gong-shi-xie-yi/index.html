@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：￼看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接">
+    <meta name="description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：    看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面">
 <meta name="keywords" content="blockchain">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rchain 建造正确的共识协议">
 <meta property="og:url" content="https://linsheng9731.github.io/2018/04/25/rchain-jian-zao-zheng-que-de-gong-shi-xie-yi/index.html">
 <meta property="og:site_name" content="记录是为了更好的创造">
-<meta property="og:description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：￼看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接">
+<meta property="og:description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：    看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15246595078406.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.270Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-5.png">
+<meta property="og:updated_time" content="2018-09-12T11:15:07.918Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rchain 建造正确的共识协议">
-<meta name="twitter:description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：￼看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15246595078406.jpg">
+<meta name="twitter:description" content="前言下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：    看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-5.png">
     
     
         
@@ -174,7 +174,9 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15246595078406.jpg" alt="">￼<br>看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接资料中找到有用的信息：</p>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下面这张图正是第三代区块链平台RChain目前的共识模型进行程序模拟的结果：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-5.png" alt="uploaded!"></p>
+<p>看起来很迷人，但这个图片是关于什么的？ 它显示了在RChain平台上使用Casper共识算法的过程。 在这里，我们讨论一下“建造正确的Casper”的一点背景知识，它如何应用于RChain，以及如何解释上面的图片。 本文是为那些熟悉分布式共识的人撰写的，因为它适用于区块链; 一些不太熟悉这项工作的读者可以在下面的链接资料中找到有用的信息：</p>
 <ul>
 <li>Vlad Zamfir的介绍：<a href="https://youtu.be/Yo9o5nDTAAQ?t%3D21398&amp;sa=D&amp;ust=1513639850437000&amp;usg=AFQjCNHAVrG0k7-3E1uhvjLaCZM-U0X8Tw" target="_blank" rel="noopener">Casper友好的GHOST</a>;</li>
 <li>RChain开发人员之间的讨论：<a href="https://www.youtube.com/watch?v=qJFCtmlCu-0" target="_blank" rel="noopener">RChain开发人员撤退时的Casper</a>。</li>

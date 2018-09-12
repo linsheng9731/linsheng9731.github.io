@@ -14,22 +14,22 @@
 <meta property="og:site_name" content="记录是为了更好的创造">
 <meta property="og:description" content="哈希算法：以太坊中有许多地方使用了哈希函数，例如：1. 矿工需要不断计算特定数据的散列值，当散列值满足难度要求时，矿工便可以广播该区块，获得奖励。 2. 根据默克尔树根哈希的值前后是否一致来判断区块中的交易是否被篡改。以太坊采用了Keccak256作为哈希函数。Keccak256（发音 Ka-chack）是第三代加密算法，通过美国政府sha-3的官方认证。使用海绵函数引擎，和sha256的结构压缩">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243832560637.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243832669842.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243833054912.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243833126446.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243836511854.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243837426598.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243843797793.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243839535959.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243840609139.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243840842112.jpg">
-<meta property="og:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15244504004834.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:32:59.270Z">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-6.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-7.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-8.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-9.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-10.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-11.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-12.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-13.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-14.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-15.png">
+<meta property="og:image" content="https://linsheng9731.github.io/images/pasted-16.png">
+<meta property="og:updated_time" content="2018-09-12T11:16:47.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊相关密码学算法">
 <meta name="twitter:description" content="哈希算法：以太坊中有许多地方使用了哈希函数，例如：1. 矿工需要不断计算特定数据的散列值，当散列值满足难度要求时，矿工便可以广播该区块，获得奖励。 2. 根据默克尔树根哈希的值前后是否一致来判断区块中的交易是否被篡改。以太坊采用了Keccak256作为哈希函数。Keccak256（发音 Ka-chack）是第三代加密算法，通过美国政府sha-3的官方认证。使用海绵函数引擎，和sha256的结构压缩">
-<meta name="twitter:image" content="http://linshengsheng.vip/wp-content/uploads/2018/04/15243832560637.jpg">
+<meta name="twitter:image" content="https://linsheng9731.github.io/images/pasted-6.png">
     
     
         
@@ -186,16 +186,30 @@
   <div class="content" itemprop="articleBody">
     <h2 id="哈希算法："><a href="#哈希算法：" class="headerlink" title="哈希算法："></a>哈希算法：</h2><p>以太坊中有许多地方使用了哈希函数，例如：1. 矿工需要不断计算特定数据的散列值，当散列值满足难度要求时，矿工便可以广播该区块，获得奖励。 2. 根据默克尔树根哈希的值前后是否一致来判断区块中的交易是否被篡改。以太坊采用了Keccak256作为哈希函数。Keccak256（发音 Ka-chack）是第三代加密算法，通过美国政府sha-3的官方认证。使用海绵函数引擎，和sha256的结构压缩框架不同，避免sha256未来被破解带来的风险。</p>
 <h2 id="椭圆曲线非对称加密算法"><a href="#椭圆曲线非对称加密算法" class="headerlink" title="椭圆曲线非对称加密算法"></a>椭圆曲线非对称加密算法</h2><p>当我们获得公钥时，实际使用的是非对称加密中的<strong>椭圆曲线算法</strong>。通过该算法可以从私钥推导出公钥，这是一个不可逆的过程：K = k * G。给出常数点 G 时，使用已知私钥 k 求公钥 K 的问题并不困难，但反过来，已知公钥 K 求私钥 k，则非常困难。这就是椭圆曲线算法上的离散对数问题，也是为什么你可以分享地址（或公钥）给别人，但不能暴露自己的私钥。</p>
-<p>一条椭圆曲线可以使用二元三次方程来表示，比如：y2 = x3 + ax + b<br>下图展示了一些合法的椭圆曲线，<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243832560637.jpg" alt="">￼</p>
-<p>下图展示了两种非法的椭圆曲线，分别存在一个尖点和叉点使曲线不平滑。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243832669842.jpg" alt="">￼</p>
-<p>密码算法通常运行于具有某些保持封闭性的代数结构的空间中，这种代数结构就是<strong>有限循环群</strong>。在数学中，群是一种代数结构，由一个集合以及一个二元运算组成。群必须满足以下四个条件：封闭性，结合律，存在单位元和存在逆元。最常见的群之一是整数集Z以及加法操作。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243833054912.jpg" alt="">￼<br>有限循环群在群的基础上满足两个额外条件：群元素个数有限以及交换律。循环群由单个元素（产生元）的叠加操作生成，最常见的有限循环群为模拟时钟。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243833126446.jpg" alt="">￼</p>
+<p>一条椭圆曲线可以使用二元三次方程来表示，比如：y2 = x3 + ax + b<br>下图展示了一些合法的椭圆曲线，  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-6.png" alt="uploaded!"></p>
+<p>下图展示了两种非法的椭圆曲线，分别存在一个尖点和叉点使曲线不平滑。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-7.png" alt="uploaded!"></p>
+<p>密码算法通常运行于具有某些保持封闭性的代数结构的空间中，这种代数结构就是<strong>有限循环群</strong>。在数学中，群是一种代数结构，由一个集合以及一个二元运算组成。群必须满足以下四个条件：封闭性，结合律，存在单位元和存在逆元。最常见的群之一是整数集Z以及加法操作。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-8.png" alt="uploaded!"></p>
+<p>有限循环群在群的基础上满足两个额外条件：群元素个数有限以及交换律。循环群由单个元素（产生元）的叠加操作生成，最常见的有限循环群为模拟时钟。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-9.png" alt="uploaded!"></p>
 <p>椭圆加密曲线就是这样一种满足有限循环条件的群，群操作为”+”,”+”的定义为，给定曲线两点P，Q，P+Q等于P和Q两点的连线与曲线交点沿X轴的对称点，如果P=Q，则P+P等于P在曲线上的切线与曲线交点沿X轴的对称点。群的单位元为无穷远零点记作O=(0,0)，有P+O=P，点P的逆元为其沿X轴的对称点，记作-P。</p>
-<p>下图演示了如何计算P+Q=R(P≠Q)，将P和Q相连得到和曲线的另一个交点-R，再将-R沿X轴做对称得到最终结果R。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243836511854.jpg" alt="">￼</p>
-<p>如果P和Q相等，下图演示了如何计算P+Q=2P=R(P=Q)，使用P点的切线得到红点-R，沿着X轴做对称得到R点。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243837426598.jpg" alt="">￼</p>
-<p>考虑上面提到的从单位元出发，不停做群操作“+”，枚举出整个空间的集合元素可以表示为：<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243843797793.jpg" alt="">￼<br>上图就是从G出发，依次得到-2G，2G，-4G，4G，-8G，8G…的示意图。我们可以想象，如果直接给你一个点 Q = NG，你无法直接回答N的数值是多少。N就是我们的私钥，Q就是我们的公钥。</p>
+<p>下图演示了如何计算P+Q=R(P≠Q)，将P和Q相连得到和曲线的另一个交点-R，再将-R沿X轴做对称得到最终结果R。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-10.png" alt="uploaded!"></p>
+<p>如果P和Q相等，下图演示了如何计算P+Q=2P=R(P=Q)，使用P点的切线得到红点-R，沿着X轴做对称得到R点。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-11.png" alt="uploaded!"></p>
+<p>考虑上面提到的从单位元出发，不停做群操作“+”，枚举出整个空间的集合元素可以表示为：  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-12.png" alt="uploaded!"></p>
+<p>上图就是从G出发，依次得到-2G，2G，-4G，4G，-8G，8G…的示意图。我们可以想象，如果直接给你一个点 Q = NG，你无法直接回答N的数值是多少。N就是我们的私钥，Q就是我们的公钥。</p>
 <p>实际上因为计算机运算浮点数(小数)的速度较慢，更重要的是四舍五入浮点数会产生误差，导致多次加密解密操作后原始消息不能被还原。密码学上使用基于整数的模加运算产生椭圆曲线有限循环群。</p>
-<p>考虑y2=x3-7x+10(mod 19)的集合，该集合中所有的元素如下图所示。mod 19代表使用模运算把发散的椭圆曲线映射到19*19的正方形空间中，并且保持了原有曲线的上下对称特性。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243839535959.jpg" alt="">￼</p>
-<p>19这个数字是可以变化的，数值越大空间越大，破解难度越高。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243840609139.jpg" alt="">￼<br>现在我们基于y2=x3-7x+10(mod 19)，利用产生元P=(2,2)来生成ECC有限循环群。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15243840842112.jpg" alt="">￼<br>可以看到随着n从1-24逐渐增加，产生的结果没有任何可预测性。同时整个空间又是循环封闭的，这正是非对称加密算法需要的。</p>
+<p>考虑y2=x3-7x+10(mod 19)的集合，该集合中所有的元素如下图所示。mod 19代表使用模运算把发散的椭圆曲线映射到19*19的正方形空间中，并且保持了原有曲线的上下对称特性。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-13.png" alt="uploaded!"></p>
+<p>19这个数字是可以变化的，数值越大空间越大，破解难度越高。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-14.png" alt="uploaded!"></p>
+<p>现在我们基于y2=x3-7x+10(mod 19)，利用产生元P=(2,2)来生成ECC有限循环群。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-15.png" alt="uploaded!"></p>
+<p>可以看到随着n从1-24逐渐增加，产生的结果没有任何可预测性。同时整个空间又是循环封闭的，这正是非对称加密算法需要的。</p>
 <h2 id="公钥私钥和地址"><a href="#公钥私钥和地址" class="headerlink" title="公钥私钥和地址"></a>公钥私钥和地址</h2><p>有了上面的基础，接下来介绍如何产生公钥私钥以及地址。</p>
 <p>第一步，生成一个随机数，也就是我们的私钥，随机选取一个32字节的数，这个数的范围大小是介于1 ~ 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141之间的一个数，为了方便后面的计算，我们随机生成一个合法的私钥：8F72F6B29E6E225A36B68DFE333C7CE5E55D83249D3D2CD6332671FA445C4DD3</p>
 <p>第二步，使用椭圆曲线计算出公钥。生成的公钥共65字节，其中一个字节是0x04，其中32个字节是X坐标，另外32个字节是Y坐标：<br>公钥P.X：06CCAE7536386DA2C5ADD428B099C7658814CA837F94FADE365D0EC6B1519385公钥P.Y：FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
@@ -207,7 +221,8 @@
 <p>第九步：用Base58编码变换一下地址对上一步的结果进行Base58编码，得到：1QCXRuoxWo5Bya9NxHaVBArBQYhatHJrU7这就是我们经常看到的传统意义上的比特币钱包地址了。</p>
 <p>总结一下：私钥 -> 使用椭圆曲线得到（x,y）坐标 -&gt; 合并坐标用SHA-256加密 -&gt; RIPEMD-160加密 缩短长度 -&gt; 加入版本得到地址的主体 -&gt; 两次SHA-256计算得到校验体 -&gt; 取校验体前4个字节加到主体得到地址16进制态 -&gt; Base58编码得到传统意义上的比特币钱包地址</p>
 <h2 id="数字签名过程"><a href="#数字签名过程" class="headerlink" title="数字签名过程"></a>数字签名过程</h2><p>在实际交易过程中使用数字签名来证明交易的有消息。数字签名使用了两个非常有意思的秘钥，私钥是用来创建数字签名的，公钥是用来验证数字签名的。私钥可以被认为是真正的密码，数字签名可以帮你证明你拥有真正的密码，同时不需要真的把密码展示给别人。公钥同时也是你的收款地址，所以当别人给你汇款时，你只要给他你的公钥就行了。</p>
-<p>当要花钱的时候，你就需要证明自己是这个公钥的真正的拥有者。需要用交易信息加上私钥来生成数字签名，这样他人就可以拿到你的数字签名和信息，通过运算验证这些是不是和公钥对应的。通过数学方法，人们可以不看私钥就能确认私钥持有者的身份。<br><img src="http://linshengsheng.vip/wp-content/uploads/2018/04/15244504004834.jpg" alt="">￼</p>
+<p>当要花钱的时候，你就需要证明自己是这个公钥的真正的拥有者。需要用交易信息加上私钥来生成数字签名，这样他人就可以拿到你的数字签名和信息，通过运算验证这些是不是和公钥对应的。通过数学方法，人们可以不看私钥就能确认私钥持有者的身份。  </p>
+<p><img src="https://linsheng9731.github.io/images/pasted-16.png" alt="uploaded!"></p>
 <p>很重要的一点是，因为签名是依赖信息本身生成的，所以每个交易的签名都不同，你拿到我的一个签名，也不能在另外其他的交易中使用。另一方面，也没有人能够篡改交易信息，因为信息变了，签名没变，那么验证也就通不过了。</p>
 <p>具体DSA的实现过程可以参考维基百科：<a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm" target="_blank" rel="noopener">Elliptic_Curve_Digital_Signature_Algorithm</a></p>
 
